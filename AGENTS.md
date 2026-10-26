@@ -1,0 +1,57 @@
+# AGENTS.md
+
+Guide for AI coding agents (Codex, Claude Code, etc.) working on this project.
+
+## What this is
+
+A static study website for **AP Biology Unit 3 (Cellular Energetics), topics 3.1–3.5**:
+3.1 Enzyme Structure, 3.2 Enzyme Catalysis, 3.3 Environmental Impacts on Enzyme Function,
+3.4 Cellular Energy, 3.5 Photosynthesis.
+
+Four views, switched by the tab bar: Study Guide, Practice Questions, Flashcards, Free Response.
+Topic chips filter every view.
+
+## Structure
+
+```
+index.html       Page markup. The Study Guide notes live here as <section class="topic" data-t="3.x">.
+css/styles.css   All styles. Design tokens are in the first :root block.
+js/data.js       Content: Q (multiple choice), CARDS (flashcards), FRQ (free response).
+js/app.js        Rendering, tabs, sliding tab pill, quiz scoring, flashcards, localStorage.
+```
+
+No build step, no dependencies, no framework. Plain HTML/CSS/JS.
+
+## Run locally
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000.
+
+## Conventions
+
+- **Content edits go in `js/data.js`.** Formats:
+  - `Q`: `[topic, question, [A, B, C, D], correctIndex, explanation]` (correctIndex is 0-based)
+  - `CARDS`: `[topic, term, definition]`
+  - `FRQ`: `[topic, prompt, modelAnswer]`
+  - `topic` is a string: `"3.1"` … `"3.5"`.
+- **Topic colors**: any element with `data-t="3.x"` gets that topic's accent through `--leaf` / `--leaf-soft`
+  (see the `[data-t=...]` rules in `css/styles.css`). Use these tokens instead of hardcoded colors.
+  3.1 blue, 3.2 purple, 3.3 orange, 3.4 pink, 3.5 green. Correct/wrong use `--good` / `--bad`.
+- **Theme**: white background, light only. Apple-style look: system font, 44px minimum tap targets,
+  rounded cards, frosted sticky tab bar.
+- **Tab bar** uses the "tabs sliding" pattern (`.t-tabs`, `.t-tab`, `.t-tabs-pill`). After changing tabs,
+  keep `moveTo()` in `js/app.js` in sync.
+- Keep the `prefers-reduced-motion` rules.
+- Text on screen is written for high-school AP students: short, plain sentences. Keep science accurate to the
+  College Board AP Biology CED.
+- `localStorage` key `apbio3` stores quiz answers and FRQ drafts; `apbio3view` stores the last tab.
+  Wrap storage access in try/catch.
+
+## Checking your work
+
+- The page must not scroll sideways at 360px width.
+- No console errors.
+- Quiz: answering shows the explanation and updates the score line.

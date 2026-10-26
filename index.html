@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="AP Biology Unit 3 study guide, practice questions, flashcards and free-response prompts for topics 3.1–3.5.">
+<title>AP Bio Unit 3 Review</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">AP Biology · Unit 3 · Cellular Energetics</div>
+    <h1>Enzymes, Energy &amp; Photosynthesis</h1>
+    <p class="sub">Study guide and review questions for topics 3.1–3.5. Pick a tab, filter by topic, and check your answers as you go.</p>
+  </header>
+</div>
+<nav class="tabs"><div class="wrap"><div class="tabrow t-tabs" role="tablist">
+  <span class="t-tabs-pill" aria-hidden="true"></span>
+  <button class="tab t-tab" role="tab" id="t-guide" data-view="guide" aria-selected="true"><span class="lg">Study </span>Guide</button>
+  <button class="tab t-tab" role="tab" id="t-quiz" data-view="quiz" aria-selected="false"><span class="lg">Practice </span>Questions</button>
+  <button class="tab t-tab" role="tab" id="t-cards" data-view="cards" aria-selected="false"><span class="lg">Flash</span><span class="sm">Cards</span><span class="lg">cards</span></button>
+  <button class="tab t-tab" role="tab" id="t-frq" data-view="frq" aria-selected="false"><span class="lg">Free Response</span><span class="sm">FRQ</span></button>
+</div></div></nav>
+
+<div class="wrap">
+  <div class="chips" id="chips"></div>
+  <main>
+  <!-- ===== GUIDE ===== -->
+  <div id="v-guide">
+    <section class="topic" data-t="3.1">
+      <div class="tnum">TOPIC 3.1</div>
+      <h2>Enzyme Structure</h2>
+      <div class="big"><b>Big idea:</b> An enzyme's shape determines its function. The active site has a specific shape and charge that fits one substrate (or a small group of similar ones).</div>
+      <h3>What enzymes are</h3>
+      <ul>
+        <li>Biological <b>catalysts</b>: they speed up reactions and are <b>not used up</b>, so one enzyme can run the reaction many times.</li>
+        <li>Most are <b>proteins</b>. Some are RNA (<b>ribozymes</b>, like the rRNA in the ribosome).</li>
+        <li>Names often end in <b>-ase</b> (lactase breaks down lactose; DNA polymerase builds DNA).</li>
+      </ul>
+      <h3>The active site</h3>
+      <ul>
+        <li>The <b>active site</b> is the pocket where the <b>substrate</b> binds.</li>
+        <li>Its shape comes from the protein's <b>tertiary structure</b> (and quaternary, if it has several subunits), which comes from the <b>amino acid sequence</b>.</li>
+        <li>The <b>R groups</b> lining the active site set its <b>charge and polarity</b>. A substrate binds only if its shape <i>and</i> chemical properties are compatible. Example: a positively charged substrate binds an active site lined with negatively charged R groups.</li>
+        <li><b>Substrate specificity</b>: each enzyme catalyzes one reaction or a narrow set of reactions.</li>
+      </ul>
+      <h3>Induced fit</h3>
+      <p>The active site is not a rigid lock. When the substrate binds, the enzyme <b>changes shape slightly</b> to wrap it more tightly. This strains bonds in the substrate and helps the reaction happen. The older "lock and key" model is a useful start but less accurate.</p>
+      <div class="diagram"><svg viewBox="0 0 640 170" width="100%" style="min-width:520px" role="img" aria-label="Enzyme plus substrate forms enzyme-substrate complex, then enzyme plus products">
+        <g fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="2">
+          <path d="M20 60 h90 v-20 h-30 l-15 25 l-15 -25 h-30 v20 z M20 60 v70 h90 v-70" />
+          <path d="M240 60 h90 v-22 h-28 l-17 30 l-17 -30 h-28 v22 z M240 60 v70 h90 v-70"/>
+          <path d="M470 60 h90 v-20 h-30 l-15 25 l-15 -25 h-30 v20 z M470 60 v70 h90 v-70"/>
+        </g>
+        <g fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="2">
+          <path d="M120 22 h40 l-20 30 z"/>
+          <path d="M268 36 h34 l-17 30 z"/>
+          <path d="M580 20 h20 l-10 15 z"/><path d="M585 50 h20 l-10 15 z"/>
+        </g>
+        <text x="65" y="155" text-anchor="middle" font-size="13">Enzyme + substrate</text>
+        <text x="285" y="155" text-anchor="middle" font-size="13">E–S complex (induced fit)</text>
+        <text x="535" y="155" text-anchor="middle" font-size="13">Enzyme (unchanged) + products</text>
+        <text x="195" y="95" text-anchor="middle" font-size="22">→</text>
+        <text x="410" y="95" text-anchor="middle" font-size="22">→</text>
+      </svg></div>
+      <div class="tip"><div class="eyebrow">Exam tip</div>If a question says a <b>mutation changed an amino acid</b> in or near the active site, think: shape or charge of the active site changes, so the substrate may not bind and the enzyme loses function. A change far from the active site may have <b>no effect</b> if it doesn't alter the fold.</div>
+    </section>
+
+    <section class="topic" data-t="3.2">
+      <div class="tnum">TOPIC 3.2</div>
+      <h2>Enzyme Catalysis</h2>
+      <div class="big"><b>Big idea:</b> Enzymes speed up reactions by <b>lowering the activation energy (E<sub>A</sub>)</b>. They do <b>not</b> change ΔG, and they do not change whether a reaction is spontaneous.</div>
+      <h3>Activation energy</h3>
+      <ul>
+        <li><b>Activation energy</b> is the energy needed to reach the <b>transition state</b>, where old bonds are breaking.</li>
+        <li>Enzymes lower E<sub>A</sub> by holding substrates in the right orientation, straining bonds, or giving a better chemical environment (e.g. changing local charge or pH).</li>
+        <li>Lower E<sub>A</sub> means more molecules have enough energy to react, so the <b>rate increases</b>.</li>
+      </ul>
+      <div class="diagram"><svg viewBox="0 0 560 250" width="100%" style="min-width:460px" role="img" aria-label="Energy diagram: uncatalyzed curve has higher peak than catalyzed curve; same reactant and product energy">
+        <line x1="60" y1="20" x2="60" y2="215" stroke="var(--muted)" stroke-width="1.5"/>
+        <line x1="60" y1="215" x2="540" y2="215" stroke="var(--muted)" stroke-width="1.5"/>
+        <text x="20" y="120" font-size="12" transform="rotate(-90 20 120)" text-anchor="middle">Free energy (G)</text>
+        <text x="300" y="240" font-size="12" text-anchor="middle">Progress of reaction</text>
+        <path d="M70 130 C150 130 180 40 250 40 C320 40 350 175 530 175" fill="none" stroke="var(--bad)" stroke-width="2.5"/>
+        <path d="M70 130 C150 130 190 95 250 95 C310 95 350 175 530 175" fill="none" stroke="var(--leaf)" stroke-width="2.5"/>
+        <text x="258" y="34" font-size="12" fill="var(--bad)">without enzyme</text>
+        <text x="258" y="90" font-size="12">with enzyme</text>
+        <line x1="120" y1="130" x2="120" y2="42" stroke="var(--bad)" stroke-dasharray="4 3"/>
+        <text x="126" y="72" font-size="11">E<tspan baseline-shift="sub" font-size="9">A</tspan> (no enzyme)</text>
+        <line x1="200" y1="130" x2="200" y2="97" stroke="var(--leaf)" stroke-dasharray="4 3"/>
+        <text x="206" y="120" font-size="11">E<tspan baseline-shift="sub" font-size="9">A</tspan></text>
+        <line x1="470" y1="130" x2="470" y2="173" stroke="var(--muted)" stroke-dasharray="4 3"/>
+        <line x1="70" y1="130" x2="480" y2="130" stroke="var(--line)" stroke-dasharray="2 4"/>
+        <text x="476" y="158" font-size="12">ΔG (same)</text>
+        <text x="72" y="148" font-size="12">Reactants</text>
+        <text x="460" y="198" font-size="12">Products</text>
+      </svg></div>
+      <h3>What enzymes do NOT do</h3>
+      <ul>
+        <li>They do <b>not</b> change ΔG or the energy of reactants/products.</li>
+        <li>They do <b>not</b> make a non-spontaneous (endergonic) reaction happen on its own. That needs energy coupling (topic 3.4).</li>
+        <li>They do <b>not</b> change the equilibrium point; they help it get there faster. Many enzymes catalyze both the forward and reverse reaction.</li>
+        <li>They are <b>not consumed</b>.</li>
+      </ul>
+      <h3>Reading reaction-rate data</h3>
+      <p>Rate = change in product (or substrate) ÷ time. On a graph of product vs. time, the rate is the <b>slope</b>. The curve flattens when substrate runs out, not because the enzyme is "used up."</p>
+      <div class="tip"><div class="eyebrow">Exam tip</div>On energy diagrams: the <b>peak height above the reactants</b> = E<sub>A</sub>. The difference between reactants and products = ΔG. An enzyme lowers only the peak.</div>
+    </section>
+
+    <section class="topic" data-t="3.3">
+      <div class="tnum">TOPIC 3.3</div>
+      <h2>Environmental Impacts on Enzyme Function</h2>
+      <div class="big"><b>Big idea:</b> Anything that changes the enzyme's <b>shape</b> or the <b>number of collisions</b> between enzyme and substrate changes the reaction rate.</div>
+      <h3>Temperature</h3>
+      <ul>
+        <li>Raising temperature increases molecular motion and collisions, so rate goes up, until the <b>optimum</b>.</li>
+        <li>Past the optimum, heat breaks <b>hydrogen bonds</b> and other weak interactions holding the tertiary structure. The enzyme <b>denatures</b>: active site loses shape, rate drops sharply.</li>
+        <li>Low temperature slows collisions but usually does <b>not</b> denature; activity comes back when warmed.</li>
+        <li>Human enzymes: optimum ~37 °C. Thermophile bacteria in hot springs: ~70+ °C.</li>
+      </ul>
+      <h3>pH</h3>
+      <ul>
+        <li>Changing [H<sup>+</sup>] changes the <b>charges on R groups</b>, disrupting ionic and hydrogen bonds. The active site changes shape or charge.</li>
+        <li>Each enzyme has an optimum pH: <b>pepsin</b> (stomach) ~2, <b>trypsin</b> (small intestine) ~8, most cell enzymes ~7.</li>
+        <li>Denaturation can sometimes be <b>reversed</b> if conditions return to normal, but not always.</li>
+      </ul>
+      <h3>Substrate and enzyme concentration</h3>
+      <ul>
+        <li>More substrate → faster rate, until all active sites are busy. Then the enzyme is <b>saturated</b> and rate levels off at a max (V<sub>max</sub>).</li>
+        <li>More enzyme → faster rate (if substrate is plentiful), because there are more active sites.</li>
+      </ul>
+      <h3>Inhibitors</h3>
+      <div class="tbl"><table>
+        <tr><th></th><th>Competitive inhibitor</th><th>Noncompetitive (allosteric) inhibitor</th></tr>
+        <tr><td>Binds where?</td><td>The <b>active site</b> (looks like substrate)</td><td>An <b>allosteric site</b> (somewhere else)</td></tr>
+        <tr><td>How it works</td><td>Blocks substrate from binding</td><td>Changes enzyme shape so the active site no longer works</td></tr>
+        <tr><td>Add lots of substrate?</td><td><b>Can overcome it</b>; substrate outcompetes inhibitor</td><td><b>Cannot overcome it</b>; V<sub>max</sub> stays lower</td></tr>
+      </table></div>
+      <ul>
+        <li>Most inhibitors bind <b>reversibly</b> (weak bonds). Some bind <b>irreversibly</b> (covalent bonds), like many toxins and nerve gases.</li>
+        <li><b>Feedback inhibition</b>: the end product of a pathway inhibits an early enzyme in that pathway, so the cell doesn't overproduce it.</li>
+        <li><b>Allosteric activators</b> bind an allosteric site and stabilize the active form.</li>
+      </ul>
+      <h3>Cofactors and coenzymes</h3>
+      <ul>
+        <li><b>Cofactors</b>: inorganic helpers like Mg<sup>2+</sup>, Zn<sup>2+</sup>, Fe<sup>2+</sup>.</li>
+        <li><b>Coenzymes</b>: organic helpers, often from vitamins, like NAD<sup>+</sup>, FAD, and NADP<sup>+</sup>.</li>
+        <li>Without the needed cofactor, the enzyme can't function.</li>
+      </ul>
+      <div class="diagram"><svg viewBox="0 0 560 220" width="100%" style="min-width:440px" role="img" aria-label="Rate vs substrate concentration: no inhibitor and competitive reach the same max; noncompetitive plateaus lower">
+        <line x1="60" y1="20" x2="60" y2="185" stroke="var(--muted)" stroke-width="1.5"/>
+        <line x1="60" y1="185" x2="540" y2="185" stroke="var(--muted)" stroke-width="1.5"/>
+        <text x="22" y="105" font-size="12" transform="rotate(-90 22 105)" text-anchor="middle">Reaction rate</text>
+        <text x="300" y="210" font-size="12" text-anchor="middle">Substrate concentration</text>
+        <path d="M60 185 C110 70 200 45 530 40" fill="none" stroke="var(--leaf)" stroke-width="2.5"/>
+        <path d="M60 185 C160 120 260 60 530 46" fill="none" stroke="var(--sun)" stroke-width="2.5" stroke-dasharray="7 4"/>
+        <path d="M60 185 C110 120 200 108 530 105" fill="none" stroke="var(--bad)" stroke-width="2.5"/>
+        <text x="380" y="34" font-size="12">no inhibitor</text>
+        <text x="380" y="66" font-size="12">competitive</text>
+        <text x="380" y="98" font-size="12">noncompetitive</text>
+      </svg></div>
+      <div class="tip"><div class="eyebrow">Exam tip</div>"Denatured" means the enzyme's <b>shape</b> changed. The primary structure (amino acid sequence) is <b>still intact</b>; peptide bonds don't break from normal heat or pH changes.</div>
+    </section>
+
+    <section class="topic" data-t="3.4">
+      <div class="tnum">TOPIC 3.4</div>
+      <h2>Cellular Energy</h2>
+      <div class="big"><b>Big idea:</b> Living things need a constant <b>input of energy</b> to stay organized, grow, and reproduce. Cells pay for energy-requiring reactions by <b>coupling</b> them to energy-releasing ones.</div>
+      <h3>Thermodynamics in cells</h3>
+      <ul>
+        <li><b>First law</b>: energy can't be created or destroyed, only converted (light → chemical, chemical → kinetic).</li>
+        <li><b>Second law</b>: every energy transfer increases the disorder (entropy) of the universe. Some energy is always lost as <b>heat</b>.</li>
+        <li>Cells stay highly ordered only by using energy. When energy input stops, order is lost and the organism <b>dies</b>.</li>
+      </ul>
+      <h3>Exergonic vs. endergonic</h3>
+      <div class="tbl"><table>
+        <tr><th></th><th>Exergonic</th><th>Endergonic</th></tr>
+        <tr><td>Energy</td><td>Releases free energy</td><td>Absorbs free energy</td></tr>
+        <tr><td>ΔG</td><td>Negative (−)</td><td>Positive (+)</td></tr>
+        <tr><td>Spontaneous?</td><td>Yes</td><td>No; needs energy input</td></tr>
+        <tr><td>Examples</td><td>Cellular respiration, ATP hydrolysis</td><td>Photosynthesis, building proteins, active transport</td></tr>
+      </table></div>
+      <h3>ATP and energy coupling</h3>
+      <ul>
+        <li><b>ATP</b> = adenine + ribose + three phosphate groups. The bonds between phosphates are unstable because the negative charges repel.</li>
+        <li><b>ATP hydrolysis</b>: ATP + H<sub>2</sub>O → ADP + P<sub>i</sub> + energy (ΔG ≈ −7.3 kcal/mol).</li>
+        <li><b>Energy coupling</b>: the cell uses the exergonic ATP hydrolysis to drive an endergonic reaction. Usually ATP transfers a phosphate to another molecule (<b>phosphorylation</b>), making it less stable and more reactive.</li>
+        <li>As long as the <b>overall</b> ΔG of the coupled reactions is negative, the process runs.</li>
+        <li>ATP is regenerated from ADP + P<sub>i</sub> using energy from respiration or photosynthesis (the ATP cycle).</li>
+      </ul>
+      <h3>Metabolic pathways</h3>
+      <ul>
+        <li>Reactions happen in <b>sequential steps</b>, each catalyzed by a specific enzyme. The product of one step is the substrate of the next.</li>
+        <li>Releasing energy in small steps lets the cell capture more of it (instead of losing it all as heat).</li>
+        <li>An organism with too little energy input loses mass and eventually dies; extra energy can be stored (fat, starch, glycogen) or used for growth and reproduction.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>If asked "how can an endergonic reaction occur in a cell?" the answer is almost always: it is <b>coupled to ATP hydrolysis</b> (or another exergonic reaction) so the total ΔG is negative.</div>
+    </section>
+
+    <section class="topic" data-t="3.5">
+      <div class="tnum">TOPIC 3.5</div>
+      <h2>Photosynthesis</h2>
+      <div class="big"><b>Big idea:</b> Photosynthesis captures light energy and stores it as chemical energy in sugar. The <b>light reactions</b> make ATP and NADPH; the <b>Calvin cycle</b> uses them to fix CO<sub>2</sub> into sugar.</div>
+      <div class="eq">6 CO₂ + 6 H₂O + light energy → C₆H₁₂O₆ + 6 O₂</div>
+      <h3>Where it happens</h3>
+      <ul>
+        <li>In eukaryotes: the <b>chloroplast</b>. Light reactions in the <b>thylakoid membranes</b>; Calvin cycle in the <b>stroma</b>.</li>
+        <li>Photosynthesis first evolved in <b>prokaryotes</b> (cyanobacteria). Their O<sub>2</sub> changed Earth's atmosphere. Chloroplasts likely came from an engulfed cyanobacterium (<b>endosymbiosis</b>).</li>
+      </ul>
+      <h3>Light-dependent reactions (thylakoid)</h3>
+      <ol>
+        <li><b>Pigments</b> (chlorophyll a, b, carotenoids) in <b>Photosystem II</b> absorb light. Energy excites electrons in the reaction-center chlorophyll to a higher energy level.</li>
+        <li>Excited electrons pass to the <b>electron transport chain (ETC)</b>. PSII replaces its lost electrons by <b>splitting water</b> (photolysis): 2 H<sub>2</sub>O → 4 H<sup>+</sup> + 4 e<sup>−</sup> + <b>O<sub>2</sub></b>. This is where the O<sub>2</sub> comes from.</li>
+        <li>As electrons move down the ETC, energy is used to <b>pump H<sup>+</sup> from the stroma into the thylakoid lumen</b>, building a proton gradient.</li>
+        <li><b>Photosystem I</b> absorbs light and re-energizes the electrons. They reduce <b>NADP<sup>+</sup> → NADPH</b>.</li>
+        <li>H<sup>+</sup> flows back out through <b>ATP synthase</b> into the stroma, powering ADP + P<sub>i</sub> → <b>ATP</b>. This is <b>chemiosmosis</b> (photophosphorylation).</li>
+      </ol>
+      <h3>Calvin cycle (stroma) — light-independent reactions</h3>
+      <ul>
+        <li><b>Carbon fixation</b>: the enzyme <b>rubisco</b> attaches CO<sub>2</sub> to RuBP.</li>
+        <li><b>Reduction</b>: ATP and NADPH from the light reactions convert the products into <b>G3P</b>, a 3-carbon sugar.</li>
+        <li><b>Regeneration</b>: some G3P is used (with ATP) to rebuild RuBP so the cycle continues. Other G3P leaves to make glucose and other organic molecules.</li>
+        <li>Per 3 CO<sub>2</sub> fixed: uses 9 ATP and 6 NADPH, makes 1 net G3P.</li>
+        <li>ADP and NADP<sup>+</sup> go back to the light reactions to be recharged.</li>
+      </ul>
+      <div class="tbl"><table>
+        <tr><th></th><th>Light reactions</th><th>Calvin cycle</th></tr>
+        <tr><td>Location</td><td>Thylakoid membrane</td><td>Stroma</td></tr>
+        <tr><td>Inputs</td><td>Light, H<sub>2</sub>O, ADP, NADP<sup>+</sup></td><td>CO<sub>2</sub>, ATP, NADPH</td></tr>
+        <tr><td>Outputs</td><td>O<sub>2</sub>, ATP, NADPH</td><td>G3P (sugar), ADP, NADP<sup>+</sup></td></tr>
+      </table></div>
+      <h3>Light and pigments</h3>
+      <ul>
+        <li>Chlorophyll absorbs mostly <b>blue-violet and red</b> light and <b>reflects green</b>, which is why leaves look green.</li>
+        <li>An <b>absorption spectrum</b> shows which wavelengths a pigment absorbs; an <b>action spectrum</b> shows which wavelengths drive photosynthesis best. Accessory pigments widen the range.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>If an experiment blocks the ETC or makes the thylakoid membrane leaky to H<sup>+</sup>: no proton gradient → <b>no ATP</b> from ATP synthase → Calvin cycle slows because it runs out of ATP and NADPH. Track the energy step by step.</div>
+    </section>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div id="v-quiz" hidden>
+    <div class="qbar">
+      <div class="score" id="score">0 / 0 answered</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" id="shuffle">Shuffle</button>
+        <button class="btn ghost" id="reset">Reset answers</button>
+      </div>
+    </div>
+    <div id="qlist"></div>
+  </div>
+
+  <!-- ===== FLASHCARDS ===== -->
+  <div id="v-cards" hidden>
+    <div class="cardstage">
+      <button class="fc" id="fc" aria-label="Flip card"><div class="fci">
+        <div class="face front"><div><div class="tnum" id="fcTopic"></div><div class="term" id="fcTerm"></div></div></div>
+        <div class="face back"><div class="def" id="fcDef"></div></div>
+      </div></button>
+    </div>
+    <div class="fcnav">
+      <button class="btn ghost" id="prev">← Prev</button>
+      <span class="score" id="fcCount"></span>
+      <button class="btn ghost" id="next">Next →</button>
+      <button class="btn ghost" id="fcShuffle">Shuffle</button>
+    </div>
+    <p class="hint">Tap the card or press Space to flip. Arrow keys move between cards.</p>
+  </div>
+
+  <!-- ===== FRQ ===== -->
+  <div id="v-frq" hidden><div id="frqlist"></div></div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
