@@ -63,3 +63,10 @@ There are now six views: Guide, Models, Questions, Cards, FRQ, Test Prep. Guide 
 ## Cache busting
 
 GitHub Pages caches files for 10 minutes. `index.html` loads CSS and JS with `?v=<version>`. When you change any CSS or JS file, bump that version in every `<link>` and `<script>` tag in `index.html`, or phones may run old JS against new HTML and show empty views.
+
+## Videos tab
+
+`js/videos.js` holds Gabe Poser's (PoseKnows Biology) Unit 3 videos: link id, Mr. Poser's topic number, chapters
+(`[seconds, label]`), key points (may contain `<b>`/`<i>`), vocab and quick-check questions. Key points are our own
+summaries of each video, not transcripts. Mr. Poser uses current College Board numbering (his 3.1 = this site's 3.1 + 3.2;
+his 3.5 cellular respiration is filed here as topic "3.6", teal). It is the default view for new visitors.

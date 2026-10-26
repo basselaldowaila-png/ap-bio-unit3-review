@@ -5,7 +5,7 @@ const read = (key, fallback) => {try {const value=JSON.parse(localStorage.getIte
 const write = (key, value) => {try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 let unit, state={}, topic='all', view='guide', order=[], cardOrder=[], ci=0, page=0, quizPool=[];
 const pageSize=5;
-const views=['guide','models','quiz','cards','frq','test'];
+const views=['videos','guide','models','quiz','cards','frq','test'];
 function save(){write(unit.storageKey || `apbio:${unit.id}`,state);updateProgress();}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const inTopic=t=>topic==='all'||t===topic;
@@ -32,14 +32,14 @@ function selectUnit(id){
   unit.topics.forEach(([k,label])=>{const b=document.createElement('button');b.className='chip';b.textContent=label;b.dataset.k=k;if(k!=='all')b.dataset.t=k;b.onclick=()=>setTopic(k);$('#chips').append(b);});
   $('#t-test').hidden=!unit.test;
   rebuildPool();updateProgress();renderChips();
-  let last='guide';try{last=localStorage.getItem(unit.viewKey||`apbio:${unit.id}:view`)||'guide';}catch{}
-  setView(views.includes(last)&&!(last==='test'&&!unit.test)?last:'guide',false);
+  let last='videos';try{last=localStorage.getItem(unit.viewKey||`apbio:${unit.id}:view`)||'videos';}catch{}
+  setView(views.includes(last)&&!(last==='test'&&!unit.test)?last:'videos',false);
 }
 function renderChips(){$('#chips').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===topic));}
 function setTopic(k){topic=k;ci=0;page=0;renderChips();rebuildPool();render();}
 const pill=$('.t-tabs-pill');
 function moveTo(tab,animate=true){if(!tab)return;const previous=pill.style.transition;if(!animate)pill.style.transition='none';pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=tab.offsetWidth+'px';if(!animate){void pill.offsetWidth;pill.style.transition=previous;}}
-function setView(next,scroll=true){view=next;document.querySelectorAll('.tab').forEach(t=>{const selected=t.dataset.view===view;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;});views.forEach(v=>$('#v-'+v).hidden=v!==view);$('#chips').hidden=view==='test';try{localStorage.setItem(unit.viewKey||`apbio:${unit.id}:view`,view);}catch{}render();const active=$('.tab[aria-selected="true"]');moveTo(active);if(scroll){window.scrollTo({top:0,behavior:'instant'});active.scrollIntoView({block:'nearest',inline:'nearest'});}}
+function setView(next,scroll=true){view=next;document.querySelectorAll('.tab').forEach(t=>{const selected=t.dataset.view===view;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;});views.forEach(v=>$('#v-'+v).hidden=v!==view);$('#chips').hidden=view==='test'||view==='videos';try{localStorage.setItem(unit.viewKey||`apbio:${unit.id}:view`,view);}catch{}render();const active=$('.tab[aria-selected="true"]');moveTo(active);if(scroll){window.scrollTo({top:0,behavior:'instant'});active.scrollIntoView({block:'nearest',inline:'nearest'});}}
 addEventListener('resize',()=>moveTo($('.tab[aria-selected="true"]'),false));
 document.querySelectorAll('.tab').forEach(t=>{t.setAttribute('aria-controls','v-'+t.dataset.view);t.onclick=()=>setView(t.dataset.view);t.onkeydown=e=>{const tabs=[...document.querySelectorAll('.tab')].filter(t=>!t.hidden);let index=tabs.indexOf(t);if(e.key==='ArrowRight')index=(index+1)%tabs.length;else if(e.key==='ArrowLeft')index=(index+tabs.length-1)%tabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=tabs.length-1;else return;e.preventDefault();tabs[index].focus();setView(tabs[index].dataset.view,false);};});
 views.forEach(v=>{$('#v-'+v).setAttribute('role','tabpanel');$('#v-'+v).setAttribute('aria-labelledby','t-'+v);});
@@ -74,6 +74,20 @@ function renderFrq(){const list=$('#frqlist');list.replaceChildren();let n=0;uni
 function renderTest(){const l=$('#testlist');l.replaceChildren();if(!unit.test)return;const m=unit.test.mcq,picked=state.tm,d=document.createElement('article');d.className='q test';d.innerHTML=`<div class="meta">Multiple choice · ${esc(m.source)}</div><h3 class="stem">${esc(m.stem)}</h3><div class="opts"></div>`;m.options.forEach((txt,j)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<span class="l">${'ABCD'[j]}</span><span>${esc(txt)}</span>`;if(picked!==undefined){b.disabled=true;if(j===m.answer)b.classList.add('right');else if(j===picked)b.classList.add('wrong');}b.onclick=()=>{state.tm=j;save();renderTest();$('#testlist .why').focus({preventScroll:true});};d.querySelector('.opts').append(b);});if(picked!==undefined){const w=document.createElement('div');w.className='why '+(picked===m.answer?'ok':'no');w.tabIndex=-1;w.innerHTML=`<b>${picked===m.answer?'Correct.':'Not quite. Answer: '+'ABCD'[m.answer]+'.'}</b>${esc(m.why)}`;d.append(w);const retry=document.createElement('button');retry.className='btn ghost retry';retry.textContent='Try again';retry.onclick=()=>{delete state.tm;save();renderTest();};d.append(retry);}l.append(d);
   const f=unit.test.frq,q=document.createElement('article');q.className='q frq test';q.innerHTML=`<div class="meta">${esc(f.source)}</div><h3 class="stem">${esc(f.setup)}</h3>`+f.parts.map((p,i)=>`<div class="part"><div class="plabel">(${'abcd'[i]}) <span class="verb">${esc(p.verb)}</span></div><p>${esc(p.prompt)}</p><label class="meta" for="tf${i}">Your answer · saved on this device</label><textarea id="tf${i}"></textarea><details><summary>Show model answer and scoring guidance</summary><div class="model"><p>${esc(p.answer)}</p><p class="why-pts"><b>Scoring guidance:</b> ${esc(p.points)}</p></div></details></div>`).join('');q.querySelectorAll('textarea').forEach((ta,i)=>{ta.value=state['tf'+i]||'';ta.oninput=()=>{state['tf'+i]=ta.value;save();};});l.append(q);
 }
-function render(){({guide:renderGuide,models:renderModels,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]();}
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function renderVideos(){const list=$('#videoList');list.replaceChildren();const vids=typeof VIDEOS==='undefined'?[]:VIDEOS;const done=vids.filter(v=>state['vid:'+v.id]).length;
+  $('#videoProgress').textContent=`${done} of ${vids.length} videos done`;
+  vids.forEach((v,i)=>{const url=`https://www.youtube.com/watch?v=${v.id}`;const d=document.createElement('article');d.className='video-step';d.dataset.t=v.topic;const watched=!!state['vid:'+v.id];
+    d.innerHTML=`<div class="vs-head"><span class="vs-num" aria-hidden="true">${watched?'✓':i+1}</span><div><div class="meta">Step ${i+1} · Mr. Poser ${esc(v.poser)} · ${esc(v.classTopics)}</div><h3>${esc(v.title)}</h3></div></div>
+    <a class="vs-thumb" href="${url}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="vs-play">▶ Watch on YouTube · ${esc(v.length)}</span></a>
+    <p class="vs-goal"><b>Goal:</b> ${esc(v.goal)}</p>
+    <details class="vs-sec"><summary>Jump to a part (${v.chapters.length})</summary><ol class="vs-chapters">${v.chapters.map(([s,l])=>`<li><a href="${url}&t=${s}s" target="_blank" rel="noopener"><span>${fmt(s)}</span>${esc(l)}</a></li>`).join('')}</ol></details>
+    <details class="vs-sec" open><summary>Key points from the video</summary><ul class="vs-points">${v.points.map(p=>`<li>${p}</li>`).join('')}</ul>${v.note?`<div class="tip"><div class="eyebrow">Heads up</div>${v.note}</div>`:''}</details>
+    <details class="vs-sec"><summary>Words to know (${v.vocab.length})</summary><dl class="vs-vocab">${v.vocab.map(([t,x])=>`<div><dt>${esc(t)}</dt><dd>${esc(x)}</dd></div>`).join('')}</dl></details>
+    <div class="vs-check"><div class="eyebrow">Quick check · answer out loud, then open</div>${v.check.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
+    <div class="vs-actions"><label class="vs-done"><input type="checkbox" id="vd-${v.id}" ${watched?'checked':''}> I watched this and did the check</label></div>`;
+    d.querySelector('input').onchange=e=>{if(e.target.checked)state['vid:'+v.id]=1;else delete state['vid:'+v.id];save();renderVideos();};
+    list.append(d);});}
+function render(){({videos:renderVideos,guide:renderGuide,models:renderModels,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]();}
 $('#unitPicker').hidden=UNITS.size<2;UNITS.forEach(u=>{const option=document.createElement('option');option.value=u.id;option.textContent=u.label;$('#unitSelect').append(option);});$('#unitSelect').onchange=e=>selectUnit(e.target.value);
 selectUnit(read('apbio:unit','unit3'));moveTo($('.tab[aria-selected="true"]'),false);
