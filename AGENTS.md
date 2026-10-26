@@ -76,3 +76,7 @@ his 3.5 cellular respiration is filed here as topic "3.6", teal). It is the defa
 `js/hard.js` holds AP-exam-level MCQs (data, experiments, predictions). They are appended to `Q` with `q[5]='hard'`,
 and their options are rotated so correct answers spread across A–D. The quiz opens in "Hard (AP exam level)" mode.
 Add new hard questions to the end of `HARD_Q` so saved answers keep their positions.
+
+## Focused practice sets
+
+`js/sets.js` adds two hard sets shown in the Quiz "Practice set" menu: `ENZYME_Q` (enzymes only, no amino acids) and `CARRIER_Q` (ATP, ADP, NADH, NADPH, FADH₂ and their jobs). Each question is written with the correct answer first; the loader rotates options and tags `q[6]` with the set name. The quiz opens on the Enzymes set. The student was told amino acids are not on their test, so keep amino acids out of questions.

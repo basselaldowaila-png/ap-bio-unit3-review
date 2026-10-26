@@ -16,7 +16,7 @@ function updateProgress(){const total=unit.questions.length,answered=unit.questi
 function selectUnit(id){
   unit=UNITS.get(id)||UNITS.values().next().value;
   state=read(unit.storageKey||`apbio:${unit.id}`,{});if(!state||typeof state!=='object'||Array.isArray(state))state={};
-  topic='all';ci=0;page=0;order=unit.questions.map((_,i)=>i);cardOrder=unit.cards.map((_,i)=>i);$('#quizMode').value='hard';
+  topic='all';ci=0;page=0;order=unit.questions.map((_,i)=>i);cardOrder=unit.cards.map((_,i)=>i);$('#quizMode').value='enzymes';
   $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent='AP Biology · '+unit.label;$('#unitDescription').textContent=unit.description||'';
   document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;write('apbio:unit',unit.id);
   $('#unitSources').replaceChildren(...(unit.sourcesTemplate?[document.getElementById(unit.sourcesTemplate).content.cloneNode(true)]:[]));
@@ -26,7 +26,7 @@ function selectUnit(id){
     const big=section.querySelector('.big');
     if(big){const details=document.createElement('details');details.className='guide-details';const summary=document.createElement('summary');summary.textContent='Read detailed notes';details.append(summary);while(big.nextSibling)details.append(big.nextSibling);section.append(details);}
     const actions=document.createElement('div');actions.className='topic-actions';
-    [['models','Explore models'],['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value='hard';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
+    [['models','Explore models'],['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value='enzymes';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
   });
   $('#chips').replaceChildren();
   unit.topics.forEach(([k,label])=>{const b=document.createElement('button');b.className='chip';b.textContent=label;b.dataset.k=k;if(k!=='all')b.dataset.t=k;b.onclick=()=>setTopic(k);$('#chips').append(b);});
@@ -46,7 +46,7 @@ views.forEach(v=>{$('#v-'+v).setAttribute('role','tabpanel');$('#v-'+v).setAttri
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setView(b.dataset.go));
 function renderGuide(){$('#guideContent').querySelectorAll('.topic').forEach(s=>s.hidden=!inTopic(s.dataset.t));}
 function renderModels(){const list=$('#modelList');list.replaceChildren();const models=unit.models.filter(m=>inTopic(m.topic));if(!models.length){list.innerHTML='<p class="empty">No models for this topic yet. Explore the guide or practice questions.</p>';return;}models.forEach(model=>{const host=document.createElement('section');host.className='interactive-model';host.dataset.t=model.topic;list.append(host);mountModel(host,model);});}
-function rebuildPool(){const mode=$('#quizMode').value;quizPool=order.filter(i=>inTopic(unit.questions[i][0])&&(mode==='all'||mode==='hard'&&unit.questions[i][5]==='hard'||mode==='unanswered'&&pickedAnswer(i)===undefined||mode==='missed'&&pickedAnswer(i)!==undefined&&pickedAnswer(i)!==unit.questions[i][3]));page=0;}
+function rebuildPool(){const mode=$('#quizMode').value;quizPool=order.filter(i=>inTopic(unit.questions[i][0])&&(mode==='all'||mode==='hard'&&unit.questions[i][5]==='hard'||(mode==='enzymes'||mode==='carriers')&&unit.questions[i][6]===mode||mode==='unanswered'&&pickedAnswer(i)===undefined||mode==='missed'&&pickedAnswer(i)!==undefined&&pickedAnswer(i)!==unit.questions[i][3]));page=0;}
 function renderQuiz(){
   const list=$('#qlist');list.replaceChildren();const all=order.filter(i=>inTopic(unit.questions[i][0])),ans=all.filter(i=>pickedAnswer(i)!==undefined).length,right=all.filter(i=>pickedAnswer(i)===unit.questions[i][3]).length;
   $('#score').textContent=`${ans} / ${all.length} answered · ${right} correct${ans?' ('+Math.round(right/ans*100)+'%)':''}`;
