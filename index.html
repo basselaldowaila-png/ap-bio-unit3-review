@@ -9,16 +9,18 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">AP Biology · Unit 3 · Cellular Energetics</div>
-    <h1>Enzymes, Energy &amp; Photosynthesis</h1>
-    <p class="sub">Study guide and review questions for topics 3.1–3.5. Pick a tab, filter by topic, and check your answers as you go.</p>
+    <div class="brandline"><div class="eyebrow" id="unitEyebrow">AP Biology · Unit 3</div><label id="unitPicker" hidden>Unit <select id="unitSelect"></select></label></div>
+    <h1 id="unitTitle">Enzymes, Energy &amp; Photosynthesis</h1>
+    <p class="sub" id="unitDescription">Understand the process. Explore a model. Put it into practice.</p><div class="learning-path"><button class="path-link" data-go="guide"><b>01</b> Learn</button><span aria-hidden="true">→</span><button class="path-link" data-go="models"><b>02</b> Explore</button><span aria-hidden="true">→</span><button class="path-link" data-go="quiz"><b>03</b> Practice</button></div><div id="unitProgress" class="unit-progress"></div>
   </header>
 </div>
 <nav class="tabs"><div class="wrap"><div class="tabrow t-tabs" role="tablist">
   <span class="t-tabs-pill" aria-hidden="true"></span>
   <button class="tab t-tab" role="tab" id="t-guide" data-view="guide" aria-selected="true"><span class="lg">Study </span>Guide</button>
+  <button class="tab t-tab" role="tab" id="t-models" data-view="models" aria-selected="false">Models</button>
   <button class="tab t-tab" role="tab" id="t-quiz" data-view="quiz" aria-selected="false"><span class="lg">Practice </span>Questions</button>
   <button class="tab t-tab" role="tab" id="t-cards" data-view="cards" aria-selected="false"><span class="lg">Flash</span><span class="sm">Cards</span><span class="lg">cards</span></button>
   <button class="tab t-tab" role="tab" id="t-frq" data-view="frq" aria-selected="false"><span class="lg">Free Response</span><span class="sm">FRQ</span></button>
@@ -27,9 +29,60 @@
 
 <div class="wrap">
   <div class="chips" id="chips"></div>
-  <main>
+  <main id="main" tabindex="-1">
   <!-- ===== GUIDE ===== -->
   <div id="v-guide">
+    <div id="guideIntro"></div><div id="guideContent"></div>
+  </div>
+
+  <div id="v-models" hidden><div class="view-heading"><div class="eyebrow">Explore &amp; explain</div><h2>Make the invisible visible.</h2><p>Change one thing, predict the result, then explain why. These are simplified teaching models.</p></div><div id="modelList"></div></div>
+  <!-- ===== QUIZ ===== -->
+  <div id="v-quiz" hidden>
+    <div class="qbar">
+      <div class="score" id="score">0 / 0 answered</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" id="shuffle">Shuffle</button>
+        <button class="btn ghost" id="reset">Reset answers</button>
+      </div>
+    </div>
+    <label class="filter-label" for="quizMode">Practice set <select id="quizMode"><option value="all">All questions</option><option value="unanswered">Unanswered</option><option value="missed">Review missed questions</option></select></label><div id="qlist"></div><div class="pager"><button class="btn ghost" id="qPrev">← Previous</button><span id="qPage" class="score"></span><button class="btn" id="qNext">Next →</button></div>
+  </div>
+
+  <!-- ===== FLASHCARDS ===== -->
+  <div id="v-cards" hidden>
+    <div class="cardstage">
+      <button class="fc" id="fc" aria-label="Flip card"><div class="fci">
+        <div class="face front"><div><div class="tnum" id="fcTopic"></div><div class="term" id="fcTerm"></div></div></div>
+        <div class="face back"><div class="def" id="fcDef"></div></div>
+      </div></button>
+    </div>
+    <div class="fcnav">
+      <button class="btn ghost" id="prev">← Prev</button>
+      <span class="score" id="fcCount"></span>
+      <button class="btn ghost" id="next">Next →</button>
+      <button class="btn ghost" id="fcShuffle">Shuffle</button>
+    </div>
+    <p class="hint">Tap the card or press Space to flip. Arrow keys move between cards.</p>
+  </div>
+
+  <!-- ===== FRQ ===== -->
+  <div id="v-frq" hidden><div id="frqlist"></div></div>
+
+  <!-- ===== TEST PREP ===== -->
+  <div id="v-test" hidden>
+    <div class="testhead">
+      <div class="eyebrow">Exam practice</div>
+      <h2>Test Prep</h2>
+      <p class="sub">Work through the existing review question and a paraphrased 2021 AP question. These are practice materials, not a prediction of your next test.</p>
+    </div>
+    <div id="testlist"></div>
+  </div>
+  <div id="unitSources"></div>
+  </main>
+</div>
+
+<template id="sources-unit3">  <footer class="sources"><details><summary>Sources &amp; course scope</summary><p>This site keeps your original class labels (3.1–3.5). In the current College Board framework, enzymes are 3.1, environment 3.2, cellular energy 3.3, and photosynthesis 3.4. This focused review does not cover the whole AP course or all of Unit 3. Detailed Calvin-cycle bookkeeping and free-energy calculations are enrichment.</p><p><a href="https://apcentral.collegeboard.org/media/pdf/ap-biology-course-and-exam-description.pdf">College Board course framework</a> · <a href="https://openstax.org/books/biology-2e/pages/6-5-enzymes">Enzymes</a> · <a href="https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate">ATP</a> · <a href="https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules">Calvin cycle</a> · <a href="https://apcentral.collegeboard.org/media/pdf/ap21-apc-biology-q3.pdf">2021 FRQ 3 scoring resource</a></p><p>Practice questions and models are original teaching material. Historical College Board links may redirect as older papers are archived.</p></details></footer></template>
+<template id="guide-unit3">
     <section class="topic" data-t="3.1">
       <div class="tnum">TOPIC 3.1</div>
       <h2>Enzyme Structure</h2>
@@ -106,7 +159,7 @@
         <li>They are <b>not consumed</b>.</li>
       </ul>
       <h3>Reading reaction-rate data</h3>
-      <p>Rate = change in product (or substrate) ÷ time. On a graph of product vs. time, the rate is the <b>slope</b>. The curve flattens when substrate runs out, not because the enzyme is "used up."</p>
+      <p>Rate = change in product (or substrate) ÷ time. On a graph of product vs. time, the rate is the <b>slope</b>. A flattening curve can indicate substrate depletion, equilibrium, product inhibition, or enzyme inactivation. Use the experimental conditions to distinguish these explanations; the enzyme is not consumed by catalysis.</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>On energy diagrams: the <b>peak height above the reactants</b> = E<sub>A</sub>. The difference between reactants and products = ΔG. An enzyme lowers only the peak.</div>
     </section>
 
@@ -119,7 +172,7 @@
         <li>Raising temperature increases molecular motion and collisions, so rate goes up, until the <b>optimum</b>.</li>
         <li>Past the optimum, heat breaks <b>hydrogen bonds</b> and other weak interactions holding the tertiary structure. The enzyme <b>denatures</b>: active site loses shape, rate drops sharply.</li>
         <li>Low temperature slows collisions but usually does <b>not</b> denature; activity comes back when warmed.</li>
-        <li>Human enzymes: optimum ~37 °C. Thermophile bacteria in hot springs: ~70+ °C.</li>
+        <li>Optima depend on the enzyme and assay. Many human enzymes function well near body temperature; thermophile enzymes can remain active at much higher temperatures.</li>
       </ul>
       <h3>pH</h3>
       <ul>
@@ -134,9 +187,9 @@
       </ul>
       <h3>Inhibitors</h3>
       <div class="tbl"><table>
-        <tr><th></th><th>Competitive inhibitor</th><th>Noncompetitive (allosteric) inhibitor</th></tr>
-        <tr><td>Binds where?</td><td>The <b>active site</b> (looks like substrate)</td><td>An <b>allosteric site</b> (somewhere else)</td></tr>
-        <tr><td>How it works</td><td>Blocks substrate from binding</td><td>Changes enzyme shape so the active site no longer works</td></tr>
+        <tr><th></th><th>Competitive inhibitor</th><th>Pure noncompetitive inhibitor</th></tr>
+        <tr><td>Binds where?</td><td>The <b>active site</b>; competes with substrate</td><td>A site outside the active site; binds free enzyme and enzyme–substrate complex equally in the pure model</td></tr>
+        <tr><td>How it works</td><td>Blocks substrate from binding</td><td>Reduces catalytic activity; lowers the maximum rate</td></tr>
         <tr><td>Add lots of substrate?</td><td><b>Can overcome it</b>; substrate outcompetes inhibitor</td><td><b>Cannot overcome it</b>; V<sub>max</sub> stays lower</td></tr>
       </table></div>
       <ul>
@@ -146,8 +199,8 @@
       </ul>
       <h3>Cofactors and coenzymes</h3>
       <ul>
-        <li><b>Cofactors</b>: inorganic helpers like Mg<sup>2+</sup>, Zn<sup>2+</sup>, Fe<sup>2+</sup>.</li>
-        <li><b>Coenzymes</b>: organic helpers, often from vitamins, like NAD<sup>+</sup>, FAD, and NADP<sup>+</sup>.</li>
+        <li><b>Cofactors</b>: nonprotein helpers, including inorganic ions like Mg<sup>2+</sup>, Zn<sup>2+</sup>, Fe<sup>2+</sup>.</li>
+        <li><b>Coenzymes</b>: organic cofactors, often from vitamins, like NAD<sup>+</sup>, FAD, and NADP<sup>+</sup>.</li>
         <li>Without the needed cofactor, the enzyme can't function.</li>
       </ul>
       <div class="diagram"><svg viewBox="0 0 560 220" width="100%" style="min-width:440px" role="img" aria-label="Rate vs substrate concentration: no inhibitor and competitive reach the same max; noncompetitive plateaus lower">
@@ -172,7 +225,7 @@
       <h3>Thermodynamics in cells</h3>
       <ul>
         <li><b>First law</b>: energy can't be created or destroyed, only converted (light → chemical, chemical → kinetic).</li>
-        <li><b>Second law</b>: every energy transfer increases the disorder (entropy) of the universe. Some energy is always lost as <b>heat</b>.</li>
+        <li><b>Second law</b>: spontaneous processes increase the total entropy of a system and its surroundings. Cells maintain local order while transferring energy and releasing <b>heat</b>.</li>
         <li>Cells stay highly ordered only by using energy. When energy input stops, order is lost and the organism <b>dies</b>.</li>
       </ul>
       <h3>Exergonic vs. endergonic</h3>
@@ -185,8 +238,8 @@
       </table></div>
       <h3>ATP and energy coupling</h3>
       <ul>
-        <li><b>ATP</b> = adenine + ribose + three phosphate groups. The bonds between phosphates are unstable because the negative charges repel.</li>
-        <li><b>ATP hydrolysis</b>: ATP + H<sub>2</sub>O → ADP + P<sub>i</sub> + energy (ΔG ≈ −7.3 kcal/mol).</li>
+        <li><b>ATP</b> = adenine + ribose + three phosphate groups. Hydrolysis produces more stable products. Breaking a bond requires energy; the overall reaction releases free energy when new bonds and interactions form.</li>
+        <li><b>ATP hydrolysis</b>: ATP + H<sub>2</sub>O → ADP + P<sub>i</sub> + energy (ΔG°′ ≈ −7.3 kcal/mol under biochemical standard conditions; cellular values vary).</li>
         <li><b>Energy coupling</b>: the cell uses the exergonic ATP hydrolysis to drive an endergonic reaction. Usually ATP transfers a phosphate to another molecule (<b>phosphorylation</b>), making it less stable and more reactive.</li>
         <li>As long as the <b>overall</b> ΔG of the coupled reactions is negative, the process runs.</li>
         <li>ATP is regenerated from ADP + P<sub>i</sub> using energy from respiration or photosynthesis (the ATP cycle).</li>
@@ -208,7 +261,7 @@
       <h3>Where it happens</h3>
       <ul>
         <li>In eukaryotes: the <b>chloroplast</b>. Light reactions in the <b>thylakoid membranes</b>; Calvin cycle in the <b>stroma</b>.</li>
-        <li>Photosynthesis first evolved in <b>prokaryotes</b> (cyanobacteria). Their O<sub>2</sub> changed Earth's atmosphere. Chloroplasts likely came from an engulfed cyanobacterium (<b>endosymbiosis</b>).</li>
+        <li>Photosynthesis first evolved in <b>prokaryotes</b>. Oxygen-producing photosynthesis in cyanobacteria changed Earth's atmosphere. Chloroplasts likely came from an engulfed cyanobacterium (<b>endosymbiosis</b>).</li>
       </ul>
       <h3>Light-dependent reactions (thylakoid)</h3>
       <ol>
@@ -237,55 +290,12 @@
         <li>Chlorophyll absorbs mostly <b>blue-violet and red</b> light and <b>reflects green</b>, which is why leaves look green.</li>
         <li>An <b>absorption spectrum</b> shows which wavelengths a pigment absorbs; an <b>action spectrum</b> shows which wavelengths drive photosynthesis best. Accessory pigments widen the range.</li>
       </ul>
-      <div class="tip"><div class="eyebrow">Exam tip</div>If an experiment blocks the ETC or makes the thylakoid membrane leaky to H<sup>+</sup>: no proton gradient → <b>no ATP</b> from ATP synthase → Calvin cycle slows because it runs out of ATP and NADPH. Track the energy step by step.</div>
+      <div class="tip"><div class="eyebrow">Exam tip</div>Separate the disruptions: blocking linear electron flow reduces NADPH and proton pumping. A proton leak directly weakens the gradient and lowers ATP production; NADPH production need not stop immediately. In both cases, limited ATP can slow the Calvin cycle.</div>
     </section>
-  </div>
-
-  <!-- ===== QUIZ ===== -->
-  <div id="v-quiz" hidden>
-    <div class="qbar">
-      <div class="score" id="score">0 / 0 answered</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn ghost" id="shuffle">Shuffle</button>
-        <button class="btn ghost" id="reset">Reset answers</button>
-      </div>
-    </div>
-    <div id="qlist"></div>
-  </div>
-
-  <!-- ===== FLASHCARDS ===== -->
-  <div id="v-cards" hidden>
-    <div class="cardstage">
-      <button class="fc" id="fc" aria-label="Flip card"><div class="fci">
-        <div class="face front"><div><div class="tnum" id="fcTopic"></div><div class="term" id="fcTerm"></div></div></div>
-        <div class="face back"><div class="def" id="fcDef"></div></div>
-      </div></button>
-    </div>
-    <div class="fcnav">
-      <button class="btn ghost" id="prev">← Prev</button>
-      <span class="score" id="fcCount"></span>
-      <button class="btn ghost" id="next">Next →</button>
-      <button class="btn ghost" id="fcShuffle">Shuffle</button>
-    </div>
-    <p class="hint">Tap the card or press Space to flip. Arrow keys move between cards.</p>
-  </div>
-
-  <!-- ===== FRQ ===== -->
-  <div id="v-frq" hidden><div id="frqlist"></div></div>
-
-  <!-- ===== TEST PREP: questions confirmed for the upcoming test ===== -->
-  <div id="v-test" hidden>
-    <div class="testhead">
-      <div class="eyebrow">On your test</div>
-      <h2>Test Prep</h2>
-      <p class="sub">These questions are coming on the test. Answer each one yourself first, then open the full-credit answer to check.</p>
-    </div>
-    <div id="testlist"></div>
-  </div>
-  </main>
-</div>
-
+</template>
 <script src="js/data.js"></script>
+<script src="js/models.js"></script>
+<script src="js/units.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
