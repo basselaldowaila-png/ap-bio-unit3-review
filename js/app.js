@@ -1,83 +1,79 @@
-let topic="all", view="guide";
-let state={}; try{state=JSON.parse(localStorage.getItem("apbio3")||"{}")}catch(e){}
-function save(){try{localStorage.setItem("apbio3",JSON.stringify(state))}catch(e){}}
-let order=Q.map((_,i)=>i);
-let cardOrder=CARDS.map((_,i)=>i), ci=0;
-
-const chips=document.getElementById("chips");
-TOPICS.forEach(([k,l])=>{const b=document.createElement("button");b.className="chip";b.textContent=l;b.dataset.k=k;if(k!=="all")b.dataset.t=k;b.setAttribute("aria-pressed",k===topic);b.onclick=()=>{topic=k;chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k));render()};chips.appendChild(b)});
-
-const pill=document.querySelector(".t-tabs-pill");
-function moveTo(tab,animate){if(!animate){const prev=pill.style.transition;pill.style.transition="none";pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=`${tab.offsetWidth}px`;void pill.offsetWidth;pill.style.transition=prev}else{pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=`${tab.offsetWidth}px`}}
-const activeTab=()=>document.querySelector('.t-tab[aria-selected="true"]');
-addEventListener("resize",()=>moveTo(activeTab(),false));
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{view=t.dataset.view;moveTo(t,true);document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));["guide","quiz","cards","frq","test"].forEach(v=>document.getElementById("v-"+v).hidden=v!==view);chips.hidden=view==="test";try{localStorage.setItem("apbio3view",view)}catch(e){}render();window.scrollTo({top:0})});
-
-const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-const inTopic=t=>topic==="all"||t===topic;
-
-function renderGuide(){document.querySelectorAll("#v-guide .topic").forEach(s=>s.hidden=!inTopic(s.dataset.t))}
-
-function renderQuiz(){
-  const list=document.getElementById("qlist");list.innerHTML="";
-  let n=0,ans=0,right=0;
-  order.forEach(i=>{const [t,stem,opts,c,why]=Q[i];if(!inTopic(t))return;n++;
-    const picked=state[i];
-    const d=document.createElement("div");d.className="q";d.dataset.t=t;
-    d.innerHTML=`<div class="meta">Q${n} · Topic ${t}</div><div class="stem">${esc(stem)}</div><div class="opts"></div>`;
-    const o=d.querySelector(".opts");
-    opts.forEach((txt,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span>${esc(txt)}</span>`;
-      if(picked!==undefined){b.disabled=true;if(j===c)b.classList.add("right");else if(j===picked)b.classList.add("wrong")}
-      b.onclick=()=>{state[i]=j;save();renderQuiz()};o.appendChild(b)});
-    if(picked!==undefined){ans++;if(picked===c)right++;
-      const w=document.createElement("div");w.className="why "+(picked===c?"ok":"no");
-      w.innerHTML=`<b>${picked===c?"Correct.":"Not quite. Answer: "+"ABCD"[c]+"."}</b>${esc(why)}`;d.appendChild(w)}
-    list.appendChild(d)});
-  document.getElementById("score").textContent=`${ans} / ${n} answered · ${right} correct`+(ans?` (${Math.round(right/ans*100)}%)`:"");
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const read = (key, fallback) => {try {const value=JSON.parse(localStorage.getItem(key));return value ?? fallback;}catch{return fallback;}};
+const write = (key, value) => {try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
+let unit, state={}, topic='all', view='guide', order=[], cardOrder=[], ci=0, page=0, quizPool=[];
+const pageSize=5;
+const views=['guide','models','quiz','cards','frq','test'];
+function save(){write(unit.storageKey || `apbio:${unit.id}`,state);updateProgress();}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const inTopic=t=>topic==='all'||t===topic;
+const pickedAnswer=i=>Number.isInteger(state[i])&&state[i]>=0&&state[i]<4?state[i]:undefined;
+function updateProgress(){const total=unit.questions.length,answered=unit.questions.filter((_,i)=>pickedAnswer(i)!==undefined).length,correct=unit.questions.filter((q,i)=>pickedAnswer(i)===q[3]).length;
+  $('#unitProgress').innerHTML=`<div><span>${unit.questions.length} questions · ${unit.models.length} models</span><span>${answered}/${total} answered · ${correct} correct</span></div><progress max="${total||1}" value="${answered}" aria-label="Questions answered"></progress>`;
 }
-document.getElementById("shuffle").onclick=()=>{order.sort(()=>Math.random()-.5);renderQuiz()};
-document.getElementById("reset").onclick=()=>{Q.forEach((q,i)=>{if(inTopic(q[0]))delete state[i]});save();renderQuiz()};
-
-function cardsIn(){return cardOrder.filter(i=>inTopic(CARDS[i][0]))}
-function renderCards(){const cs=cardsIn();if(ci>=cs.length)ci=0;const [t,term,def]=CARDS[cs[ci]];
-  document.getElementById("fc").classList.remove("flip");document.getElementById("fc").dataset.t=t;
-  document.getElementById("fcTopic").textContent="TOPIC "+t;document.getElementById("fcTerm").textContent=term;document.getElementById("fcDef").textContent=def;
-  document.getElementById("fcCount").textContent=`${ci+1} / ${cs.length}`}
-document.getElementById("fc").onclick=e=>e.currentTarget.classList.toggle("flip");
-document.getElementById("next").onclick=()=>{ci=(ci+1)%cardsIn().length;renderCards()};
-document.getElementById("prev").onclick=()=>{const n=cardsIn().length;ci=(ci-1+n)%n;renderCards()};
-document.getElementById("fcShuffle").onclick=()=>{cardOrder.sort(()=>Math.random()-.5);ci=0;renderCards()};
-document.addEventListener("keydown",e=>{if(view!=="cards"||e.target.tagName==="TEXTAREA")return;
-  if(e.key==="ArrowRight")document.getElementById("next").click();
-  else if(e.key==="ArrowLeft")document.getElementById("prev").click();
-  else if(e.key===" "&&e.target.id!=="fc"){e.preventDefault();document.getElementById("fc").click()}});
-
-function renderFrq(){const l=document.getElementById("frqlist");l.innerHTML="";let n=0;
-  FRQ.forEach(([t,p,a],i)=>{if(!inTopic(t))return;n++;const d=document.createElement("div");d.className="q frq";d.dataset.t=t;
-    d.innerHTML=`<div class="meta">Free response ${n} · Topic ${t}</div><div class="stem">${esc(p)}</div><label class="meta" for="frq${i}">Your answer (saved on this device)</label><textarea id="frq${i}"></textarea><details><summary>Show model answer</summary><p style="margin-top:8px">${esc(a)}</p></details>`;
-    const ta=d.querySelector("textarea");ta.value=state["f"+i]||"";ta.oninput=()=>{state["f"+i]=ta.value;save()};l.appendChild(d)})}
-
-function renderTest(){const l=document.getElementById("testlist");l.innerHTML="";
-  // Multiple choice
-  const m=TEST.mcq,picked=state.tm,d=document.createElement("div");d.className="q test";
-  d.innerHTML=`<div class="meta">Multiple choice · ${esc(m.source)}</div><div class="stem">${esc(m.stem)}</div><div class="opts"></div>`;
-  const o=d.querySelector(".opts");
-  m.options.forEach((txt,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span>${esc(txt)}</span>`;
-    if(picked!==undefined){b.disabled=true;if(j===m.answer)b.classList.add("right");else if(j===picked)b.classList.add("wrong")}
-    b.onclick=()=>{state.tm=j;save();renderTest()};o.appendChild(b)});
-  if(picked!==undefined){const w=document.createElement("div");w.className="why "+(picked===m.answer?"ok":"no");
-    w.innerHTML=`<b>${picked===m.answer?"Correct.":"Not quite. Answer: "+"ABCD"[m.answer]+"."}</b>${esc(m.why)}`;d.appendChild(w);
-    const r=document.createElement("button");r.className="btn ghost";r.textContent="Try again";r.style.marginTop="12px";r.onclick=()=>{delete state.tm;save();renderTest()};d.appendChild(r)}
-  l.appendChild(d);
-  // Free response
-  const f=TEST.frq,q=document.createElement("div");q.className="q frq test";
-  q.innerHTML=`<div class="meta">Free response · ${esc(f.source)}</div><div class="stem">${esc(f.setup)}</div>`+f.parts.map((p,i)=>`
-    <div class="part"><div class="plabel">(${"abcd"[i]}) <span class="verb">${esc(p.verb)}</span></div><p>${esc(p.prompt)}</p>
-    <label class="meta" for="tf${i}">Your answer (saved on this device)</label><textarea id="tf${i}"></textarea>
-    <details><summary>Show full-credit answer</summary><div class="model"><p>${esc(p.answer)}</p><p class="why-pts"><b>Why it earns the point:</b> ${esc(p.points)}</p></div></details></div>`).join("");
-  q.querySelectorAll("textarea").forEach((ta,i)=>{ta.value=state["tf"+i]||"";ta.oninput=()=>{state["tf"+i]=ta.value;save()}});
-  l.appendChild(q)}
-
-function render(){({guide:renderGuide,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]()}
-try{const v=localStorage.getItem("apbio3view");if(v)document.querySelector(`.tab[data-view="${v}"]`).click();else render()}catch(e){render()}
-moveTo(activeTab(),false);
+function selectUnit(id){
+  unit=UNITS.get(id)||UNITS.values().next().value;
+  state=read(unit.storageKey||`apbio:${unit.id}`,{});if(!state||typeof state!=='object'||Array.isArray(state))state={};
+  topic='all';ci=0;page=0;order=unit.questions.map((_,i)=>i);cardOrder=unit.cards.map((_,i)=>i);$('#quizMode').value='all';
+  $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent='AP Biology · '+unit.label;$('#unitDescription').textContent=unit.description||'';
+  document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;write('apbio:unit',unit.id);
+  $('#unitSources').replaceChildren(...(unit.sourcesTemplate?[document.getElementById(unit.sourcesTemplate).content.cloneNode(true)]:[]));
+  $('#guideContent').replaceChildren(document.getElementById(unit.guideTemplate).content.cloneNode(true));
+  $('#guideIntro').innerHTML=`<div class="view-heading"><div class="eyebrow">Start with the big idea</div><h2>Build understanding, one topic at a time.</h2><p>${esc(unit.scope||'Choose a topic, read its big idea, then explore and practice.')}</p></div>`;
+  $('#guideContent').querySelectorAll('.topic').forEach(section=>{
+    const big=section.querySelector('.big');
+    if(big){const details=document.createElement('details');details.className='guide-details';const summary=document.createElement('summary');summary.textContent='Read detailed notes';details.append(summary);while(big.nextSibling)details.append(big.nextSibling);section.append(details);}
+    const actions=document.createElement('div');actions.className='topic-actions';
+    [['models','Explore models'],['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value='all';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
+  });
+  $('#chips').replaceChildren();
+  unit.topics.forEach(([k,label])=>{const b=document.createElement('button');b.className='chip';b.textContent=label;b.dataset.k=k;if(k!=='all')b.dataset.t=k;b.onclick=()=>setTopic(k);$('#chips').append(b);});
+  $('#t-test').hidden=!unit.test;
+  rebuildPool();updateProgress();renderChips();
+  let last='guide';try{last=localStorage.getItem(unit.viewKey||`apbio:${unit.id}:view`)||'guide';}catch{}
+  setView(views.includes(last)&&!(last==='test'&&!unit.test)?last:'guide',false);
+}
+function renderChips(){$('#chips').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===topic));}
+function setTopic(k){topic=k;ci=0;page=0;renderChips();rebuildPool();render();}
+const pill=$('.t-tabs-pill');
+function moveTo(tab,animate=true){if(!tab)return;const previous=pill.style.transition;if(!animate)pill.style.transition='none';pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=tab.offsetWidth+'px';if(!animate){void pill.offsetWidth;pill.style.transition=previous;}}
+function setView(next,scroll=true){view=next;document.querySelectorAll('.tab').forEach(t=>{const selected=t.dataset.view===view;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;});views.forEach(v=>$('#v-'+v).hidden=v!==view);$('#chips').hidden=view==='test';try{localStorage.setItem(unit.viewKey||`apbio:${unit.id}:view`,view);}catch{}render();const active=$('.tab[aria-selected="true"]');moveTo(active);if(scroll){window.scrollTo({top:0,behavior:'instant'});active.scrollIntoView({block:'nearest',inline:'nearest'});}}
+addEventListener('resize',()=>moveTo($('.tab[aria-selected="true"]'),false));
+document.querySelectorAll('.tab').forEach(t=>{t.setAttribute('aria-controls','v-'+t.dataset.view);t.onclick=()=>setView(t.dataset.view);t.onkeydown=e=>{const tabs=[...document.querySelectorAll('.tab')].filter(t=>!t.hidden);let index=tabs.indexOf(t);if(e.key==='ArrowRight')index=(index+1)%tabs.length;else if(e.key==='ArrowLeft')index=(index+tabs.length-1)%tabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=tabs.length-1;else return;e.preventDefault();tabs[index].focus();setView(tabs[index].dataset.view,false);};});
+views.forEach(v=>{$('#v-'+v).setAttribute('role','tabpanel');$('#v-'+v).setAttribute('aria-labelledby','t-'+v);});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setView(b.dataset.go));
+function renderGuide(){$('#guideContent').querySelectorAll('.topic').forEach(s=>s.hidden=!inTopic(s.dataset.t));}
+function renderModels(){const list=$('#modelList');list.replaceChildren();const models=unit.models.filter(m=>inTopic(m.topic));if(!models.length){list.innerHTML='<p class="empty">No models for this topic yet. Explore the guide or practice questions.</p>';return;}models.forEach(model=>{const host=document.createElement('section');host.className='interactive-model';host.dataset.t=model.topic;list.append(host);mountModel(host,model);});}
+function rebuildPool(){const mode=$('#quizMode').value;quizPool=order.filter(i=>inTopic(unit.questions[i][0])&&(mode==='all'||mode==='unanswered'&&pickedAnswer(i)===undefined||mode==='missed'&&pickedAnswer(i)!==undefined&&pickedAnswer(i)!==unit.questions[i][3]));page=0;}
+function renderQuiz(){
+  const list=$('#qlist');list.replaceChildren();const all=order.filter(i=>inTopic(unit.questions[i][0])),ans=all.filter(i=>pickedAnswer(i)!==undefined).length,right=all.filter(i=>pickedAnswer(i)===unit.questions[i][3]).length;
+  $('#score').textContent=`${ans} / ${all.length} answered · ${right} correct${ans?' ('+Math.round(right/ans*100)+'%)':''}`;
+  page=Math.min(page,Math.max(0,Math.ceil(quizPool.length/pageSize)-1));
+  quizPool.slice(page*pageSize,(page+1)*pageSize).forEach((i,j)=>{
+    const [t,stem,opts,c,why]=unit.questions[i],picked=pickedAnswer(i),d=document.createElement('article');d.className='q';d.dataset.t=t;d.dataset.question=i;
+    d.innerHTML=`<div class="meta">Question ${page*pageSize+j+1} of ${quizPool.length} · Topic ${t}</div><h3 class="stem">${esc(stem)}</h3><div class="opts"></div>`;
+    opts.forEach((txt,index)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<span class="l">${'ABCD'[index]}</span><span>${esc(txt)}</span>`;if(picked!==undefined){b.disabled=true;if(index===c)b.classList.add('right');else if(index===picked)b.classList.add('wrong');}b.onclick=()=>{state[i]=index;save();renderQuiz();const feedback=$(`[data-question="${i}"] .why`);feedback.focus({preventScroll:true});};d.querySelector('.opts').append(b);});
+    if(picked!==undefined){const explanation=document.createElement('div');explanation.tabIndex=-1;explanation.className='why '+(picked===c?'ok':'no');explanation.innerHTML=`<b>${picked===c?'Correct.':'Not quite. Correct answer: '+'ABCD'[c]+'.'}</b>${esc(why)}`;d.append(explanation);
+      const retry=document.createElement('button');retry.className='btn ghost retry';retry.textContent='Try this question again';retry.onclick=()=>{delete state[i];save();renderQuiz();$(`[data-question="${i}"] .opt`).focus({preventScroll:true});};d.append(retry);}
+    list.append(d);
+  });
+  if(!quizPool.length)list.innerHTML='<div class="empty"><h3>No questions in this set.</h3><p>Choose “All questions” or another topic. Missed questions appear here after you answer them.</p></div>';
+  $('#qPage').textContent=quizPool.length?`${page+1} / ${Math.ceil(quizPool.length/pageSize)}`:'0 / 0';$('#qPrev').disabled=page===0;$('#qNext').disabled=(page+1)*pageSize>=quizPool.length;
+}
+$('#quizMode').onchange=()=>{rebuildPool();renderQuiz();};$('#shuffle').onclick=()=>{shuffle(order);rebuildPool();renderQuiz();};$('#reset').onclick=()=>{unit.questions.forEach((q,i)=>{if(inTopic(q[0]))delete state[i];});save();rebuildPool();renderQuiz();};
+function turnPage(delta){page+=delta;renderQuiz();$('#v-quiz').scrollIntoView({block:'start'});$('#qlist .stem')?.setAttribute('tabindex','-1');$('#qlist .stem')?.focus({preventScroll:true});}
+$('#qPrev').onclick=()=>turnPage(-1);$('#qNext').onclick=()=>turnPage(1);
+function cardsIn(){return cardOrder.filter(i=>inTopic(unit.cards[i][0]));}
+function flipCard(){const flip=$('#fc').classList.toggle('flip');$('#fc').setAttribute('aria-pressed',flip);$('#fc .front').setAttribute('aria-hidden',flip);$('#fc .back').setAttribute('aria-hidden',!flip);}
+function renderCards(){const cs=cardsIn();ci=cs.length?ci%cs.length:0;$('#fc').classList.remove('flip');$('#fc').setAttribute('aria-pressed','false');$('#fc .front').setAttribute('aria-hidden','false');$('#fc .back').setAttribute('aria-hidden','true');const [t,term,def]=cs.length?unit.cards[cs[ci]]:['','No flashcards for this topic','Choose another topic.'];$('#fc').dataset.t=t;$('#fcTopic').textContent=t?'TOPIC '+t:'';$('#fcTerm').textContent=term;$('#fcDef').textContent=def;$('#fcCount').textContent=cs.length?`${ci+1} / ${cs.length}`:'0 / 0';$('#prev').disabled=$('#next').disabled=$('#fc').disabled=!cs.length;}
+$('#fc').onclick=flipCard;$('#next').onclick=()=>{ci++;renderCards();};$('#prev').onclick=()=>{const n=cardsIn().length;ci=(ci-1+n)%n;renderCards();};$('#fcShuffle').onclick=()=>{shuffle(cardOrder);ci=0;renderCards();};
+document.addEventListener('keydown',e=>{if(view!=='cards'||e.target.matches('input,textarea,select,button,a,summary'))return;if(e.key==='ArrowRight')$('#next').click();else if(e.key==='ArrowLeft')$('#prev').click();else if(e.key===' '){e.preventDefault();flipCard();}});
+function renderFrq(){const list=$('#frqlist');list.replaceChildren();let n=0;unit.frqs.forEach(([t,p,a],i)=>{if(!inTopic(t))return;const d=document.createElement('article');d.className='q frq';d.dataset.t=t;d.innerHTML=`<div class="meta">Free response ${++n} · Topic ${t}</div><h3 class="stem">${esc(p)}</h3><label class="meta" for="frq${i}">Your answer · saved on this device</label><textarea id="frq${i}" placeholder="Make a claim, use evidence, and explain the mechanism."></textarea><details><summary>Compare with a model answer</summary><p>${esc(a)}</p></details>`;const ta=d.querySelector('textarea');ta.value=typeof state['f'+i]==='string'?state['f'+i]:'';ta.oninput=()=>{state['f'+i]=ta.value;save();};list.append(d);});if(!n)list.innerHTML='<p class="empty">No free-response questions for this topic.</p>';}
+function renderTest(){const l=$('#testlist');l.replaceChildren();if(!unit.test)return;const m=unit.test.mcq,picked=state.tm,d=document.createElement('article');d.className='q test';d.innerHTML=`<div class="meta">Multiple choice · ${esc(m.source)}</div><h3 class="stem">${esc(m.stem)}</h3><div class="opts"></div>`;m.options.forEach((txt,j)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<span class="l">${'ABCD'[j]}</span><span>${esc(txt)}</span>`;if(picked!==undefined){b.disabled=true;if(j===m.answer)b.classList.add('right');else if(j===picked)b.classList.add('wrong');}b.onclick=()=>{state.tm=j;save();renderTest();$('#testlist .why').focus({preventScroll:true});};d.querySelector('.opts').append(b);});if(picked!==undefined){const w=document.createElement('div');w.className='why '+(picked===m.answer?'ok':'no');w.tabIndex=-1;w.innerHTML=`<b>${picked===m.answer?'Correct.':'Not quite. Answer: '+'ABCD'[m.answer]+'.'}</b>${esc(m.why)}`;d.append(w);const retry=document.createElement('button');retry.className='btn ghost retry';retry.textContent='Try again';retry.onclick=()=>{delete state.tm;save();renderTest();};d.append(retry);}l.append(d);
+  const f=unit.test.frq,q=document.createElement('article');q.className='q frq test';q.innerHTML=`<div class="meta">${esc(f.source)}</div><h3 class="stem">${esc(f.setup)}</h3>`+f.parts.map((p,i)=>`<div class="part"><div class="plabel">(${'abcd'[i]}) <span class="verb">${esc(p.verb)}</span></div><p>${esc(p.prompt)}</p><label class="meta" for="tf${i}">Your answer · saved on this device</label><textarea id="tf${i}"></textarea><details><summary>Show model answer and scoring guidance</summary><div class="model"><p>${esc(p.answer)}</p><p class="why-pts"><b>Scoring guidance:</b> ${esc(p.points)}</p></div></details></div>`).join('');q.querySelectorAll('textarea').forEach((ta,i)=>{ta.value=state['tf'+i]||'';ta.oninput=()=>{state['tf'+i]=ta.value;save();};});l.append(q);
+}
+function render(){({guide:renderGuide,models:renderModels,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]();}
+$('#unitPicker').hidden=UNITS.size<2;UNITS.forEach(u=>{const option=document.createElement('option');option.value=u.id;option.textContent=u.label;$('#unitSelect').append(option);});$('#unitSelect').onchange=e=>selectUnit(e.target.value);
+selectUnit(read('apbio:unit','unit3'));moveTo($('.tab[aria-selected="true"]'),false);

@@ -55,3 +55,7 @@ Then open http://localhost:8000.
 - The page must not scroll sideways at 360px width.
 - No console errors.
 - Quiz: answering shows the explanation and updates the score line.
+
+## Expanded review architecture
+
+There are now six views: Guide, Models, Questions, Cards, FRQ, Test Prep. Guide content is in `guide-unit3`, a template in `index.html`. The app clones the selected unit's guide and source templates. `js/units.js` registers unit data before `app.js`; only Unit 3 currently exists. `js/models.js` owns interactive model renderers. See README for the future-unit contract and validation commands. Preserve the original Unit 3 array positions to retain saved answers; append new content. The original class topic numbering intentionally remains, with current-framework mapping disclosed on the site.
