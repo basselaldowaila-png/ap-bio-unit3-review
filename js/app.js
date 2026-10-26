@@ -11,7 +11,7 @@ const pill=document.querySelector(".t-tabs-pill");
 function moveTo(tab,animate){if(!animate){const prev=pill.style.transition;pill.style.transition="none";pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=`${tab.offsetWidth}px`;void pill.offsetWidth;pill.style.transition=prev}else{pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=`${tab.offsetWidth}px`}}
 const activeTab=()=>document.querySelector('.t-tab[aria-selected="true"]');
 addEventListener("resize",()=>moveTo(activeTab(),false));
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{view=t.dataset.view;moveTo(t,true);document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));["guide","quiz","cards","frq"].forEach(v=>document.getElementById("v-"+v).hidden=v!==view);try{localStorage.setItem("apbio3view",view)}catch(e){}render();window.scrollTo({top:0})});
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{view=t.dataset.view;moveTo(t,true);document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));["guide","quiz","cards","frq","test"].forEach(v=>document.getElementById("v-"+v).hidden=v!==view);chips.hidden=view==="test";try{localStorage.setItem("apbio3view",view)}catch(e){}render();window.scrollTo({top:0})});
 
 const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const inTopic=t=>topic==="all"||t===topic;
@@ -57,6 +57,27 @@ function renderFrq(){const l=document.getElementById("frqlist");l.innerHTML="";l
     d.innerHTML=`<div class="meta">Free response ${n} · Topic ${t}</div><div class="stem">${esc(p)}</div><label class="meta" for="frq${i}">Your answer (saved on this device)</label><textarea id="frq${i}"></textarea><details><summary>Show model answer</summary><p style="margin-top:8px">${esc(a)}</p></details>`;
     const ta=d.querySelector("textarea");ta.value=state["f"+i]||"";ta.oninput=()=>{state["f"+i]=ta.value;save()};l.appendChild(d)})}
 
-function render(){({guide:renderGuide,quiz:renderQuiz,cards:renderCards,frq:renderFrq})[view]()}
+function renderTest(){const l=document.getElementById("testlist");l.innerHTML="";
+  // Multiple choice
+  const m=TEST.mcq,picked=state.tm,d=document.createElement("div");d.className="q test";
+  d.innerHTML=`<div class="meta">Multiple choice · ${esc(m.source)}</div><div class="stem">${esc(m.stem)}</div><div class="opts"></div>`;
+  const o=d.querySelector(".opts");
+  m.options.forEach((txt,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span>${esc(txt)}</span>`;
+    if(picked!==undefined){b.disabled=true;if(j===m.answer)b.classList.add("right");else if(j===picked)b.classList.add("wrong")}
+    b.onclick=()=>{state.tm=j;save();renderTest()};o.appendChild(b)});
+  if(picked!==undefined){const w=document.createElement("div");w.className="why "+(picked===m.answer?"ok":"no");
+    w.innerHTML=`<b>${picked===m.answer?"Correct.":"Not quite. Answer: "+"ABCD"[m.answer]+"."}</b>${esc(m.why)}`;d.appendChild(w);
+    const r=document.createElement("button");r.className="btn ghost";r.textContent="Try again";r.style.marginTop="12px";r.onclick=()=>{delete state.tm;save();renderTest()};d.appendChild(r)}
+  l.appendChild(d);
+  // Free response
+  const f=TEST.frq,q=document.createElement("div");q.className="q frq test";
+  q.innerHTML=`<div class="meta">Free response · ${esc(f.source)}</div><div class="stem">${esc(f.setup)}</div>`+f.parts.map((p,i)=>`
+    <div class="part"><div class="plabel">(${"abcd"[i]}) <span class="verb">${esc(p.verb)}</span></div><p>${esc(p.prompt)}</p>
+    <label class="meta" for="tf${i}">Your answer (saved on this device)</label><textarea id="tf${i}"></textarea>
+    <details><summary>Show full-credit answer</summary><div class="model"><p>${esc(p.answer)}</p><p class="why-pts"><b>Why it earns the point:</b> ${esc(p.points)}</p></div></details></div>`).join("");
+  q.querySelectorAll("textarea").forEach((ta,i)=>{ta.value=state["tf"+i]||"";ta.oninput=()=>{state["tf"+i]=ta.value;save()}});
+  l.appendChild(q)}
+
+function render(){({guide:renderGuide,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]()}
 try{const v=localStorage.getItem("apbio3view");if(v)document.querySelector(`.tab[data-view="${v}"]`).click();else render()}catch(e){render()}
 moveTo(activeTab(),false);

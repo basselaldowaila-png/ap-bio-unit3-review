@@ -126,3 +126,14 @@ th,td{border:0;border-bottom:.5px solid var(--line)}
 
 nav.tabs{background:var(--bar)}
 .tab[aria-selected="true"]{color:var(--ink)}
+
+/* Test Prep tab */
+.testhead{padding-block:16px 4px}
+.testhead h2{margin-top:6px}
+.q.test{border-top:4px solid var(--leaf)}
+.part{border-top:.5px solid var(--line);padding-top:14px;margin-top:14px}
+.plabel{font-weight:700;margin-bottom:4px}
+.plabel .verb{color:var(--leaf)}
+.model{background:var(--leaf-soft);border-radius:12px;padding:12px 14px;margin-top:8px}
+.model p:last-child{margin-bottom:0}
+.why-pts{font-size:15px;color:var(--muted)}

@@ -22,6 +22,7 @@
   <button class="tab t-tab" role="tab" id="t-quiz" data-view="quiz" aria-selected="false"><span class="lg">Practice </span>Questions</button>
   <button class="tab t-tab" role="tab" id="t-cards" data-view="cards" aria-selected="false"><span class="lg">Flash</span><span class="sm">Cards</span><span class="lg">cards</span></button>
   <button class="tab t-tab" role="tab" id="t-frq" data-view="frq" aria-selected="false"><span class="lg">Free Response</span><span class="sm">FRQ</span></button>
+  <button class="tab t-tab" role="tab" id="t-test" data-view="test" aria-selected="false"><span class="lg">Test Prep</span><span class="sm">Test</span></button>
 </div></div></nav>
 
 <div class="wrap">
@@ -271,6 +272,16 @@
 
   <!-- ===== FRQ ===== -->
   <div id="v-frq" hidden><div id="frqlist"></div></div>
+
+  <!-- ===== TEST PREP: questions confirmed for the upcoming test ===== -->
+  <div id="v-test" hidden>
+    <div class="testhead">
+      <div class="eyebrow">On your test</div>
+      <h2>Test Prep</h2>
+      <p class="sub">These questions are coming on the test. Answer each one yourself first, then open the full-credit answer to check.</p>
+    </div>
+    <div id="testlist"></div>
+  </div>
   </main>
 </div>
 

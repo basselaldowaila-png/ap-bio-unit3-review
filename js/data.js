@@ -92,3 +92,32 @@ const FRQ=[
 ["3.5","Explain how the structure of the chloroplast allows ATP to be made during the light reactions.","The thylakoid membrane separates the lumen from the stroma. The ETC in this membrane pumps H⁺ into the small lumen space, building a steep concentration gradient. Because the membrane is impermeable to H⁺, the ions can only flow back through ATP synthase, whose rotation powers ADP + Pᵢ → ATP in the stroma, right where the Calvin cycle needs it."]
 ];
 
+
+// Questions confirmed for the upcoming test (Test Prep tab). Paraphrased from the source.
+const TEST={
+  mcq:{
+    source:"Mass of organisms kept in the dark",
+    stem:"A class measured the mass of several living organisms, kept them in the dark for 24 hours with no food, and then measured them again. Every organism had less mass after 24 hours. Which is the best explanation for this change in mass?",
+    options:["Water loss due to evaporation","Cellular respiration","The law of conservation of matter","Growth and reproduction"],
+    answer:1,
+    why:"With no light and no food, the organisms kept themselves alive by breaking down their own stored sugars, fats and proteins in cellular respiration. The carbon and hydrogen in those molecules left the body as CO₂ (breathed out) and H₂O, so the organisms lost mass. A: evaporation alone doesn't explain a steady loss in every living organism; respiration is the main cause. C: conservation of matter says matter isn't destroyed, which is true (it left as CO₂ and water) but doesn't explain the loss. D: growth and reproduction would increase mass, not decrease it."
+  },
+  frq:{
+    source:"AP Biology 2021 FRQ 3 (College Board), paraphrased",
+    setup:"Researchers think resveratrol, a plant compound, improves how mitochondria work. They dissolve resveratrol in DMSO (which passes easily through cell membranes) and add it to mammalian muscle cells growing in a glucose-rich culture medium. Over several time points, ATP production by the cells goes up.",
+    parts:[
+      {verb:"Describe",prompt:"the main advantage for a mammalian muscle cell of using aerobic respiration instead of fermentation.",
+       answer:"Aerobic respiration makes much more ATP from each glucose molecule than fermentation does: about 30–32 ATP compared with only 2 ATP. This is because aerobic respiration fully breaks glucose down through glycolysis, the Krebs cycle and oxidative phosphorylation, using O₂ as the final electron acceptor. Fermentation stops after glycolysis.",
+       points:"Names the advantage (more ATP per glucose) and gives the reason (complete oxidation of glucose / electron transport chain with O₂)."},
+      {verb:"Identify",prompt:"a good negative control that would let the researchers conclude the extra ATP is caused by the resveratrol.",
+       answer:"Muscle cells grown in the same glucose medium under the same conditions that get the same volume of DMSO with no resveratrol in it. ATP is measured at the same time points.",
+       points:"The control must include the DMSO solvent but no resveratrol, so the only difference between groups is the resveratrol. This rules out DMSO itself causing the ATP increase."},
+      {verb:"Predict",prompt:"the effect on short-term ATP production if resveratrol-treated muscle cells are grown in a medium with no glucose or other sugars.",
+       answer:"ATP production will decrease (it will not increase like it did with glucose). Without glucose, glycolysis can't run, so no pyruvate, NADH or FADH₂ is made to feed the Krebs cycle and electron transport chain. Resveratrol may improve the mitochondria, but it doesn't supply the fuel, so the cells make less ATP.",
+       points:"Gives a clear direction (ATP decreases / no increase) for the short term. A one-line prediction is enough for this point; the reasoning helps you be sure."},
+      {verb:"Justify",prompt:"the claim that resveratrol will also increase the cells' oxygen consumption when glucose is not limiting, given that resveratrol increases production of electron transport chain components.",
+       answer:"O₂ is the final electron acceptor at the end of the electron transport chain. More ETC components means more electrons from NADH and FADH₂ can move through the chain at once. Each pair of electrons that reaches the end must be passed to O₂, which combines with H⁺ to form water. So more electron flow through more ETC complexes means more O₂ is used up. Because glucose isn't limiting, there is enough NADH and FADH₂ to keep the extra ETC components busy.",
+       points:"Connects more ETC components to more electron flow, and more electron flow to more O₂ reduced to water as the final electron acceptor."}
+    ]
+  }
+};
