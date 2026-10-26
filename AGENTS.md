@@ -70,3 +70,9 @@ GitHub Pages caches files for 10 minutes. `index.html` loads CSS and JS with `?v
 (`[seconds, label]`), key points (may contain `<b>`/`<i>`), vocab and quick-check questions. Key points are our own
 summaries of each video, not transcripts. Mr. Poser uses current College Board numbering (his 3.1 = this site's 3.1 + 3.2;
 his 3.5 cellular respiration is filed here as topic "3.6", teal). It is the default view for new visitors.
+
+## Hard questions
+
+`js/hard.js` holds AP-exam-level MCQs (data, experiments, predictions). They are appended to `Q` with `q[5]='hard'`,
+and their options are rotated so correct answers spread across A–D. The quiz opens in "Hard (AP exam level)" mode.
+Add new hard questions to the end of `HARD_Q` so saved answers keep their positions.

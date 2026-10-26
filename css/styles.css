@@ -262,3 +262,4 @@ output{font:600 14px var(--mono);color:var(--leaf);margin-left:6px}
 .vs-check details p{margin:0 0 8px;padding:10px 12px;background:var(--leaf-soft);border-radius:10px}
 .vs-done{display:flex;gap:10px;align-items:center;min-height:44px;font-weight:600;cursor:pointer}
 .vs-done input{width:22px;height:22px;accent-color:var(--leaf)}
+.hard-tag{color:var(--bad);font-weight:700}
