@@ -59,3 +59,7 @@ Then open http://localhost:8000.
 ## Expanded review architecture
 
 There are now six views: Guide, Models, Questions, Cards, FRQ, Test Prep. Guide content is in `guide-unit3`, a template in `index.html`. The app clones the selected unit's guide and source templates. `js/units.js` registers unit data before `app.js`; only Unit 3 currently exists. `js/models.js` owns interactive model renderers. See README for the future-unit contract and validation commands. Preserve the original Unit 3 array positions to retain saved answers; append new content. The original class topic numbering intentionally remains, with current-framework mapping disclosed on the site.
+
+## Cache busting
+
+GitHub Pages caches files for 10 minutes. `index.html` loads CSS and JS with `?v=<version>`. When you change any CSS or JS file, bump that version in every `<link>` and `<script>` tag in `index.html`, or phones may run old JS against new HTML and show empty views.
