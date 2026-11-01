@@ -272,3 +272,28 @@ html[data-unit="unit4"]{--leaf:#6b3fd6;--leaf-soft:#efe9fc}
 [data-t="4.4"]{--leaf:#a1367f;--leaf-soft:#fbeaf5}
 [data-t="4.5"]{--leaf:#4b5bb8;--leaf-soft:#e9ecf8}
 [data-t="4.6"]{--leaf:#7a2fa0;--leaf-soft:#f4e9f9}
+
+/* ===== Unit picker: underlined title that opens a menu ===== */
+.brandline{align-items:flex-start;flex-wrap:nowrap}
+.brandline .eyebrow{min-width:0;padding-top:6px}
+.unit-picker{position:relative;flex:none}
+.unit-toggle{display:inline-flex;align-items:center;gap:6px;background:none;border:0;border-bottom:2px solid var(--leaf);padding:6px 2px 4px;min-height:36px;font:700 16px var(--display);letter-spacing:-.01em;color:var(--ink);cursor:pointer}
+.unit-toggle .chev{font-size:12px;color:var(--leaf);transition:transform .2s}
+.unit-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.unit-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:30;list-style:none;margin:0;padding:6px;min-width:250px;max-width:calc(100vw - 32px);background:var(--bg);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.14),0 0 0 .5px var(--line)}
+.unit-menu button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:10px 12px;min-height:44px;cursor:pointer;color:var(--ink);font:15px var(--body)}
+.unit-menu button span{color:var(--muted);font-size:14px}
+.unit-menu button:hover,.unit-menu button:focus-visible{background:var(--fill)}
+.unit-menu button[aria-selected="true"] b{color:var(--leaf)}
+.unit-menu button[aria-selected="true"]{background:var(--leaf-soft)}
+@media (prefers-reduced-motion:reduce){.unit-toggle .chev{transition:none}}
+
+/* ===== Models from the web ===== */
+.web-models{margin-top:8px}
+.web-grid{display:grid;gap:12px}
+@media (min-width:640px){.web-grid{grid-template-columns:1fr 1fr}}
+.web-card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border-radius:16px;padding:16px 18px;border-top:4px solid var(--leaf);color:var(--ink);text-decoration:none;min-width:0}
+.web-card b{font:700 18px/1.25 var(--display)}
+.web-task{color:var(--muted);font-size:15px}
+.web-open{margin-top:auto;padding-top:6px;color:var(--leaf);font-weight:700}
+.web-card:hover .web-open,.web-card:focus-visible .web-open{text-decoration:underline}

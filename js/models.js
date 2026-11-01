@@ -27,6 +27,7 @@ function mountModel(host, model) {
   const text = (x,y,t,extra='') => `<text x="${x}" y="${y}" ${extra}>${t}</text>`;
   const box = (x,y,w,label,active=true) => `<rect x="${x}" y="${y}" width="${w}" height="50" rx="14" fill="${active?'var(--leaf-soft)':'var(--surface)'}" stroke="${active?'var(--leaf)':'var(--line)'}"/>${text(x+w/2,y+31,label,'text-anchor="middle"')}`;
   const axis = `<path d="M60 25V210H570" fill="none" stroke="var(--muted)"/>`;
+  if (typeof MODEL_KINDS !== 'undefined' && MODEL_KINDS[h.kind]) { MODEL_KINDS[h.kind](body, h, {svg, text, box, axis}); return; }
   function steps(light=false) {
     let step=0;
     body.innerHTML=`<div class="step-buttons" aria-label="Model steps">${h.steps.map((s,i)=>`<button class="step-button" data-step="${i}">${i+1}. ${s[0]}</button>`).join('')}</div>${light?'<label class="filter-label">Explore a disruption <select class="disruption"><option value="normal">Normal light reactions</option><option value="dark">Switch off the light</option><option value="leak">Make a proton leak</option><option value="block">Block transfer from PSII</option></select></label>':''}<div class="model-visual"></div><div class="step-explanation" aria-live="polite"></div><div class="model-nav"><button class="btn ghost" data-back>← Back</button><span class="step-count"></span><button class="btn" data-next>Next step →</button></div>`;

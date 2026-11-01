@@ -90,3 +90,15 @@ The Models tab and the "Explore" learning-path step hide when a unit has no mode
 Quiz practice-set options only show if the current unit has questions for them.
 Unit 4 content: `js/unit4-data.js` (TOPICS_U4, Q_U4, CARDS_U4, FRQ_U4) and `js/unit4-videos.js` (VIDEOS_U4).
 Keep MCQ choices similar in length so the correct answer is not the longest one.
+
+## Models (both units)
+
+Unit 4 models live in `js/unit4-models.js` as `UNIT4_MODELS`. New model kinds register in `MODEL_KINDS`
+(signaltypes, pathway, glucose, mitosis, checkpoint); `mountModel()` in `js/models.js` calls them, so every model
+uses the same card layout. Links to outside simulations are `WEB_MODELS_U3` / `WEB_MODELS_U4` (shown under
+"From the web" in the Models tab). Only add web links you have checked load.
+
+## Unit picker
+
+The top-right unit picker is an underlined title button (`#unitToggle`) that opens `#unitMenu`. A hidden `#unitSelect`
+is kept in sync for compatibility.

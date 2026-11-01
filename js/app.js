@@ -20,10 +20,10 @@ function selectUnit(id){
   document.documentElement.dataset.unit=unit.id;
   [...$('#quizMode').options].forEach(o=>{o.hidden=o.disabled=!(o.value==='all'||o.value==='unanswered'||o.value==='missed'||(o.value==='hard'?unit.questions.some(q=>q[5]==='hard'):unit.questions.some(q=>q[6]===o.value)));});
   $('#quizMode').value=unit.defaultQuizMode||'all';
-  const hasModels=unit.models.length>0;$('#t-models').hidden=!hasModels;document.querySelectorAll('.path-models').forEach(e=>e.hidden=!hasModels);[...document.querySelectorAll('.path-link')].filter(b=>!b.hidden).forEach((b,i)=>b.querySelector('b').textContent=String(i).padStart(2,'0'));
+  const hasModels=unit.models.length>0||(unit.webModels||[]).length>0;$('#t-models').hidden=!hasModels;document.querySelectorAll('.path-models').forEach(e=>e.hidden=!hasModels);[...document.querySelectorAll('.path-link')].filter(b=>!b.hidden).forEach((b,i)=>b.querySelector('b').textContent=String(i).padStart(2,'0'));
   $('#videoTitle').textContent=`Learn ${unit.label.split(' · ')[0]} from scratch.`;$('#videoIntro').textContent=unit.videoIntro||'';
   $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent='AP Biology · '+unit.label;$('#unitDescription').textContent=unit.description||'';
-  document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;write('apbio:unit',unit.id);
+  document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;$('#unitToggleLabel').textContent=unit.label.split(' · ')[0];document.querySelectorAll('#unitMenu [data-unit]').forEach(b=>b.setAttribute('aria-selected',b.dataset.unit===unit.id));write('apbio:unit',unit.id);
   $('#unitSources').replaceChildren(...(unit.sourcesTemplate?[document.getElementById(unit.sourcesTemplate).content.cloneNode(true)]:[]));
   $('#guideContent').replaceChildren(document.getElementById(unit.guideTemplate).content.cloneNode(true));
   $('#guideIntro').innerHTML=`<div class="view-heading"><div class="eyebrow">Start with the big idea</div><h2>Build understanding, one topic at a time.</h2><p>${esc(unit.scope||'Choose a topic, read its big idea, then explore and practice.')}</p></div>`;
@@ -31,14 +31,14 @@ function selectUnit(id){
     const big=section.querySelector('.big');
     if(big){const details=document.createElement('details');details.className='guide-details';const summary=document.createElement('summary');summary.textContent='Read detailed notes';details.append(summary);while(big.nextSibling)details.append(big.nextSibling);section.append(details);}
     const actions=document.createElement('div');actions.className='topic-actions';
-    [...(unit.models.length?[['models','Explore models']]:[]),['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value=unit.defaultQuizMode||'all';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
+    [...(unit.models.length||(unit.webModels||[]).length?[['models','Explore models']]:[]),['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value=unit.defaultQuizMode||'all';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
   });
   $('#chips').replaceChildren();
   unit.topics.forEach(([k,label])=>{const b=document.createElement('button');b.className='chip';b.textContent=label;b.dataset.k=k;if(k!=='all')b.dataset.t=k;b.onclick=()=>setTopic(k);$('#chips').append(b);});
   $('#t-test').hidden=!unit.test;
   rebuildPool();updateProgress();renderChips();
   let last='videos';try{last=localStorage.getItem(unit.viewKey||`apbio:${unit.id}:view`)||'videos';}catch{}
-  setView(views.includes(last)&&!(last==='test'&&!unit.test)&&!(last==='models'&&!unit.models.length)?last:'videos',false);
+  setView(views.includes(last)&&!(last==='test'&&!unit.test)&&!(last==='models'&&!unit.models.length&&!(unit.webModels||[]).length)?last:'videos',false);
 }
 function renderChips(){$('#chips').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===topic));}
 function setTopic(k){topic=k;ci=0;page=0;renderChips();rebuildPool();render();}
@@ -50,7 +50,10 @@ document.querySelectorAll('.tab').forEach(t=>{t.setAttribute('aria-controls','v-
 views.forEach(v=>{$('#v-'+v).setAttribute('role','tabpanel');$('#v-'+v).setAttribute('aria-labelledby','t-'+v);});
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setView(b.dataset.go));
 function renderGuide(){$('#guideContent').querySelectorAll('.topic').forEach(s=>s.hidden=!inTopic(s.dataset.t));}
-function renderModels(){const list=$('#modelList');list.replaceChildren();const models=unit.models.filter(m=>inTopic(m.topic));if(!models.length){list.innerHTML='<p class="empty">No models for this topic yet. Explore the guide or practice questions.</p>';return;}models.forEach(model=>{const host=document.createElement('section');host.className='interactive-model';host.dataset.t=model.topic;list.append(host);mountModel(host,model);});}
+function renderModels(){const list=$('#modelList');list.replaceChildren();const models=unit.models.filter(m=>inTopic(m.topic)),web=(unit.webModels||[]).filter(m=>inTopic(m.topic));
+  if(!models.length&&!web.length){list.innerHTML='<p class="empty">No models for this topic yet. Explore the guide or practice questions.</p>';return;}
+  models.forEach(model=>{const host=document.createElement('section');host.className='interactive-model';host.dataset.t=model.topic;list.append(host);mountModel(host,model);});
+  if(web.length){const sec=document.createElement('section');sec.className='web-models';sec.innerHTML=`<div class="view-heading"><div class="eyebrow">From the web</div><h2>More interactive models</h2><p>Free simulations and animations from science education sites. They open in a new tab.</p></div><div class="web-grid">${web.map(m=>`<a class="web-card" data-t="${esc(m.topic)}" href="${esc(m.url)}" target="_blank" rel="noopener"><span class="model-tag">Topic ${esc(m.topic)} · ${esc(m.source)}</span><b>${esc(m.title)}</b><span class="web-task">${esc(m.task)}</span><span class="web-open">Open model ↗</span></a>`).join('')}</div>`;list.append(sec);}}
 function rebuildPool(){const mode=$('#quizMode').value;quizPool=order.filter(i=>inTopic(unit.questions[i][0])&&(mode==='all'||mode==='hard'&&unit.questions[i][5]==='hard'||(mode==='enzymes'||mode==='carriers')&&unit.questions[i][6]===mode||mode==='unanswered'&&pickedAnswer(i)===undefined||mode==='missed'&&pickedAnswer(i)!==undefined&&pickedAnswer(i)!==unit.questions[i][3]));page=0;}
 function renderQuiz(){
   const list=$('#qlist');list.replaceChildren();const all=order.filter(i=>inTopic(unit.questions[i][0])),ans=all.filter(i=>pickedAnswer(i)!==undefined).length,right=all.filter(i=>pickedAnswer(i)===unit.questions[i][3]).length;
@@ -94,5 +97,11 @@ function renderVideos(){const list=$('#videoList');list.replaceChildren();const 
     d.querySelector('input').onchange=e=>{if(e.target.checked)state['vid:'+v.id]=1;else delete state['vid:'+v.id];save();renderVideos();};
     list.append(d);});}
 function render(){({videos:renderVideos,guide:renderGuide,models:renderModels,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]();}
-$('#unitPicker').hidden=UNITS.size<2;UNITS.forEach(u=>{const option=document.createElement('option');option.value=u.id;option.textContent=u.label;$('#unitSelect').append(option);});$('#unitSelect').onchange=e=>selectUnit(e.target.value);
+$('#unitPicker').hidden=UNITS.size<2;UNITS.forEach(u=>{const option=document.createElement('option');option.value=u.id;option.textContent=u.label;$('#unitSelect').append(option);
+  const li=document.createElement('li');const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.dataset.unit=u.id;b.innerHTML=`<b>${esc(u.label.split(' · ')[0])}</b><span>${esc(u.label.split(' · ').slice(1).join(' · '))}</span>`;b.onclick=()=>{closeUnitMenu();if(u.id!==unit.id)selectUnit(u.id);$('#unitToggle').focus();};li.append(b);$('#unitMenu').append(li);});
+$('#unitSelect').onchange=e=>selectUnit(e.target.value);
+function closeUnitMenu(){$('#unitMenu').hidden=true;$('#unitToggle').setAttribute('aria-expanded','false');}
+$('#unitToggle').onclick=e=>{e.stopPropagation();const open=$('#unitMenu').hidden;$('#unitMenu').hidden=!open;$('#unitToggle').setAttribute('aria-expanded',open);if(open)$('#unitMenu').querySelector('[aria-selected="true"]')?.focus();};
+document.addEventListener('click',e=>{if(!$('#unitPicker').contains(e.target))closeUnitMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#unitMenu').hidden){closeUnitMenu();$('#unitToggle').focus();}});
 selectUnit(read('apbio:unit','unit3'));moveTo($('.tab[aria-selected="true"]'),false);
