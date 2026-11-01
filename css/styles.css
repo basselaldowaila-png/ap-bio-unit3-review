@@ -65,7 +65,7 @@ svg text{fill:var(--ink);font-family:var(--body)}
 .opts{display:grid;gap:8px}
 .opt{text-align:left;font:16px/1.4 var(--body);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;display:flex;gap:10px}
 .opt .l{font:500 14px var(--mono);color:var(--muted);flex:none}
-.opt:hover:not(:disabled){border-color:var(--leaf)}
+@media (hover:hover) and (pointer:fine){.opt:hover:not(:disabled){border-color:var(--leaf)}}
 .opt:disabled{cursor:default}
 .opt.right{background:var(--good-soft);border-color:var(--good)}
 .opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
@@ -147,7 +147,7 @@ nav.tabs{background:var(--bar)}
 .learning-path{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;color:var(--muted)}
 .path-link{font:600 14px var(--body);color:var(--ink);background:var(--fill);border:0;border-radius:999px;min-height:36px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .path-link b{font:600 12px var(--mono);color:var(--leaf)}
-.path-link:hover{background:var(--leaf-soft)}
+@media (hover:hover) and (pointer:fine){.path-link:hover{background:var(--leaf-soft)}}
 
 .unit-progress{margin-top:14px;max-width:420px}
 .unit-progress>div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:6px}
@@ -244,12 +244,12 @@ output{font:600 14px var(--mono);color:var(--leaf);margin-left:6px}
 .vs-thumb{position:relative;display:block;border-radius:12px;overflow:hidden;aspect-ratio:16/9;max-width:100%;background:var(--fill)}
 .vs-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .vs-play{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.75);color:#fff;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
-.vs-thumb:hover .vs-play,.vs-thumb:focus-visible .vs-play{background:var(--leaf)}
+.vs-thumb:focus-visible .vs-play{background:var(--leaf)}@media (hover:hover) and (pointer:fine){.vs-thumb:hover .vs-play{background:var(--leaf)}}
 .vs-goal{margin:0}
 .vs-sec>summary,.vs-check summary{cursor:pointer;color:var(--leaf);font-weight:700;min-height:44px;display:flex;align-items:center}
 .vs-chapters{list-style:none;padding:0;margin:0;display:grid;gap:2px}
 .vs-chapters a{display:flex;gap:12px;align-items:center;min-height:40px;padding:4px 10px;border-radius:8px;color:var(--ink);text-decoration:none}
-.vs-chapters a:hover{background:var(--leaf-soft)}
+@media (hover:hover) and (pointer:fine){.vs-chapters a:hover{background:var(--leaf-soft)}}
 .vs-chapters span{font:600 13px var(--mono);color:var(--leaf);min-width:42px;font-variant-numeric:tabular-nums}
 .vs-points{margin:0;padding-left:20px;display:grid;gap:8px}
 .vs-points li{margin:0}
@@ -283,7 +283,7 @@ html[data-unit="unit4"]{--leaf:#6b3fd6;--leaf-soft:#efe9fc}
 .unit-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:30;list-style:none;margin:0;padding:6px;min-width:250px;max-width:calc(100vw - 32px);background:var(--bg);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.14),0 0 0 .5px var(--line)}
 .unit-menu button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:10px 12px;min-height:44px;cursor:pointer;color:var(--ink);font:15px var(--body)}
 .unit-menu button span{color:var(--muted);font-size:14px}
-.unit-menu button:hover,.unit-menu button:focus-visible{background:var(--fill)}
+.unit-menu button:focus-visible{background:var(--fill)}@media (hover:hover) and (pointer:fine){.unit-menu button:hover{background:var(--fill)}}
 .unit-menu button[aria-selected="true"] b{color:var(--leaf)}
 .unit-menu button[aria-selected="true"]{background:var(--leaf-soft)}
 @media (prefers-reduced-motion:reduce){.unit-toggle .chev{transition:none}}
@@ -296,4 +296,43 @@ html[data-unit="unit4"]{--leaf:#6b3fd6;--leaf-soft:#efe9fc}
 .web-card b{font:700 18px/1.25 var(--display)}
 .web-task{color:var(--muted);font-size:15px}
 .web-open{margin-top:auto;padding-top:6px;color:var(--leaf);font-weight:700}
-.web-card:hover .web-open,.web-card:focus-visible .web-open{text-decoration:underline}
+.web-card:focus-visible .web-open{text-decoration:underline}@media (hover:hover) and (pointer:fine){.web-card:hover .web-open{text-decoration:underline}}
+
+/* ===== Figures in questions ===== */
+.q-fig{background:var(--bg);border-radius:12px;padding:10px;margin:0 0 12px;overflow-x:auto}
+.q-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.q-fig .tbl{margin:0}
+.gdiag{padding:10px}
+.gdiag svg{display:block;width:100%;height:auto;max-width:460px;margin:0 auto}
+section.topic .gdiag{background:var(--bg)}
+/* ===== Self-scoring rubric ===== */
+.rubric{margin-top:10px;display:grid;gap:2px;background:var(--bg);border-radius:12px;padding:10px 12px}
+.rubric .vs-done{font-weight:500;align-items:flex-start;line-height:1.35;padding-block:6px}
+.rubric .vs-done input{margin-top:1px;flex:none}
+.rub-total{margin:6px 0 0;font-weight:700}
+.model .vs-done{font-weight:600;margin-top:4px}
+/* ===== Practice test ===== */
+.mock-rules{margin:0 0 12px;padding-left:20px;display:grid;gap:4px;color:var(--muted)}
+.mock-hist{margin:0 0 12px}
+.mock-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 58px);z-index:4;display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:8px 10px 8px 14px;margin-top:12px;box-shadow:0 0 0 .5px var(--line)}
+.mock-timer{font:700 18px var(--mono);font-variant-numeric:tabular-nums}
+.mock-timer.low{color:var(--bad)}
+.opt.picked{border-color:var(--leaf);background:var(--leaf-soft);box-shadow:inset 0 0 0 1.5px var(--leaf)}
+.mock-end{display:flex;justify-content:center;padding-block:8px 20px}
+.mock-score{font:800 44px/1 var(--display);letter-spacing:-.03em;margin:4px 0}
+.mock-score span{font-size:20px;color:var(--muted);font-weight:700;margin-left:6px}
+.mock-topics{display:grid;gap:8px;margin:12px 0}
+.mt-row{display:grid;grid-template-columns:80px 1fr 40px;align-items:center;gap:10px;font-size:15px}
+.mt-row b{text-align:right;font-variant-numeric:tabular-nums}
+.mt-bar{height:10px;border-radius:999px;background:var(--fill);overflow:hidden}
+.mt-bar span{display:block;height:100%;background:var(--leaf);border-radius:999px}
+.mock-tip{margin:4px 0 12px}
+
+/* ===== Native feel on phones (mobile-native skill) ===== */
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+button,a,[role="button"],.opt,.tab,.chip,.step-button,.path-link,.unit-toggle,summary,label.vs-done{touch-action:manipulation}
+button,[role="button"],.tab,.chip,.step-button,.path-link,.unit-toggle,summary{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select{font-size:16px}
+.web-card:active,.vs-thumb:active,.vs-chapters a:active,.unit-menu button:active,.path-link:active,.step-button:active,summary:active{opacity:.75}
+.chips,.step-buttons{overscroll-behavior-x:contain}
+.unit-menu{overscroll-behavior:contain}
