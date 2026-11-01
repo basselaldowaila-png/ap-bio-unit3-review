@@ -6,7 +6,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="AP Biology Unit 3 study guide, practice questions, flashcards and free-response prompts for topics 3.1–3.5.">
 <title>AP Bio Unit 3 Review</title>
-<link rel="stylesheet" href="css/styles.css?v=20261026f">
+<link rel="stylesheet" href="css/styles.css?v=20261101b">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -14,7 +14,7 @@
   <header class="top">
     <div class="brandline"><div class="eyebrow" id="unitEyebrow">AP Biology · Unit 3</div><label id="unitPicker" hidden>Unit <select id="unitSelect"></select></label></div>
     <h1 id="unitTitle">Enzymes, Energy &amp; Photosynthesis</h1>
-    <p class="sub" id="unitDescription">Understand the process. Explore a model. Put it into practice.</p><div class="learning-path"><button class="path-link" data-go="videos"><b>00</b> Watch</button><span aria-hidden="true">→</span><button class="path-link" data-go="guide"><b>01</b> Learn</button><span aria-hidden="true">→</span><button class="path-link" data-go="models"><b>02</b> Explore</button><span aria-hidden="true">→</span><button class="path-link" data-go="quiz"><b>03</b> Practice</button></div><div id="unitProgress" class="unit-progress"></div>
+    <p class="sub" id="unitDescription">Understand the process. Explore a model. Put it into practice.</p><div class="learning-path"><button class="path-link" data-go="videos"><b>00</b> Watch</button><span aria-hidden="true">→</span><button class="path-link" data-go="guide"><b>01</b> Learn</button><span aria-hidden="true" class="path-models">→</span><button class="path-link path-models" data-go="models"><b>02</b> Explore</button><span aria-hidden="true">→</span><button class="path-link" data-go="quiz"><b>03</b> Practice</button></div><div id="unitProgress" class="unit-progress"></div>
   </header>
 </div>
 <nav class="tabs"><div class="wrap"><div class="tabrow t-tabs" role="tablist">
@@ -33,8 +33,8 @@
   <main id="main" tabindex="-1">
   <!-- ===== VIDEOS: start-from-scratch path with Gabe Poser's videos ===== -->
   <div id="v-videos" hidden>
-    <div class="view-heading"><div class="eyebrow">Start here</div><h2>Learn Unit 3 from scratch.</h2>
-      <p>Five videos by Gabe Poser (PoseKnows Biology), in order. For each one: watch it, read the key points, answer the quick check out loud, then tick it off. After all five, go to Questions and Test Prep.</p>
+    <div class="view-heading"><div class="eyebrow">Start here</div><h2 id="videoTitle">Learn this unit from scratch.</h2>
+      <p id="videoIntro"></p>
       <p class="score" id="videoProgress"></p></div>
     <div id="videoList"></div>
   </div>
@@ -90,6 +90,157 @@
   </main>
 </div>
 
+<template id="sources-unit4"><footer class="sources"><details><summary>Sources &amp; course scope</summary><p>Unit 4 follows the current College Board numbering (4.1–4.6) and Gabe Poser's PoseKnows Biology videos. Notes and questions are original summaries and practice, not official AP questions.</p><p><a href="https://apcentral.collegeboard.org/media/pdf/ap-biology-course-and-exam-description.pdf">College Board course framework</a> · <a href="https://www.youtube.com/@poseknowsbio">PoseKnows Biology on YouTube</a></p></details></footer></template>
+<template id="guide-unit4">
+    <section class="topic" data-t="4.1">
+      <div class="tnum">TOPIC 4.1</div>
+      <h2>Cell Communication</h2>
+      <div class="big"><b>Big idea:</b> Cells send chemical (or contact) signals to each other. How far the signal travels decides the type: touching, nearby or through the blood.</div>
+      <h3>Three types of signaling</h3>
+      <div class="tbl"><table>
+        <tr><th>Type</th><th>Distance</th><th>How</th><th>Example</th></tr>
+        <tr><td><b>Direct contact</b></td><td>Touching</td><td>Surface proteins on one cell bind proteins on the other</td><td>Immune cells (helper T, killer T)</td></tr>
+        <tr><td><b>Local</b></td><td>Short</td><td>Chemicals released into the space around nearby cells</td><td>Neurotransmitters at a synapse, plant stomata closing, morphogens</td></tr>
+        <tr><td><b>Endocrine</b></td><td>Long</td><td>Hormones travel in the blood</td><td>Insulin, growth hormone, thyroid hormones</td></tr>
+      </table></div>
+      <h3>Examples to know</h3>
+      <ul>
+        <li><b>Quorum sensing:</b> bacteria release a chemical as they divide. High concentration = crowded colony = stop dividing.</li>
+        <li><b>Morphogens:</b> concentration gradients in an embryo tell cells which tissue to become.</li>
+        <li><b>Plants:</b> after detecting a pathogen, cells signal guard cells to close the stomata (less infection, but less CO₂).</li>
+        <li><b>Insulin:</b> made by the pancreas, travels in the blood, tells cells to take in glucose.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>A cell only responds to a signal if it has the <b>matching receptor</b>. A hormone reaches nearly every cell in the blood, but only target cells respond.</div>
+    </section>
+
+    <section class="topic" data-t="4.2">
+      <div class="tnum">TOPIC 4.2</div>
+      <h2>Introduction to Signal Transduction</h2>
+      <div class="big"><b>Big idea:</b> Signal transduction links <b>reception → transduction → response</b>. The signal is passed along inside the cell like a baton in a relay race.</div>
+      <h3>Reception</h3>
+      <ul>
+        <li>A <b>ligand</b> (signal molecule) binds a <b>specific receptor</b>, like an enzyme and its substrate.</li>
+        <li><b>Ligand-binding domain:</b> the part of a membrane receptor outside the cell. <b>Intracellular domain:</b> the part inside, which changes shape when the ligand binds.</li>
+        <li><b>Intracellular receptors:</b> small or nonpolar ligands (like steroid hormones) cross the membrane and bind receptors inside. These often change <b>gene expression</b>.</li>
+      </ul>
+      <h3>Transduction</h3>
+      <ul>
+        <li><b>GPCR (G-protein-coupled receptor):</b> the ligand-bound receptor makes a <b>G protein</b> swap GDP for GTP, activating it. The G protein then activates <b>adenylyl cyclase</b>.</li>
+        <li><b>Kinases</b> move a phosphate from ATP to another protein (<b>phosphorylation</b>), switching it on. A <b>phosphorylation cascade</b> is a chain of kinases.</li>
+        <li><b>Second messengers</b> like <b>cAMP</b> (made from ATP by adenylyl cyclase) are made in large amounts and <b>amplify</b> the signal.</li>
+        <li><b>Ligand-gated ion channels</b> open or close when a ligand binds, letting ions in by facilitated diffusion.</li>
+      </ul>
+      <div class="tbl"><table>
+        <tr><th>Molecule</th><th>Job</th></tr>
+        <tr><td>Receptor</td><td>Binds the ligand and changes shape</td></tr>
+        <tr><td>G protein</td><td>Relay switch, turned on by GTP</td></tr>
+        <tr><td>Adenylyl cyclase</td><td>Makes cAMP from ATP</td></tr>
+        <tr><td>cAMP</td><td>Second messenger, amplifies the signal</td></tr>
+        <tr><td>Kinase</td><td>Phosphorylates (activates) the next protein</td></tr>
+      </table></div>
+      <div class="tip"><div class="eyebrow">Exam tip</div>"What if a step is blocked?" Steps <b>before</b> the block still happen; everything <b>after</b> it stops. If a step is <b>always on</b>, everything after it stays on, even with no signal.</div>
+    </section>
+
+    <section class="topic" data-t="4.3">
+      <div class="tnum">TOPIC 4.3</div>
+      <h2>Signal Transduction Pathways</h2>
+      <div class="big"><b>Big idea:</b> Signals can change a cell's <b>gene expression</b>, its <b>function</b>, or trigger <b>apoptosis</b>. Changing any part of a pathway changes the response.</div>
+      <h3>Kinds of responses</h3>
+      <ul>
+        <li><b>Gene expression:</b> which proteins a cell makes. This is how cells with the same DNA <b>differentiate</b> into different cell types.</li>
+        <li><b>Cell function:</b> e.g., breaking down glycogen, opening channels, dividing.</li>
+        <li><b>Apoptosis:</b> programmed cell death for damaged or dangerous cells.</li>
+      </ul>
+      <h3>The epinephrine pathway (liver cell)</h3>
+      <p>Epinephrine → <b>GPCR</b> → G protein → <b>adenylyl cyclase</b> → <b>cAMP</b> → <b>protein kinase</b> → <b>glycogen phosphorylase</b> → glycogen broken into <b>glucose</b> → energy for fight or flight. Understand the logic; you don't need to memorize every step.</p>
+      <h3>When pathways change</h3>
+      <ul>
+        <li><b>Mutations</b> in a receptor, kinase or other protein can block a pathway or leave it stuck "on."</li>
+        <li><b>Toxins and drugs:</b> tetrodotoxin blocks neuron ion channels; an anthrax toxin disrupts adenylyl cyclase (and cAMP).</li>
+        <li>The same signal can cause different responses in different cells, because they have different receptors and pathways (epinephrine: faster heartbeat vs. glucose release).</li>
+      </ul>
+      <h3>More examples</h3>
+      <ul>
+        <li><b>Cytokines:</b> immune signals that start inflammation.</li>
+        <li><b>Yeast pheromones:</b> trigger mating ("shmoo" formation).</li>
+        <li><b>Ethylene:</b> triggers fruit ripening.</li>
+        <li><b>Quorum sensing:</b> changes bacterial gene expression to stop dividing.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>A receptor or kinase that's <b>always active</b> can make cells divide with no signal. That's a common route to cancer.</div>
+    </section>
+
+    <section class="topic" data-t="4.4">
+      <div class="tnum">TOPIC 4.4</div>
+      <h2>Feedback</h2>
+      <div class="big"><b>Big idea:</b> <b>Negative feedback</b> counteracts a change to keep homeostasis. <b>Positive feedback</b> amplifies a change to finish a task quickly.</div>
+      <h3>Feedback loop parts</h3>
+      <p><b>Stimulus</b> → <b>sensor</b> (receptor) → <b>control center</b> (compares to the set point, often the hypothalamus) → <b>effector</b> → <b>response</b>.</p>
+      <div class="tbl"><table>
+        <tr><th></th><th>Negative feedback</th><th>Positive feedback</th></tr>
+        <tr><td>Effect on stimulus</td><td>Counteracts it</td><td>Amplifies it</td></tr>
+        <tr><td>Set point</td><td>Returns to it</td><td>Moves further away (temporarily)</td></tr>
+        <tr><td>Examples</td><td>Temperature (shivering, sweating), blood glucose</td><td>Childbirth, lactation, blood clotting, fruit ripening</td></tr>
+        <tr><td>Ends when</td><td>Always running</td><td>The task is done</td></tr>
+      </table></div>
+      <h3>Blood glucose</h3>
+      <ul>
+        <li><b>High glucose:</b> pancreas <b>beta cells</b> release <b>insulin</b> → cells take in glucose, the liver stores glycogen → glucose falls.</li>
+        <li><b>Low glucose:</b> pancreas <b>alpha cells</b> release <b>glucagon</b> → the liver breaks down glycogen and releases glucose → glucose rises.</li>
+        <li><b>Type 1 diabetes:</b> no insulin (beta cells destroyed). <b>Type 2:</b> insulin is made, but cells respond poorly.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>"Negative" doesn't mean bad. Ask: does the response push the variable <b>back</b> (negative) or <b>further</b> the same way (positive)?</div>
+    </section>
+
+    <section class="topic" data-t="4.5">
+      <div class="tnum">TOPIC 4.5</div>
+      <h2>Cell Cycle</h2>
+      <div class="big"><b>Big idea:</b> Eukaryotic cells grow and copy their DNA in <b>interphase</b>, then divide by <b>mitosis</b> and <b>cytokinesis</b> into two <b>identical</b> daughter cells.</div>
+      <div class="tbl"><table>
+        <tr><th>Phase</th><th>What happens</th></tr>
+        <tr><td><b>G1</b></td><td>Growth, organelles copied, normal work</td></tr>
+        <tr><td><b>S</b></td><td>DNA replicated → sister chromatids</td></tr>
+        <tr><td><b>G2</b></td><td>Proteins, ATP and centrosomes made to prepare for division</td></tr>
+        <tr><td><b>G0</b></td><td>Not dividing (most neurons, muscle cells)</td></tr>
+        <tr><td><b>Prophase</b></td><td>Chromosomes condense, spindle forms, nuclear envelope breaks down</td></tr>
+        <tr><td><b>Metaphase</b></td><td>Chromosomes line up in the middle</td></tr>
+        <tr><td><b>Anaphase</b></td><td>Sister chromatids pulled to opposite poles (shortest phase)</td></tr>
+        <tr><td><b>Telophase</b></td><td>Nuclear envelopes reform, spindle breaks down</td></tr>
+        <tr><td><b>Cytokinesis</b></td><td>Cytoplasm splits: cleavage furrow (animals), cell plate (plants)</td></tr>
+      </table></div>
+      <h3>Chromosome vocabulary</h3>
+      <ul>
+        <li><b>Chromatin:</b> loose DNA. Before division it wraps around <b>histones</b> and condenses into <b>chromosomes</b>.</li>
+        <li><b>Sister chromatids:</b> two identical copies joined at the <b>centromere</b>. The <b>centrosome</b> is different: it organizes the spindle.</li>
+        <li>Mitosis is used for <b>growth</b>, <b>tissue repair</b> and <b>asexual reproduction</b>.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>In a microscope count, the share of cells in a phase reflects the share of <b>time</b> spent in it. Most cells are in interphase, so it's the longest part of the cycle.</div>
+    </section>
+
+    <section class="topic" data-t="4.6">
+      <div class="tnum">TOPIC 4.6</div>
+      <h2>Regulation of the Cell Cycle</h2>
+      <div class="big"><b>Big idea:</b> <b>Checkpoints</b> controlled by <b>cyclins</b> and <b>CDKs</b> decide whether a cell moves forward. When checkpoints and apoptosis both fail, the result can be <b>cancer</b>.</div>
+      <h3>Checkpoints</h3>
+      <div class="tbl"><table>
+        <tr><th>Checkpoint</th><th>Checks before…</th><th>If it fails</th></tr>
+        <tr><td><b>G1</b></td><td>Copying DNA (S phase)</td><td>Damaged DNA gets copied</td></tr>
+        <tr><td><b>G2</b></td><td>Starting mitosis</td><td>Cell divides with incomplete or damaged DNA</td></tr>
+        <tr><td><b>M</b></td><td>Anaphase (chromosomes attached and lined up)</td><td>Daughter cells get the wrong number of chromosomes</td></tr>
+      </table></div>
+      <h3>Cyclins and CDKs</h3>
+      <ul>
+        <li><b>Cyclin</b> levels rise and fall at specific points in the cycle. <b>CDK</b> levels stay fairly constant.</li>
+        <li>When enough cyclin binds its <b>CDK</b>, the CDK becomes active and phosphorylates proteins that push the cell into the next phase.</li>
+        <li>Breaking down the cyclin switches the CDK off again.</li>
+      </ul>
+      <h3>When control fails</h3>
+      <ul>
+        <li>If a checkpoint fails, the cell may be signaled to undergo <b>apoptosis</b>.</li>
+        <li>If it also avoids apoptosis, it divides uncontrollably: <b>cancer</b>. Tumors can <b>metastasize</b> through the blood or lymph.</li>
+      </ul>
+      <div class="tip"><div class="eyebrow">Exam tip</div>A CDK stuck "on" (or a cyclin that's never broken down) means the cell keeps getting the go-ahead, leading to <b>uncontrolled division</b>.</div>
+    </section>
+</template>
 <template id="sources-unit3">  <footer class="sources"><details><summary>Sources &amp; course scope</summary><p>This site keeps your original class labels (3.1–3.5). In the current College Board framework, enzymes are 3.1, environment 3.2, cellular energy 3.3, and photosynthesis 3.4. This focused review does not cover the whole AP course or all of Unit 3. Detailed Calvin-cycle bookkeeping and free-energy calculations are enrichment.</p><p><a href="https://apcentral.collegeboard.org/media/pdf/ap-biology-course-and-exam-description.pdf">College Board course framework</a> · <a href="https://openstax.org/books/biology-2e/pages/6-5-enzymes">Enzymes</a> · <a href="https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate">ATP</a> · <a href="https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules">Calvin cycle</a> · <a href="https://apcentral.collegeboard.org/media/pdf/ap21-apc-biology-q3.pdf">2021 FRQ 3 scoring resource</a></p><p>Practice questions and models are original teaching material. Historical College Board links may redirect as older papers are archived.</p></details></footer></template>
 <template id="guide-unit3">
     <section class="topic" data-t="3.1">
@@ -302,12 +453,14 @@
       <div class="tip"><div class="eyebrow">Exam tip</div>Separate the disruptions: blocking linear electron flow reduces NADPH and proton pumping. A proton leak directly weakens the gradient and lowers ATP production; NADPH production need not stop immediately. In both cases, limited ATP can slow the Calvin cycle.</div>
     </section>
 </template>
-<script src="js/data.js?v=20261026f"></script>
-<script src="js/videos.js?v=20261026f"></script>
-<script src="js/hard.js?v=20261026f"></script>
-<script src="js/sets.js?v=20261026f"></script>
-<script src="js/models.js?v=20261026f"></script>
-<script src="js/units.js?v=20261026f"></script>
-<script src="js/app.js?v=20261026f"></script>
+<script src="js/data.js?v=20261101b"></script>
+<script src="js/videos.js?v=20261101b"></script>
+<script src="js/hard.js?v=20261101b"></script>
+<script src="js/sets.js?v=20261101b"></script>
+<script src="js/unit4-data.js?v=20261101b"></script>
+<script src="js/unit4-videos.js?v=20261101b"></script>
+<script src="js/models.js?v=20261101b"></script>
+<script src="js/units.js?v=20261101b"></script>
+<script src="js/app.js?v=20261101b"></script>
 </body>
 </html>

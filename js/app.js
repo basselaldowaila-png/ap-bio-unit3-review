@@ -11,12 +11,17 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 const inTopic=t=>topic==='all'||t===topic;
 const pickedAnswer=i=>Number.isInteger(state[i])&&state[i]>=0&&state[i]<4?state[i]:undefined;
 function updateProgress(){const total=unit.questions.length,answered=unit.questions.filter((_,i)=>pickedAnswer(i)!==undefined).length,correct=unit.questions.filter((q,i)=>pickedAnswer(i)===q[3]).length;
-  $('#unitProgress').innerHTML=`<div><span>${unit.questions.length} questions · ${unit.models.length} models</span><span>${answered}/${total} answered · ${correct} correct</span></div><progress max="${total||1}" value="${answered}" aria-label="Questions answered"></progress>`;
+  $('#unitProgress').innerHTML=`<div><span>${unit.questions.length} questions${unit.models.length?` · ${unit.models.length} models`:''}</span><span>${answered}/${total} answered · ${correct} correct</span></div><progress max="${total||1}" value="${answered}" aria-label="Questions answered"></progress>`;
 }
 function selectUnit(id){
   unit=UNITS.get(id)||UNITS.values().next().value;
   state=read(unit.storageKey||`apbio:${unit.id}`,{});if(!state||typeof state!=='object'||Array.isArray(state))state={};
-  topic='all';ci=0;page=0;order=unit.questions.map((_,i)=>i);cardOrder=unit.cards.map((_,i)=>i);$('#quizMode').value='enzymes';
+  topic='all';ci=0;page=0;order=unit.questions.map((_,i)=>i);cardOrder=unit.cards.map((_,i)=>i);
+  document.documentElement.dataset.unit=unit.id;
+  [...$('#quizMode').options].forEach(o=>{o.hidden=o.disabled=!(o.value==='all'||o.value==='unanswered'||o.value==='missed'||(o.value==='hard'?unit.questions.some(q=>q[5]==='hard'):unit.questions.some(q=>q[6]===o.value)));});
+  $('#quizMode').value=unit.defaultQuizMode||'all';
+  const hasModels=unit.models.length>0;$('#t-models').hidden=!hasModels;document.querySelectorAll('.path-models').forEach(e=>e.hidden=!hasModels);[...document.querySelectorAll('.path-link')].filter(b=>!b.hidden).forEach((b,i)=>b.querySelector('b').textContent=String(i).padStart(2,'0'));
+  $('#videoTitle').textContent=`Learn ${unit.label.split(' · ')[0]} from scratch.`;$('#videoIntro').textContent=unit.videoIntro||'';
   $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent='AP Biology · '+unit.label;$('#unitDescription').textContent=unit.description||'';
   document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;write('apbio:unit',unit.id);
   $('#unitSources').replaceChildren(...(unit.sourcesTemplate?[document.getElementById(unit.sourcesTemplate).content.cloneNode(true)]:[]));
@@ -26,14 +31,14 @@ function selectUnit(id){
     const big=section.querySelector('.big');
     if(big){const details=document.createElement('details');details.className='guide-details';const summary=document.createElement('summary');summary.textContent='Read detailed notes';details.append(summary);while(big.nextSibling)details.append(big.nextSibling);section.append(details);}
     const actions=document.createElement('div');actions.className='topic-actions';
-    [['models','Explore models'],['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value='enzymes';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
+    [...(unit.models.length?[['models','Explore models']]:[]),['quiz','Practice this topic']].forEach(([v,label])=>{const b=document.createElement('button');b.className='btn ghost';b.textContent=label;b.onclick=()=>{if(v==='quiz')$('#quizMode').value=unit.defaultQuizMode||'all';setTopic(section.dataset.t);setView(v);};actions.append(b)});section.append(actions);
   });
   $('#chips').replaceChildren();
   unit.topics.forEach(([k,label])=>{const b=document.createElement('button');b.className='chip';b.textContent=label;b.dataset.k=k;if(k!=='all')b.dataset.t=k;b.onclick=()=>setTopic(k);$('#chips').append(b);});
   $('#t-test').hidden=!unit.test;
   rebuildPool();updateProgress();renderChips();
   let last='videos';try{last=localStorage.getItem(unit.viewKey||`apbio:${unit.id}:view`)||'videos';}catch{}
-  setView(views.includes(last)&&!(last==='test'&&!unit.test)?last:'videos',false);
+  setView(views.includes(last)&&!(last==='test'&&!unit.test)&&!(last==='models'&&!unit.models.length)?last:'videos',false);
 }
 function renderChips(){$('#chips').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===topic));}
 function setTopic(k){topic=k;ci=0;page=0;renderChips();rebuildPool();render();}
@@ -75,7 +80,7 @@ function renderTest(){const l=$('#testlist');l.replaceChildren();if(!unit.test)r
   const f=unit.test.frq,q=document.createElement('article');q.className='q frq test';q.innerHTML=`<div class="meta">${esc(f.source)}</div><h3 class="stem">${esc(f.setup)}</h3>`+f.parts.map((p,i)=>`<div class="part"><div class="plabel">(${'abcd'[i]}) <span class="verb">${esc(p.verb)}</span></div><p>${esc(p.prompt)}</p><label class="meta" for="tf${i}">Your answer · saved on this device</label><textarea id="tf${i}"></textarea><details><summary>Show model answer and scoring guidance</summary><div class="model"><p>${esc(p.answer)}</p><p class="why-pts"><b>Scoring guidance:</b> ${esc(p.points)}</p></div></details></div>`).join('');q.querySelectorAll('textarea').forEach((ta,i)=>{ta.value=state['tf'+i]||'';ta.oninput=()=>{state['tf'+i]=ta.value;save();};});l.append(q);
 }
 function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
-function renderVideos(){const list=$('#videoList');list.replaceChildren();const vids=typeof VIDEOS==='undefined'?[]:VIDEOS;const done=vids.filter(v=>state['vid:'+v.id]).length;
+function renderVideos(){const list=$('#videoList');list.replaceChildren();const vids=unit.videos||[];const done=vids.filter(v=>state['vid:'+v.id]).length;
   $('#videoProgress').textContent=`${done} of ${vids.length} videos done`;
   vids.forEach((v,i)=>{const url=`https://www.youtube.com/watch?v=${v.id}`;const d=document.createElement('article');d.className='video-step';d.dataset.t=v.topic;const watched=!!state['vid:'+v.id];
     d.innerHTML=`<div class="vs-head"><span class="vs-num" aria-hidden="true">${watched?'✓':i+1}</span><div><div class="meta">Step ${i+1} · Mr. Poser ${esc(v.poser)} · ${esc(v.classTopics)}</div><h3>${esc(v.title)}</h3></div></div>

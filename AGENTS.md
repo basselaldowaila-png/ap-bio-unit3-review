@@ -80,3 +80,13 @@ Add new hard questions to the end of `HARD_Q` so saved answers keep their positi
 ## Focused practice sets
 
 `js/sets.js` adds two hard sets shown in the Quiz "Practice set" menu: `ENZYME_Q` (enzymes only, no amino acids) and `CARRIER_Q` (ATP, ADP, NADH, NADPH, FADH₂ and their jobs). Each question is written with the correct answer first; the loader rotates options and tags `q[6]` with the set name. The quiz opens on the Enzymes set. The student was told amino acids are not on their test, so keep amino acids out of questions.
+
+## Multiple units (Unit 3 and Unit 4)
+
+Units are registered in `js/units.js`. Each unit has its own data, `videos`, `defaultQuizMode`, `videoIntro`,
+storage keys, and guide/sources templates in `index.html`. The app sets `<html data-unit="…">` when a unit is selected;
+Unit 4 is purple (`html[data-unit="unit4"]` and `[data-t="4.x"]` rules in `css/styles.css`), Unit 3 stays blue.
+The Models tab and the "Explore" learning-path step hide when a unit has no models; Test Prep hides when `test` is null.
+Quiz practice-set options only show if the current unit has questions for them.
+Unit 4 content: `js/unit4-data.js` (TOPICS_U4, Q_U4, CARDS_U4, FRQ_U4) and `js/unit4-videos.js` (VIDEOS_U4).
+Keep MCQ choices similar in length so the correct answer is not the longest one.

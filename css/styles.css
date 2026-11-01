@@ -263,3 +263,12 @@ output{font:600 14px var(--mono);color:var(--leaf);margin-left:6px}
 .vs-done{display:flex;gap:10px;align-items:center;min-height:44px;font-weight:600;cursor:pointer}
 .vs-done input{width:22px;height:22px;accent-color:var(--leaf)}
 .hard-tag{color:var(--bad);font-weight:700}
+
+/* ===== Unit 4: purple ===== */
+html[data-unit="unit4"]{--leaf:#6b3fd6;--leaf-soft:#efe9fc}
+[data-t="4.1"]{--leaf:#6b3fd6;--leaf-soft:#efe9fc}
+[data-t="4.2"]{--leaf:#8a3fc4;--leaf-soft:#f5ebfb}
+[data-t="4.3"]{--leaf:#5a4fcf;--leaf-soft:#ecebfb}
+[data-t="4.4"]{--leaf:#a1367f;--leaf-soft:#fbeaf5}
+[data-t="4.5"]{--leaf:#4b5bb8;--leaf-soft:#e9ecf8}
+[data-t="4.6"]{--leaf:#7a2fa0;--leaf-soft:#f4e9f9}
