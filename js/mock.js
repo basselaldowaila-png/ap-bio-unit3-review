@@ -55,7 +55,7 @@ function renderMock() {
   if (!mock || mock.unit !== unit.id) {
     const hist = state.mockHistory || [];
     const card = document.createElement('article'); card.className = 'q mock-start'; card.dataset.t = '';
-    card.innerHTML = `<div class="meta">Practice test</div><h3 class="stem">${T.count} questions · ${T.minutes} minutes</h3><ul class="mock-rules"><li>Questions come from all six topics and change every attempt.</li><li>Answers stay hidden until you submit, like the real test.</li><li>The timer is AP pace: 1.5 minutes per question. It submits automatically at 0:00.</li></ul>${hist.length ? `<p class="mock-hist"><b>Your last scores:</b> ${hist.slice(-5).map(h => `${h.score}/${h.total}`).join(' · ')}</p>` : ''}<button class="btn" id="mockStart">Start practice test</button>`;
+    card.innerHTML = `<div class="meta">Practice test</div><h3 class="stem">${T.count} questions · ${T.minutes} minutes</h3><ul class="mock-rules"><li>Questions come from every topic and change every attempt.</li><li>Answers stay hidden until you submit, like the real test.</li><li>The timer is AP pace: 1.5 minutes per question. It submits automatically at 0:00.</li></ul>${hist.length ? `<p class="mock-hist"><b>Your last scores:</b> ${hist.slice(-5).map(h => `${h.score}/${h.total}`).join(' · ')}</p>` : ''}<button class="btn" id="mockStart">Start practice test</button>`;
     l.append(card);
     $('#mockStart').onclick = () => { mock = {unit: unit.id, qs: mockPick(), ans: {}, start: Date.now(), done: false}; startMockTimer(); renderTest(); window.scrollTo({top: 0, behavior: 'instant'}); };
   } else if (!mock.done) {

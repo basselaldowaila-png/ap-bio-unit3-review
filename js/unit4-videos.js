@@ -2,7 +2,7 @@
 // Same format as js/videos.js. Key points are our own summaries of each video, not transcripts.
 const VIDEOS_U4 = [
 {
-  id:'2TDUrMFwulI', poser:'4.1', topic:'4.1', classTopics:'Topic 4.1',
+  id:'2TDUrMFwulI', poser:'4.1', topic:'4.1', classTopics:'Your class: 4.1',
   title:'Cell Communication', length:'14:29',
   goal:'Name the three ways cells signal each other and give an example of each.',
   chapters:[[5,'Unit 4 intro'],[51,'Why cells communicate'],[97,'Three types of signaling'],[142,'Direct contact (immune cells)'],[278,'Local signaling: synapses'],[369,'Plants close their stomata'],[416,'Quorum sensing'],[507,'Morphogens'],[555,'Endocrine signaling'],[601,'Insulin'],[647,'Growth hormone and thyroid'],[692,'Estrogen and testosterone'],[784,'Recap']],
@@ -25,7 +25,7 @@ const VIDEOS_U4 = [
   ]
 },
 {
-  id:'s40dVRFqo98', poser:'4.2', topic:'4.2', classTopics:'Topic 4.2',
+  id:'s40dVRFqo98', poser:'4.2', topic:'4.2', classTopics:'Your class: 4.2',
   title:'Introduction to Signal Transduction', length:'17:06',
   goal:'Explain how a signal outside the cell turns into a response inside it.',
   chapters:[[2,'Intro'],[94,'From signal to response'],[140,'What signal transduction is'],[230,'Ligands and receptors'],[320,'Receptor domains'],[411,'Intracellular receptors and GPCRs'],[501,'Kinases'],[638,'Phosphorylation cascades'],[683,'Second messengers (fight or flight)'],[774,'cAMP'],[868,'Ligand-gated ion channels'],[913,'Recap']],
@@ -48,7 +48,7 @@ const VIDEOS_U4 = [
   ]
 },
 {
-  id:'X5kFTeCOOuw', poser:'4.3', topic:'4.3', classTopics:'Topic 4.3',
+  id:'X5kFTeCOOuw', poser:'4.3', topic:'4.3', classTopics:'Your class: 4.3–4.4',
   title:'Signal Transduction Pathways', length:'21:28',
   goal:'Describe the kinds of responses signals cause and predict what happens when a pathway is changed.',
   chapters:[[2,'Intro'],[140,'Signals change gene expression'],[277,'Cell differentiation'],[322,'Apoptosis'],[368,'When pathways are altered'],[415,'Tetrodotoxin and anthrax'],[552,'Quorum sensing and gene expression'],[644,'Epinephrine pathway'],[779,'G protein → adenylyl cyclase → cAMP'],[871,'Glycogen phosphorylase'],[916,'Cytokines'],[1007,'Yeast pheromones (shmoo)'],[1143,'Ethylene and ripening'],[1188,'Recap']],
@@ -70,7 +70,7 @@ const VIDEOS_U4 = [
   ]
 },
 {
-  id:'mL2-1dGD-Cc', poser:'4.4', topic:'4.4', classTopics:'Topic 4.4',
+  id:'mL2-1dGD-Cc', poser:'4.4', topic:'4.5', classTopics:'Your class: 4.5',
   title:'Feedback', length:'20:49',
   goal:'Tell negative from positive feedback and walk through blood glucose regulation.',
   chapters:[[2,'Intro'],[48,'Homeostasis'],[183,'What feedback is'],[229,'Sensor, control center, effector'],[411,'Getting hot: sweating'],[456,'Negative feedback'],[502,'Blood glucose'],[592,'Insulin'],[684,'Glucagon'],[775,'Positive feedback'],[867,'Blood clotting'],[913,'Lactation'],[1003,'Childbirth'],[1139,'Ethylene ripening'],[1184,'Recap']],
@@ -92,7 +92,7 @@ const VIDEOS_U4 = [
   ]
 },
 {
-  id:'h8Cc9u0Ozjc', poser:'4.5', topic:'4.5', classTopics:'Topic 4.5',
+  id:'h8Cc9u0Ozjc', poser:'4.5', topic:'4.6', classTopics:'Your class: 4.6',
   title:'Cell Cycle', length:'17:51',
   goal:'Describe each phase of the cell cycle and of mitosis in order.',
   chapters:[[2,'What the cell cycle is'],[92,'Checkpoints and go-ahead signals'],[137,'Interphase: G1, S, G2'],[274,'G0'],[319,'What mitosis is'],[409,'Growth, repair, asexual reproduction'],[455,'Phases overview'],[500,'Prophase'],[591,'Chromatin, chromosomes, sister chromatids'],[773,'Metaphase'],[818,'Anaphase'],[863,'Telophase'],[909,'Cytokinesis'],[955,'Recap']],
@@ -106,7 +106,7 @@ const VIDEOS_U4 = [
     '<b>Anaphase:</b> sister chromatids are <b>pulled apart</b> to opposite poles (the shortest phase). <b>Telophase:</b> nuclear envelopes reform and the spindle breaks down. <b>Cytokinesis:</b> the cytoplasm splits: a <b>cleavage furrow</b> in animal cells, a <b>cell plate</b> in plant cells.'
   ],
   vocab:[['Interphase','G1 + S + G2, when the cell grows and copies its DNA.'],['S phase','When DNA is replicated.'],['G0','Non-dividing state.'],['Sister chromatids','Two identical copies of a chromosome joined at the centromere.'],['Centromere','Where sister chromatids are joined.'],['Cytokinesis','Splitting of the cytoplasm into two cells.']],
-  note:'Order trick for mitosis: <b>P-M-A-T</b> (Prophase, Metaphase, Anaphase, Telophase), then cytokinesis. DNA is copied in <b>S phase</b>, not during mitosis.',
+  note:'Your class splits mitosis into <b>5 stages</b>: Prophase, <b>Prometaphase</b>, Metaphase, Anaphase, Telophase (+ cytokinesis). Mr. Poser includes the nuclear envelope breaking down in prophase; your notes call that part prometaphase, when microtubules attach to the <b>kinetochores</b>. DNA is copied in <b>S phase</b>, not during mitosis.',
   check:[
     ['In which phase is DNA copied?','S phase of interphase.'],
     ['What happens in anaphase?','Sister chromatids are pulled apart to opposite ends of the cell.'],
@@ -114,7 +114,7 @@ const VIDEOS_U4 = [
   ]
 },
 {
-  id:'tmZk9KvxtrU', poser:'4.6', topic:'4.6', classTopics:'Topic 4.6',
+  id:'tmZk9KvxtrU', poser:'4.6', topic:'4.7', classTopics:'Your class: 4.7',
   title:'Regulation of the Cell Cycle', length:'11:59',
   goal:'Explain how checkpoints, cyclins and CDKs control the cycle, and how failure leads to cancer.',
   chapters:[[5,'Intro'],[50,'Why regulation matters'],[95,'Checkpoints: G1, G2, M'],[187,'Cyclins'],[278,'Cyclin-dependent kinases'],[369,'When checkpoints fail'],[460,'Apoptosis'],[505,'Cancer'],[642,'Recap']],

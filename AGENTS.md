@@ -112,3 +112,11 @@ is kept in sync for compatibility.
   AP pace 1.5 min/question, auto-submit, per-topic score breakdown, review, retake).
 - Guide diagrams for 4.2, 4.4, 4.5 and 4.6 sit before each topic's "Big idea" in `guide-unit4`.
 - Mobile: hover styles are gated by `@media (hover:hover) and (pointer:fine)`; keep inputs at 16px+ so iOS doesn't zoom.
+
+## Unit 4 class numbering and class notes
+
+Unit 4 uses the student's class numbering (2019 CED): 4.1 Cell Communication, 4.2 Intro to Signal Transduction,
+4.3–4.4 Signal Transduction + Changes (one topic key "4.3"), 4.5 Feedback, 4.6 Cell Cycle, 4.7 Regulation.
+Gabe Poser's videos use 4.1–4.6, so each video shows both numbers. The class uses Biology in Focus and counts
+5 mitosis stages (including prometaphase). `js/unit4-notes.js` adds questions (set "notes"), flashcards and FRQs
+built around the class notes, in our own words — don't copy the teacher's slides or questions verbatim.

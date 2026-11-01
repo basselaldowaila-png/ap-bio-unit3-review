@@ -82,7 +82,8 @@ MODEL_KINDS.mitosis = (body, h, {svg, text}) => {
     ['G1', 'The cell grows, copies its organelles and does its job. DNA is loose chromatin.'],
     ['S', 'DNA is replicated. Each chromosome now has two identical sister chromatids.'],
     ['G2', 'The cell makes proteins, ATP and centrosomes to get ready to divide.'],
-    ['Prophase', 'Chromosomes condense into X shapes, the spindle forms, centrosomes move to the poles and the nuclear envelope breaks down.'],
+    ['Prophase', 'Chromatin condenses into X-shaped chromosomes, nucleoli disappear, the spindle starts forming and centrosomes move apart.'],
+    ['Prometaphase', 'The nuclear envelope breaks into pieces and spindle microtubules attach to the kinetochores on each chromosome.'],
     ['Metaphase', 'Chromosomes line up across the middle of the cell. The M checkpoint checks that every one is attached.'],
     ['Anaphase', 'Sister chromatids are pulled apart to opposite poles. This is the shortest phase.'],
     ['Telophase', 'Nuclear envelopes reform around each set of chromosomes and the spindle breaks down.'],
@@ -101,10 +102,11 @@ MODEL_KINDS.mitosis = (body, h, {svg, text}) => {
       case 0: return cell(120) + nuc() + `<path d="M280 110 q10 -12 20 0 t20 0M285 140 q10 12 20 0 t20 0" stroke="var(--leaf)" stroke-width="4" fill="none"/>`;
       case 1: return cell(125) + nuc() + `<path d="M280 108 q10 -12 20 0 t20 0M280 116 q10 -12 20 0 t20 0M285 138 q10 12 20 0 t20 0M285 146 q10 12 20 0 t20 0" stroke="var(--leaf)" stroke-width="4" fill="none"/>`;
       case 2: return cell(135) + nuc() + `<circle cx="230" cy="70" r="8" fill="${sun}"/><circle cx="244" cy="70" r="8" fill="${sun}"/>` + X(290, 125) + X(315, 125);
-      case 3: return cell(140) + nuc(cx, true, 55) + spindle([[285, 105], [315, 145]]) + X(285, 105) + X(315, 145);
-      case 4: return cell(140) + `<path d="M300 40V210" stroke="var(--line)" stroke-dasharray="5 5"/>` + spindle([[300, 90], [300, 125], [300, 160]]) + X(300, 90) + X(300, 125) + X(300, 160);
-      case 5: return cell(160, 90) + spindle([[230, 100], [230, 150], [370, 100], [370, 150]]) + [230, 370].map(x => I(x, 100) + I(x, 150)).join('');
-      case 6: return `<path d="M140 125 C140 30, 290 30, 300 70 C310 30, 460 30, 460 125 C460 220, 310 220, 300 180 C290 220, 140 220, 140 125Z" fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="3"/>` + nuc(215, false, 38) + nuc(385, false, 38) + I(205, 125) + I(225, 125) + I(375, 125) + I(395, 125);
+      case 3: return cell(140) + nuc(cx, false, 55) + `<circle cx="${cx - 60}" cy="${cy - 30}" r="8" fill="${sun}"/><circle cx="${cx + 60}" cy="${cy + 30}" r="8" fill="${sun}"/>` + X(285, 105) + X(315, 145);
+      case 4: return cell(140) + nuc(cx, true, 55) + spindle([[285, 105], [315, 145]]) + X(285, 105) + X(315, 145);
+      case 5: return cell(140) + `<path d="M300 40V210" stroke="var(--line)" stroke-dasharray="5 5"/>` + spindle([[300, 90], [300, 125], [300, 160]]) + X(300, 90) + X(300, 125) + X(300, 160);
+      case 6: return cell(160, 90) + spindle([[230, 100], [230, 150], [370, 100], [370, 150]]) + [230, 370].map(x => I(x, 100) + I(x, 150)).join('');
+      case 7: return `<path d="M140 125 C140 30, 290 30, 300 70 C310 30, 460 30, 460 125 C460 220, 310 220, 300 180 C290 220, 140 220, 140 125Z" fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="3"/>` + nuc(215, false, 38) + nuc(385, false, 38) + I(205, 125) + I(225, 125) + I(375, 125) + I(395, 125);
       default: return cell(80, 80, 205) + cell(80, 80, 395) + nuc(205, false, 36) + nuc(395, false, 36) + I(195, 125) + I(215, 125) + I(385, 125) + I(405, 125) + text(300, 235, 'Two identical daughter cells', 'text-anchor="middle"');
     }
   };
@@ -113,7 +115,7 @@ MODEL_KINDS.mitosis = (body, h, {svg, text}) => {
     body.querySelector('[data-back]').disabled = step === 0; body.querySelector('[data-next]').disabled = step === phases.length - 1;
     body.querySelector('.step-count').textContent = `${step + 1} of ${phases.length}`;
     body.querySelector('.model-visual').innerHTML = svg(draw(), `${phases[step][0]} diagram. Schematic, not to scale.`, 250);
-    body.querySelector('.step-explanation').innerHTML = `<div class="flow-caption">${step < 3 ? 'Interphase' : step < 7 ? 'Mitosis' : 'After mitosis'}</div><h4>${phases[step][0]}</h4><p>${phases[step][1]}</p>`;
+    body.querySelector('.step-explanation').innerHTML = `<div class="flow-caption">${step < 3 ? 'Interphase' : step < 8 ? 'Mitosis' : 'After mitosis'}</div><h4>${phases[step][0]}</h4><p>${phases[step][1]}</p>`;
   }
   body.querySelector('[data-back]').onclick = () => { step = Math.max(0, step - 1); update(); };
   body.querySelector('[data-next]').onclick = () => { step = Math.min(phases.length - 1, step + 1); update(); };
@@ -149,9 +151,9 @@ MODEL_KINDS.checkpoint = (body, h, {svg, text}) => {
 const UNIT4_MODELS = [
   {id: 'types', topic: '4.1', title: 'Three ways cells talk', subtitle: 'Pick a signaling type and see how far the signal travels.', kind: 'signaltypes', check: 'Insulin is made in the pancreas but acts on muscle cells. Which type of signaling is it?', answer: 'Endocrine. The hormone travels through the blood to distant target cells.'},
   {id: 'pathway', topic: '4.3', title: 'Follow a signal, then break it', subtitle: 'The epinephrine pathway in a liver cell, and what happens when one step changes.', kind: 'pathway', check: 'A drug blocks the G protein. Is cAMP made?', answer: 'No. Steps after the block stop: adenylyl cyclase is never activated, so no cAMP, and no glucose is released.'},
-  {id: 'glucose', topic: '4.4', title: 'Blood glucose on autopilot', subtitle: 'Drag the glucose level and watch negative feedback respond.', kind: 'glucose', check: 'Why is insulin release an example of negative feedback?', answer: 'High glucose causes insulin release, and insulin lowers glucose. The response opposes the change and returns it to the set point.'},
-  {id: 'mitosis', topic: '4.5', title: 'Step through the cell cycle', subtitle: 'From G1 to two identical daughter cells.', kind: 'mitosis', check: 'In which phase is DNA copied, and in which are sister chromatids separated?', answer: 'DNA is copied in S phase (interphase). Sister chromatids separate in anaphase.'},
-  {id: 'checkpoint', topic: '4.6', title: 'Cyclins, CDKs and checkpoints', subtitle: 'Raise the cyclin level, add DNA damage and break the safety systems.', kind: 'checkpoint', check: 'What two things must fail for a damaged cell to become cancerous?', answer: 'The checkpoint must fail to stop it, and the cell must avoid apoptosis.'}
+  {id: 'glucose', topic: '4.5', title: 'Blood glucose on autopilot', subtitle: 'Drag the glucose level and watch negative feedback respond.', kind: 'glucose', check: 'Why is insulin release an example of negative feedback?', answer: 'High glucose causes insulin release, and insulin lowers glucose. The response opposes the change and returns it to the set point.'},
+  {id: 'mitosis', topic: '4.6', title: 'Step through the cell cycle', subtitle: 'From G1 to two identical daughter cells.', kind: 'mitosis', check: 'In which phase is DNA copied, and in which are sister chromatids separated?', answer: 'DNA is copied in S phase (interphase). Sister chromatids separate in anaphase.'},
+  {id: 'checkpoint', topic: '4.7', title: 'Cyclins, CDKs and checkpoints', subtitle: 'Raise the cyclin level, add DNA damage and break the safety systems.', kind: 'checkpoint', check: 'What two things must fail for a damaged cell to become cancerous?', answer: 'The checkpoint must fail to stop it, and the cell must avoid apoptosis.'}
 ];
 
 // Interactive models from other websites (opened in a new tab).
@@ -164,6 +166,6 @@ const WEB_MODELS_U4 = [
   {topic: '4.1', title: 'Cell communication', source: 'Learn.Genetics (University of Utah)', url: 'https://learn.genetics.utah.edu/content/cells/cellcom/', task: 'Interactive pages on how cells send and receive signals, with receptors and responses.'},
   {topic: '4.2', title: 'Growth factors and signal transduction', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/classroom-resources/cancer-storyline', task: 'Open Lesson 9, "How do growth factors cause cell division?", where growth factors act as ligands that start signaling cascades.'},
   {topic: '4.3', title: 'VEGF animation', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/classroom-resources/vegf', task: 'Watch how tumors use a signaling protein (VEGF) to recruit blood vessels.'},
-  {topic: '4.5', title: 'Unit 4 collection', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/taxonomy/term/534', task: 'BioInteractive\'s AP Unit 4 resources, including "The Eukaryotic Cell Cycle and Cancer" Click & Learn on phases, checkpoints and regulators.'},
-  {topic: '4.6', title: 'Cell division and cancer risk', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/classroom-resources/cell-division-and-cancer-risk', task: 'Analyze data on how the number of cell divisions in a tissue relates to its cancer risk.'}
+  {topic: '4.6', title: 'Unit 4 collection', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/taxonomy/term/534', task: 'BioInteractive\'s AP Unit 4 resources, including "The Eukaryotic Cell Cycle and Cancer" Click & Learn on phases, checkpoints and regulators.'},
+  {topic: '4.7', title: 'Cell division and cancer risk', source: 'HHMI BioInteractive', url: 'https://www.biointeractive.org/classroom-resources/cell-division-and-cancer-risk', task: 'Analyze data on how the number of cell divisions in a tissue relates to its cancer risk.'}
 ];

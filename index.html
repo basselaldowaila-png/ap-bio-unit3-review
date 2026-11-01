@@ -8,7 +8,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="AP Biology Unit 3 study guide, practice questions, flashcards and free-response prompts for topics 3.1–3.5.">
 <title>AP Bio Unit 3 Review</title>
-<link rel="stylesheet" href="css/styles.css?v=20261101e">
+<link rel="stylesheet" href="css/styles.css?v=20261102a">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -56,7 +56,7 @@
         <button class="btn ghost" id="reset">Reset answers</button>
       </div>
     </div>
-    <label class="filter-label" for="quizMode">Practice set <select id="quizMode"><option value="enzymes">Enzymes only (hard)</option><option value="carriers">ATP, ADP, NADH, NADPH (hard)</option><option value="data">Data &amp; graphs (hard)</option><option value="hard">All hard (AP exam level)</option><option value="all">All questions</option><option value="unanswered">Unanswered</option><option value="missed">Review missed questions</option></select></label><div id="qlist"></div><div class="pager"><button class="btn ghost" id="qPrev">← Previous</button><span id="qPage" class="score"></span><button class="btn" id="qNext">Next →</button></div>
+    <label class="filter-label" for="quizMode">Practice set <select id="quizMode"><option value="enzymes">Enzymes only (hard)</option><option value="carriers">ATP, ADP, NADH, NADPH (hard)</option><option value="notes">From your class notes (hard)</option><option value="data">Data &amp; graphs (hard)</option><option value="hard">All hard (AP exam level)</option><option value="all">All questions</option><option value="unanswered">Unanswered</option><option value="missed">Review missed questions</option></select></label><div id="qlist"></div><div class="pager"><button class="btn ghost" id="qPrev">← Previous</button><span id="qPage" class="score"></span><button class="btn" id="qNext">Next →</button></div>
   </div>
 
   <!-- ===== FLASHCARDS ===== -->
@@ -92,7 +92,7 @@
   </main>
 </div>
 
-<template id="sources-unit4"><footer class="sources"><details><summary>Sources &amp; course scope</summary><p>Unit 4 follows the current College Board numbering (4.1–4.6) and Gabe Poser's PoseKnows Biology videos. Notes and questions are original summaries and practice, not official AP questions.</p><p><a href="https://apcentral.collegeboard.org/media/pdf/ap-biology-course-and-exam-description.pdf">College Board course framework</a> · <a href="https://www.youtube.com/@poseknowsbio">PoseKnows Biology on YouTube</a></p></details></footer></template>
+<template id="sources-unit4"><footer class="sources"><details><summary>Sources &amp; course scope</summary><p>Topic numbers match your class (4.1–4.7, the 2019 College Board numbering). Gabe Poser's videos use the newer 4.1–4.6 numbering, so each video shows both. The guide adds detail from your class notes (Biology in Focus page references) and goes beyond them. Notes and questions are original summaries and practice, not official AP questions.</p><p><a href="https://apcentral.collegeboard.org/media/pdf/ap-biology-course-and-exam-description.pdf">College Board course framework</a> · <a href="https://www.youtube.com/@poseknowsbio">PoseKnows Biology on YouTube</a></p></details></footer></template>
 <template id="guide-unit4">
     <section class="topic" data-t="4.1">
       <div class="tnum">TOPIC 4.1</div>
@@ -112,6 +112,15 @@
         <li><b>Plants:</b> after detecting a pathogen, cells signal guard cells to close the stomata (less infection, but less CO₂).</li>
         <li><b>Insulin:</b> made by the pancreas, travels in the blood, tells cells to take in glucose.</li>
       </ul>
+      <h3>More detail on each type</h3>
+      <ul>
+        <li><b>Direct contact through cell junctions:</b> small signal molecules pass straight from one cell's cytoplasm into the next through <b>gap junctions</b> (animals) or <b>plasmodesmata</b> (plants).</li>
+        <li><b>Immune cells:</b> antigen-presenting cells (<b>APCs</b>) activate <b>T cells</b> by direct contact.</li>
+        <li><b>Paracrine signaling:</b> a cell secretes <b>local regulators</b> (for example, growth factors) by exocytosis, and they act on nearby target cells.</li>
+        <li><b>Synaptic signaling:</b> a neuron releases neurotransmitters that diffuse across the <b>synaptic cleft</b> to the target cell.</li>
+        <li><b>Plants signal long distance too:</b> plant hormones travel in the <b>xylem and phloem</b>, or through the <b>air</b> (ethylene).</li>
+      </ul>
+      <p class="ref">Textbook: Biology in Focus p. 108–113, 720</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>A cell only responds to a signal if it has the <b>matching receptor</b>. A hormone reaches nearly every cell in the blood, but only target cells respond.</div>
     </section>
 
@@ -141,11 +150,32 @@
         <tr><td>cAMP</td><td>Second messenger, amplifies the signal</td></tr>
         <tr><td>Kinase</td><td>Phosphorylates (activates) the next protein</td></tr>
       </table></div>
+      <h3>Two kinds of receptors</h3>
+      <div class="tbl"><table>
+        <tr><th></th><th>Plasma membrane receptor</th><th>Intracellular receptor</th></tr>
+        <tr><td>Where</td><td>In the plasma membrane (most common)</td><td>In the cytoplasm or nucleus</td></tr>
+        <tr><td>Ligands</td><td>Polar (water-soluble) or large molecules</td><td>Hydrophobic molecules that cross the membrane</td></tr>
+        <tr><td>Examples</td><td>GPCRs, ligand-gated ion channels</td><td>Steroid hormones, thyroid hormones, nitric oxide gas</td></tr>
+      </table></div>
+      <p>The AP exam won't make you decide whether a molecule is hydrophobic. It will tell you, or say it's a steroid hormone.</p>
+      <h3>Switching signals on and off</h3>
+      <ul>
+        <li><b>Protein kinases</b> add phosphates (<b>phosphorylation</b>), turning proteins on and relaying the signal.</li>
+        <li><b>Protein phosphatases</b> remove phosphates (<b>dephosphorylation</b>), turning proteins off and <b>shutting the pathway down</b> when the signal stops.</li>
+        <li>Every receptor has one part that binds the ligand and another that passes the signal on. A change in shape means a change in function.</li>
+      </ul>
+      <h3>Three kinds of responses</h3>
+      <ul>
+        <li>A protein changes <b>membrane permeability</b> (for example, opens a channel).</li>
+        <li>An <b>enzyme</b> changes a metabolic process.</li>
+        <li>A protein turns <b>genes on or off</b>.</li>
+      </ul>
+      <p class="ref">Textbook: Biology in Focus p. 109–113</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>"What if a step is blocked?" Steps <b>before</b> the block still happen; everything <b>after</b> it stops. If a step is <b>always on</b>, everything after it stays on, even with no signal.</div>
     </section>
 
     <section class="topic" data-t="4.3">
-      <div class="tnum">TOPIC 4.3</div>
+      <div class="tnum">TOPICS 4.3–4.4</div>
       <h2>Signal Transduction Pathways</h2>
       <div class="big"><b>Big idea:</b> Signals can change a cell's <b>gene expression</b>, its <b>function</b>, or trigger <b>apoptosis</b>. Changing any part of a pathway changes the response.</div>
       <h3>Kinds of responses</h3>
@@ -169,11 +199,18 @@
         <li><b>Ethylene:</b> triggers fruit ripening.</li>
         <li><b>Quorum sensing:</b> changes bacterial gene expression to stop dividing.</li>
       </ul>
+      <h3>Changes to pathways (your topic 4.4)</h3>
+      <ul>
+        <li>A mutation in the receptor <b>or in any protein of the pathway</b> changes how the signal is passed on.</li>
+        <li>The result can be no response, a weaker response, or a response that's <b>stuck on</b>, like an always-active kinase or a <b>broken phosphatase</b> that can't switch proteins off. Broken phosphatases are linked to some cancers and to diabetes.</li>
+        <li>Responses can change a cell's <b>phenotype</b> or cause cell death.</li>
+        <li><b>GPCRs</b> are the largest group of membrane receptors and are key to animal senses like smell, taste and vision.</li>
+      </ul>
       <div class="tip"><div class="eyebrow">Exam tip</div>A receptor or kinase that's <b>always active</b> can make cells divide with no signal. That's a common route to cancer.</div>
     </section>
 
-    <section class="topic" data-t="4.4">
-      <div class="tnum">TOPIC 4.4</div>
+    <section class="topic" data-t="4.5">
+      <div class="tnum">TOPIC 4.5</div>
       <h2>Feedback</h2>
       <div class="diagram gdiag"><svg viewBox="0 0 380 284" width="100%" role="img" aria-label="Feedback loop: stimulus (body temperature rises) is detected by a sensor (skin receptors), sent to the control center (hypothalamus), which signals an effector (sweat glands); the response (body cools) counteracts the stimulus, which is negative feedback."><defs><marker id="gA" markerWidth="9" markerHeight="9" refX="5" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="var(--muted)"/></marker></defs><rect x="16" y="20" width="160" height="58" rx="12" fill="var(--surface)" stroke="var(--leaf)" stroke-width="2"/><text x="96" y="46" text-anchor="middle" font-size="15" style="font-weight:700">Stimulus</text><text x="96" y="64" text-anchor="middle" font-size="12.5">body temp rises</text><rect x="204" y="20" width="160" height="58" rx="12" fill="var(--surface)" stroke="var(--leaf)" stroke-width="2"/><text x="284" y="46" text-anchor="middle" font-size="15" style="font-weight:700">Sensor</text><text x="284" y="64" text-anchor="middle" font-size="12.5">skin receptors</text><rect x="204" y="116" width="160" height="58" rx="12" fill="var(--surface)" stroke="var(--leaf)" stroke-width="2"/><text x="284" y="142" text-anchor="middle" font-size="15" style="font-weight:700">Control center</text><text x="284" y="160" text-anchor="middle" font-size="12.5">hypothalamus</text><rect x="204" y="212" width="160" height="58" rx="12" fill="var(--surface)" stroke="var(--leaf)" stroke-width="2"/><text x="284" y="238" text-anchor="middle" font-size="15" style="font-weight:700">Effector</text><text x="284" y="256" text-anchor="middle" font-size="12.5">sweat glands</text><rect x="16" y="212" width="160" height="58" rx="12" fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="2"/><text x="96" y="238" text-anchor="middle" font-size="15" style="font-weight:700">Response</text><text x="96" y="256" text-anchor="middle" font-size="12.5">body cools down</text><path d="M176 49L200 49" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><path d="M284 78L284 112" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><path d="M284 174L284 208" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><path d="M204 241L180 241" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><path d="M96 210V84" stroke="var(--leaf)" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#gA)"/><text x="106" y="140" text-anchor="start" font-size="13" style="fill:var(--leaf);font-weight:700">counteracts</text><text x="106" y="158" text-anchor="start" font-size="13" style="fill:var(--leaf);font-weight:700">the stimulus</text><text x="106" y="176" text-anchor="start" font-size="12">(negative)</text></svg></div>
       <div class="big"><b>Big idea:</b> <b>Negative feedback</b> counteracts a change to keep homeostasis. <b>Positive feedback</b> amplifies a change to finish a task quickly.</div>
@@ -192,13 +229,26 @@
         <li><b>Low glucose:</b> pancreas <b>alpha cells</b> release <b>glucagon</b> → the liver breaks down glycogen and releases glucose → glucose rises.</li>
         <li><b>Type 1 diabetes:</b> no insulin (beta cells destroyed). <b>Type 2:</b> insulin is made, but cells respond poorly.</li>
       </ul>
+      <h3>Set points have a normal range</h3>
+      <p>Body temperature's set point is about 98.6 °F (37 °C), with a normal range of about 97–99 °F. Small changes inside the range are normal; feedback kicks in when a value moves out of it.</p>
+      <ul>
+        <li>Effectors are usually <b>muscles or glands</b>.</li>
+        <li>Another negative feedback example is <b>breathing rate</b>: CO₂ rises, so breathing speeds up, which lowers CO₂.</li>
+      </ul>
+      <h3>When homeostasis fails</h3>
+      <ul>
+        <li>Causes include genetic disorders, drug or alcohol abuse, infections and extreme conditions (heat or cold).</li>
+        <li><b>Disease</b> happens when the body can't maintain homeostasis: in <b>diabetes</b> it can't regulate blood glucose; in <b>cancer</b> it can't regulate cell division.</li>
+        <li>Cells keep homeostasis by communicating through signal transduction pathways.</li>
+      </ul>
+      <p class="ref">Textbook: Biology in Focus p. 641–647</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>"Negative" doesn't mean bad. Ask: does the response push the variable <b>back</b> (negative) or <b>further</b> the same way (positive)?</div>
     </section>
 
-    <section class="topic" data-t="4.5">
-      <div class="tnum">TOPIC 4.5</div>
+    <section class="topic" data-t="4.6">
+      <div class="tnum">TOPIC 4.6</div>
       <h2>Cell Cycle</h2>
-      <div class="diagram gdiag"><svg viewBox="0 0 380 368" width="100%" role="img" aria-label="Cell cycle wheel: G1 about 40 percent of the time, S about 30 percent, G2 about 17 percent, M about 12 percent; G0 branches off from G1 for cells that stop dividing."><defs><marker id="gA" markerWidth="9" markerHeight="9" refX="5" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="var(--muted)"/></marker></defs><path d="M190.0 22.0A106 106 0 0 1 252.3 213.8L224.1 174.9A58 58 0 0 0 190.0 70.0Z" fill="var(--leaf)" fill-opacity=".22" stroke="var(--surface)" stroke-width="3"/><text x="268" y="108" text-anchor="middle" font-size="16" style="font-weight:700">G1</text><path d="M252.3 213.8A106 106 0 0 1 89.2 160.8L134.8 145.9A58 58 0 0 0 224.1 174.9Z" fill="var(--leaf)" fill-opacity=".42" stroke="var(--surface)" stroke-width="3"/><text x="165" y="211" text-anchor="middle" font-size="16" style="font-weight:700">S</text><path d="M89.2 160.8A106 106 0 0 1 115.0 53.0L149.0 87.0A58 58 0 0 0 134.8 145.9Z" fill="var(--leaf)" fill-opacity=".62" stroke="var(--surface)" stroke-width="3"/><text x="110" y="114" text-anchor="middle" font-size="16" style="font-weight:700">G2</text><path d="M115.0 53.0A106 106 0 0 1 190.0 22.0L190.0 70.0A58 58 0 0 0 149.0 87.0Z" fill="var(--sun)" fill-opacity=".9" stroke="var(--surface)" stroke-width="3"/><text x="159" y="57" text-anchor="middle" font-size="16" style="font-weight:700">M</text><path d="M281.589194384894 70.76871946281386L303.9033106157767 59.45227183655285" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><circle cx="318.9" cy="47.5" r="21" fill="var(--surface)" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="319" y="52" text-anchor="middle" font-size="15" style="font-weight:700">G0</text><text x="190" y="124" text-anchor="middle" font-size="13.5" style="font-weight:700">Interphase</text><text x="190" y="142" text-anchor="middle" font-size="12">≈ 87% of time</text><text x="40" y="270" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G1</text><text x="76" y="270" text-anchor="start" font-size="14">cell grows, copies organelles</text><text x="40" y="291" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">S</text><text x="76" y="291" text-anchor="start" font-size="14">DNA is copied (sister chromatids)</text><text x="40" y="312" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G2</text><text x="76" y="312" text-anchor="start" font-size="14">makes proteins, ATP, centrosomes</text><text x="40" y="333" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">M</text><text x="76" y="333" text-anchor="start" font-size="14">mitosis + cytokinesis</text><text x="40" y="354" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G0</text><text x="76" y="354" text-anchor="start" font-size="14">resting, not dividing (e.g., neurons)</text></svg></div>
+      <div class="diagram gdiag"><svg viewBox="0 0 380 368" width="100%" role="img" aria-label="Cell cycle wheel: G1 about 40 percent of the time, S about 30 percent, G2 about 17 percent, M about 12 percent; G0 branches off from G1 for cells that stop dividing."><defs><marker id="gA" markerWidth="9" markerHeight="9" refX="5" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="var(--muted)"/></marker></defs><path d="M190.0 22.0A106 106 0 0 1 252.3 213.8L224.1 174.9A58 58 0 0 0 190.0 70.0Z" fill="var(--leaf)" fill-opacity=".22" stroke="var(--surface)" stroke-width="3"/><text x="268" y="108" text-anchor="middle" font-size="16" style="font-weight:700">G1</text><path d="M252.3 213.8A106 106 0 0 1 89.2 160.8L134.8 145.9A58 58 0 0 0 224.1 174.9Z" fill="var(--leaf)" fill-opacity=".42" stroke="var(--surface)" stroke-width="3"/><text x="165" y="211" text-anchor="middle" font-size="16" style="font-weight:700">S</text><path d="M89.2 160.8A106 106 0 0 1 115.0 53.0L149.0 87.0A58 58 0 0 0 134.8 145.9Z" fill="var(--leaf)" fill-opacity=".62" stroke="var(--surface)" stroke-width="3"/><text x="110" y="114" text-anchor="middle" font-size="16" style="font-weight:700">G2</text><path d="M115.0 53.0A106 106 0 0 1 190.0 22.0L190.0 70.0A58 58 0 0 0 149.0 87.0Z" fill="var(--sun)" fill-opacity=".9" stroke="var(--surface)" stroke-width="3"/><text x="159" y="57" text-anchor="middle" font-size="16" style="font-weight:700">M</text><path d="M281.589194384894 70.76871946281386L303.9033106157767 59.45227183655285" stroke="var(--muted)" stroke-width="2" marker-end="url(#gA)"/><circle cx="318.9" cy="47.5" r="21" fill="var(--surface)" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="319" y="52" text-anchor="middle" font-size="15" style="font-weight:700">G0</text><text x="190" y="124" text-anchor="middle" font-size="13.5" style="font-weight:700">Interphase</text><text x="190" y="142" text-anchor="middle" font-size="12">≈ 90% of time</text><text x="40" y="270" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G1</text><text x="76" y="270" text-anchor="start" font-size="14">cell grows, copies organelles</text><text x="40" y="291" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">S</text><text x="76" y="291" text-anchor="start" font-size="14">DNA is copied (sister chromatids)</text><text x="40" y="312" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G2</text><text x="76" y="312" text-anchor="start" font-size="14">makes proteins, ATP, centrosomes</text><text x="40" y="333" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">M</text><text x="76" y="333" text-anchor="start" font-size="14">mitosis + cytokinesis</text><text x="40" y="354" text-anchor="start" font-size="14" style="font-weight:700;fill:var(--leaf)">G0</text><text x="76" y="354" text-anchor="start" font-size="14">resting, not dividing (e.g., neurons)</text></svg></div>
       <div class="big"><b>Big idea:</b> Eukaryotic cells grow and copy their DNA in <b>interphase</b>, then divide by <b>mitosis</b> and <b>cytokinesis</b> into two <b>identical</b> daughter cells.</div>
       <div class="tbl"><table>
         <tr><th>Phase</th><th>What happens</th></tr>
@@ -206,7 +256,8 @@
         <tr><td><b>S</b></td><td>DNA replicated → sister chromatids</td></tr>
         <tr><td><b>G2</b></td><td>Proteins, ATP and centrosomes made to prepare for division</td></tr>
         <tr><td><b>G0</b></td><td>Not dividing (most neurons, muscle cells)</td></tr>
-        <tr><td><b>Prophase</b></td><td>Chromosomes condense, spindle forms, nuclear envelope breaks down</td></tr>
+        <tr><td><b>Prophase</b></td><td>Chromosomes condense, spindle starts to form</td></tr>
+        <tr><td><b>Prometaphase</b></td><td>Nuclear envelope breaks down, microtubules attach to kinetochores</td></tr>
         <tr><td><b>Metaphase</b></td><td>Chromosomes line up in the middle</td></tr>
         <tr><td><b>Anaphase</b></td><td>Sister chromatids pulled to opposite poles (shortest phase)</td></tr>
         <tr><td><b>Telophase</b></td><td>Nuclear envelopes reform, spindle breaks down</td></tr>
@@ -218,20 +269,47 @@
         <li><b>Sister chromatids:</b> two identical copies joined at the <b>centromere</b>. The <b>centrosome</b> is different: it organizes the spindle.</li>
         <li>Mitosis is used for <b>growth</b>, <b>tissue repair</b> and <b>asexual reproduction</b>.</li>
       </ul>
+      <h3>How DNA is packed</h3>
+      <p>DNA wraps around <b>histone</b> proteins to form <b>nucleosomes</b> ("beads on a string") → strings of nucleosomes make <b>chromatin</b> (loose when the cell isn't dividing) → after DNA replication, chromatin condenses into <b>chromosomes</b>. So chromatin is <b>DNA plus proteins</b>.</p>
+      <ul>
+        <li><b>Kinetochore:</b> proteins on the centromere that connect each sister chromatid to spindle microtubules.</li>
+        <li><b>Genome:</b> prokaryotes have one circular chromosome; eukaryotes have a set number of linear chromosomes (humans 46, chimpanzees 48).</li>
+        <li><b>Somatic (body) cells</b> are <b>diploid</b> (2n; humans 2n = 46, 23 from each parent) and divide by mitosis. <b>Gametes</b> (eggs, sperm) are <b>haploid</b> (n = 23) and come from meiosis in Unit 5.</li>
+      </ul>
+      <h3>Your class counts 5 stages of mitosis</h3>
+      <div class="tbl"><table>
+        <tr><th>Stage</th><th>Key events</th></tr>
+        <tr><td><b>Prophase</b></td><td>Chromatin condenses, nucleoli disappear, the spindle starts forming, centrosomes move apart</td></tr>
+        <tr><td><b>Prometaphase</b></td><td>Nuclear envelope breaks into pieces; microtubules attach to kinetochores</td></tr>
+        <tr><td><b>Metaphase</b></td><td>Chromosomes line up on the metaphase plate; every kinetochore attached</td></tr>
+        <tr><td><b>Anaphase</b></td><td>Sister chromatids separate as microtubules <b>shorten</b>; the cell lengthens</td></tr>
+        <tr><td><b>Telophase + cytokinesis</b></td><td>Two nuclei form, nucleoli reappear, chromosomes loosen. Animals: a <b>contractile ring of actin</b> makes the cleavage furrow. Plants: <b>Golgi vesicles</b> build the cell plate.</td></tr>
+      </table></div>
+      <p>Mr. Poser's video includes prometaphase as part of prophase. On your test, use your class's five stages.</p>
+      <h3>Counting chromosomes and chromatids</h3>
+      <div class="tbl"><table>
+        <tr><th>Cell with 2n = 4</th><th>Chromosomes</th><th>Chromatids</th></tr>
+        <tr><td>G1</td><td>4</td><td>0 (unreplicated)</td></tr>
+        <tr><td>After S phase (G2 to metaphase)</td><td>4</td><td>8</td></tr>
+        <tr><td>Anaphase (chromatids separate)</td><td>8</td><td>0</td></tr>
+        <tr><td>Each daughter cell</td><td>4</td><td>0</td></tr>
+      </table></div>
+      <p>Shortcut: count <b>centromeres</b> to count chromosomes. Once sister chromatids separate in anaphase, each one counts as its own chromosome.</p>
+      <p class="ref">Textbook: Biology in Focus p. 174–189</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>In a microscope count, the share of cells in a phase reflects the share of <b>time</b> spent in it. Most cells are in interphase, so it's the longest part of the cycle.</div>
     </section>
 
-    <section class="topic" data-t="4.6">
-      <div class="tnum">TOPIC 4.6</div>
+    <section class="topic" data-t="4.7">
+      <div class="tnum">TOPIC 4.7</div>
       <h2>Regulation of the Cell Cycle</h2>
       <div class="diagram gdiag"><svg viewBox="0 0 360 230" role="img" aria-label="Graph over one cell cycle: cyclin rises through G1, S and G2, peaks in M and then drops; CDK activity spikes only when cyclin is high; dashed lines mark the G1, G2 and M checkpoints."><path d="M52 16V178H346" fill="none" stroke="var(--muted)" stroke-width="1.5"/><path d="M88.0 178v4" stroke="var(--muted)"/><text x="88" y="194" text-anchor="middle" font-size="12">G1</text><path d="M160.0 178v4" stroke="var(--muted)"/><text x="160" y="194" text-anchor="middle" font-size="12">S</text><path d="M232.0 178v4" stroke="var(--muted)"/><text x="232" y="194" text-anchor="middle" font-size="12">G2</text><path d="M304.0 178v4" stroke="var(--muted)"/><text x="304" y="194" text-anchor="middle" font-size="12">M</text><path d="M48 178.0h4" stroke="var(--muted)"/><text x="45" y="182" text-anchor="end" font-size="12">0</text><path d="M48 100.0h4" stroke="var(--muted)"/><text x="45" y="104" text-anchor="end" font-size="12">50</text><path d="M48 22.0h4" stroke="var(--muted)"/><text x="45" y="26" text-anchor="end" font-size="12">100</text><text x="196" y="224" text-anchor="middle" font-size="13">Cell cycle phase</text><text x="14" y="100" font-size="13" text-anchor="middle" transform="rotate(-90 14 100)">Level (relative)</text><path d="M120.4 26V178" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="120" y="24" text-anchor="middle" font-size="11" style="fill:var(--bad);font-weight:700">G1 ✓</text><path d="M264.4 26V178" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="264" y="24" text-anchor="middle" font-size="11" style="fill:var(--bad);font-weight:700">G2 ✓</text><path d="M300.4 26V178" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="300" y="24" text-anchor="middle" font-size="11" style="fill:var(--bad);font-weight:700">M ✓</text><path d="M52.0 162.4 L124.0 131.2 L196.0 92.2 L268.0 53.2 L307.6 32.9 L329.2 159.3 L340.0 162.4" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linecap="round"/><path d="M52.0 165.5 L268.0 162.4 L286.0 107.8 L307.6 37.6 L325.6 149.9 L340.0 165.5" fill="none" stroke="var(--sun)" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round"/><path d="M60 44h22" stroke="var(--leaf)" stroke-width="3"/><text x="88" y="48" text-anchor="start" font-size="12">Cyclin concentration</text><path d="M60 62h22" stroke="var(--sun)" stroke-width="3" stroke-dasharray="6 4"/><text x="88" y="66" text-anchor="start" font-size="12">CDK activity</text></svg></div>
       <div class="big"><b>Big idea:</b> <b>Checkpoints</b> controlled by <b>cyclins</b> and <b>CDKs</b> decide whether a cell moves forward. When checkpoints and apoptosis both fail, the result can be <b>cancer</b>.</div>
       <h3>Checkpoints</h3>
       <div class="tbl"><table>
-        <tr><th>Checkpoint</th><th>Checks before…</th><th>If it fails</th></tr>
-        <tr><td><b>G1</b></td><td>Copying DNA (S phase)</td><td>Damaged DNA gets copied</td></tr>
-        <tr><td><b>G2</b></td><td>Starting mitosis</td><td>Cell divides with incomplete or damaged DNA</td></tr>
-        <tr><td><b>M</b></td><td>Anaphase (chromosomes attached and lined up)</td><td>Daughter cells get the wrong number of chromosomes</td></tr>
+        <tr><th>Checkpoint</th><th>Checks for</th><th>"Stop" means</th></tr>
+        <tr><td><b>G1</b> (most important)</td><td>Cell size, growth factors, DNA damage</td><td>The cell enters <b>G0</b> (not dividing). Some cells stay there for good (muscle, nerve cells); others can be called back.</td></tr>
+        <tr><td><b>G2</b></td><td>DNA fully copied? DNA damage?</td><td>The cell tries to repair the damage; if it can't, <b>apoptosis</b></td></tr>
+        <tr><td><b>M</b> (spindle)</td><td>Every kinetochore attached to the spindle at metaphase</td><td>Mitosis pauses until all are attached, so chromatids split evenly</td></tr>
       </table></div>
       <h3>Cyclins and CDKs</h3>
       <ul>
@@ -244,6 +322,27 @@
         <li>If a checkpoint fails, the cell may be signaled to undergo <b>apoptosis</b>.</li>
         <li>If it also avoids apoptosis, it divides uncontrollably: <b>cancer</b>. Tumors can <b>metastasize</b> through the blood or lymph.</li>
       </ul>
+      <p>Each cyclin–CDK pair has its own job, and different cyclins peak at different stages.</p>
+      <h3>Signals from outside the cell</h3>
+      <ul>
+        <li><b>Growth factors</b> start pathways that activate CDKs, pushing the cell through the cycle.</li>
+        <li><b>Density-dependent (contact) inhibition:</b> when cells touch their neighbors, receptors start a pathway that stops the cycle in G1. That's why normal cells form a single layer in a dish.</li>
+        <li><b>Anchorage dependence:</b> normal cells must be attached to other cells or the extracellular matrix to divide.</li>
+      </ul>
+      <h3>Normal cells vs. cancer cells</h3>
+      <div class="tbl"><table>
+        <tr><th></th><th>Normal cells</th><th>Cancer cells</th></tr>
+        <tr><td>Checkpoints</td><td>Follow them</td><td>Ignore them</td></tr>
+        <tr><td>Divisions in a dish</td><td>About 20–50, then stop</td><td>Unlimited ("immortal")</td></tr>
+        <tr><td>Big errors</td><td>Apoptosis</td><td>Avoid apoptosis, keep dividing</td></tr>
+        <tr><td>Contact inhibition, anchorage</td><td>Yes</td><td>Lost</td></tr>
+      </table></div>
+      <ul>
+        <li>Cancer starts with <b>mutations</b> in genes that control division (cancer cells often carry around 60 of them).</li>
+        <li><b>Benign tumor:</b> abnormal cells that stay in one place. <b>Malignant tumor:</b> cancerous cells that lose anchorage dependence and can <b>metastasize</b>.</li>
+        <li>Ways to lower your risk: don't smoke or vape, protect your skin from UV, eat well and get regular screenings.</li>
+      </ul>
+      <p class="ref">Textbook: Biology in Focus p. 183–187</p>
       <div class="tip"><div class="eyebrow">Exam tip</div>A CDK stuck "on" (or a cyclin that's never broken down) means the cell keeps getting the go-ahead, leading to <b>uncontrolled division</b>.</div>
     </section>
 </template>
@@ -459,17 +558,18 @@
       <div class="tip"><div class="eyebrow">Exam tip</div>Separate the disruptions: blocking linear electron flow reduces NADPH and proton pumping. A proton leak directly weakens the gradient and lowers ATP production; NADPH production need not stop immediately. In both cases, limited ATP can slow the Calvin cycle.</div>
     </section>
 </template>
-<script src="js/data.js?v=20261101e"></script>
-<script src="js/videos.js?v=20261101e"></script>
-<script src="js/hard.js?v=20261101e"></script>
-<script src="js/sets.js?v=20261101e"></script>
-<script src="js/unit4-data.js?v=20261101e"></script>
-<script src="js/unit4-videos.js?v=20261101e"></script>
-<script src="js/unit4-models.js?v=20261101e"></script>
-<script src="js/unit4-figures.js?v=20261101e"></script>
-<script src="js/mock.js?v=20261101e"></script>
-<script src="js/models.js?v=20261101e"></script>
-<script src="js/units.js?v=20261101e"></script>
-<script src="js/app.js?v=20261101e"></script>
+<script src="js/data.js?v=20261102a"></script>
+<script src="js/videos.js?v=20261102a"></script>
+<script src="js/hard.js?v=20261102a"></script>
+<script src="js/sets.js?v=20261102a"></script>
+<script src="js/unit4-data.js?v=20261102a"></script>
+<script src="js/unit4-videos.js?v=20261102a"></script>
+<script src="js/unit4-models.js?v=20261102a"></script>
+<script src="js/unit4-figures.js?v=20261102a"></script>
+<script src="js/unit4-notes.js?v=20261102a"></script>
+<script src="js/mock.js?v=20261102a"></script>
+<script src="js/models.js?v=20261102a"></script>
+<script src="js/units.js?v=20261102a"></script>
+<script src="js/app.js?v=20261102a"></script>
 </body>
 </html>

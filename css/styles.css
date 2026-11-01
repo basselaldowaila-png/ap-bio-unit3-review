@@ -336,3 +336,9 @@ input,textarea,select{font-size:16px}
 .web-card:active,.vs-thumb:active,.vs-chapters a:active,.unit-menu button:active,.path-link:active,.step-button:active,summary:active{opacity:.75}
 .chips,.step-buttons{overscroll-behavior-x:contain}
 .unit-menu{overscroll-behavior:contain}
+
+/* Unit 4 topics renumbered to class numbering (4.1–4.7) */
+[data-t="4.5"]{--leaf:#a1367f;--leaf-soft:#fbeaf5}
+[data-t="4.6"]{--leaf:#4b5bb8;--leaf-soft:#e9ecf8}
+[data-t="4.7"]{--leaf:#7a2fa0;--leaf-soft:#f4e9f9}
+.ref{font-size:14px;color:var(--muted);margin-top:4px}

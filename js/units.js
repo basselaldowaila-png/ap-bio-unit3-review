@@ -24,5 +24,5 @@ registerUnit({
   storageKey:'apbio4', viewKey:'apbio4view', guideTemplate:'guide-unit4', sourcesTemplate:'sources-unit4',
   topics:TOPICS_U4, questions:Q_U4, cards:CARDS_U4, frqs:FRQ_U4, models:UNIT4_MODELS, webModels:WEB_MODELS_U4, test:TEST_U4, testTitle:TEST_U4.title, testIntro:TEST_U4.intro, videos:VIDEOS_U4, defaultQuizMode:'hard',
   videoIntro:'Six videos by Gabe Poser (PoseKnows Biology), in order. For each one: watch it, read the key points, answer the quick check out loud, then tick it off. After all six, go to Quiz.',
-  scope:'Topics 4.1–4.6 · Cell communication through cell cycle regulation'
+  scope:'Topics 4.1–4.7 · Cell communication through cell cycle regulation'
 });
