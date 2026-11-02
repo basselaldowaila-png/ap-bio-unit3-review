@@ -120,3 +120,11 @@ Unit 4 uses the student's class numbering (2019 CED): 4.1 Cell Communication, 4.
 Gabe Poser's videos use 4.1–4.6, so each video shows both numbers. The class uses Biology in Focus and counts
 5 mitosis stages (including prometaphase). `js/unit4-notes.js` adds questions (set "notes"), flashcards and FRQs
 built around the class notes, in our own words — don't copy the teacher's slides or questions verbatim.
+
+## Site design
+
+Professional shell shared by all units: dark hero band (`img/network.svg` under a per-unit tint) with the brand bar, unit
+picker, title, two calls to action and stats; an underlined top tab bar (sliding `.t-tabs-pill`); a sticky topic sidebar at
+1000px+ (chips on phones); white cards with hairline borders on a cool gray page; a dark footer. Use the system font stack
+and keep accent color for small things: headings stay in `--ink`. The newest shell CSS is at the end of `css/styles.css`
+and intentionally overrides earlier rules.

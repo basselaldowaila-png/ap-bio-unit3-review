@@ -11,7 +11,7 @@ function registerUnit(config) {
   UNITS.set(unit.id,unit);
 }
 registerUnit({
-  id:'unit3', title:'Enzymes, Energy & Photosynthesis', label:'Unit 3 · Cellular Energetics',
+  id:'unit3', eyebrow:'AP Biology · Cellular Energetics', themeColor:'#0c1a38', heroTestLabel:'See your test questions', title:'Enzymes, Energy & Photosynthesis', label:'Unit 3 · Cellular Energetics',
   description:'Understand the process. Explore a model. Put it into practice.',
   storageKey:'apbio3', viewKey:'apbio3view', guideTemplate:'guide-unit3', sourcesTemplate:'sources-unit3',
   topics:TOPICS, questions:Q, cards:CARDS, frqs:FRQ, models:UNIT3_MODELS, test:TEST, videos:VIDEOS, webModels:WEB_MODELS_U3, testTitle:'Test Prep', testIntro:'The multiple-choice question and the paraphrased 2021 AP free-response question you said are on your test.', defaultQuizMode:'enzymes',
@@ -19,7 +19,7 @@ registerUnit({
   scope:'Your class topics 3.1–3.5 · Enzymes through photosynthesis'
 });
 registerUnit({
-  id:'unit4', title:'Cell Communication & Cell Cycle', label:'Unit 4 · Cell Communication & Cell Cycle',
+  id:'unit4', eyebrow:'AP Biology', themeColor:'#100f33', heroTestLabel:'Take the practice test', title:'Cell Communication & Cell Cycle', label:'Unit 4 · Cell Communication & Cell Cycle',
   description:'Watch, learn, then practice: signals, feedback and how cells divide.',
   storageKey:'apbio4', viewKey:'apbio4view', guideTemplate:'guide-unit4', sourcesTemplate:'sources-unit4',
   topics:TOPICS_U4, questions:Q_U4, cards:CARDS_U4, frqs:FRQ_U4, models:UNIT4_MODELS, webModels:WEB_MODELS_U4, test:TEST_U4, testTitle:TEST_U4.title, testIntro:TEST_U4.intro, videos:VIDEOS_U4, defaultQuizMode:'hard',

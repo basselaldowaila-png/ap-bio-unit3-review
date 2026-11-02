@@ -11,7 +11,7 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 const inTopic=t=>topic==='all'||t===topic;
 const pickedAnswer=i=>Number.isInteger(state[i])&&state[i]>=0&&state[i]<4?state[i]:undefined;
 function updateProgress(){const total=unit.questions.length,answered=unit.questions.filter((_,i)=>pickedAnswer(i)!==undefined).length,correct=unit.questions.filter((q,i)=>pickedAnswer(i)===q[3]).length;
-  $('#unitProgress').innerHTML=`<div><span>${unit.questions.length} questions${unit.models.length?` · ${unit.models.length} models`:''}</span><span>${answered}/${total} answered · ${correct} correct</span></div><progress max="${total||1}" value="${answered}" aria-label="Questions answered"></progress>`;
+  $('#unitProgress').innerHTML=`<dl class="hero-stats"><div><dt>Videos</dt><dd>${(unit.videos||[]).length}</dd></div><div><dt>Questions</dt><dd>${total}</dd></div>${unit.models.length?`<div><dt>Models</dt><dd>${unit.models.length}</dd></div>`:''}<div><dt>Flashcards</dt><dd>${unit.cards.length}</dd></div></dl><div class="hero-prog"><span>${answered} of ${total} answered · ${correct} correct</span><progress max="${total||1}" value="${answered}" aria-label="Questions answered"></progress></div>`;
 }
 function selectUnit(id){
   unit=UNITS.get(id)||UNITS.values().next().value;
@@ -20,9 +20,9 @@ function selectUnit(id){
   document.documentElement.dataset.unit=unit.id;
   [...$('#quizMode').options].forEach(o=>{o.hidden=o.disabled=!(o.value==='all'||o.value==='unanswered'||o.value==='missed'||(o.value==='hard'?unit.questions.some(q=>q[5]==='hard'):unit.questions.some(q=>q[6]===o.value)));});
   $('#quizMode').value=unit.defaultQuizMode||'all';
-  const hasModels=unit.models.length>0||(unit.webModels||[]).length>0;$('#t-models').hidden=!hasModels;document.querySelectorAll('.path-models').forEach(e=>e.hidden=!hasModels);[...document.querySelectorAll('.path-link')].filter(b=>!b.hidden).forEach((b,i)=>b.querySelector('b').textContent=String(i).padStart(2,'0'));
+  const hasModels=unit.models.length>0||(unit.webModels||[]).length>0;$('#t-models').hidden=!hasModels;$('#heroTest').hidden=!unit.test;$('#heroTest').textContent=unit.heroTestLabel||'Go to Test Prep';
   $('#testTitle').textContent=unit.testTitle||'Test Prep';$('#testIntro').textContent=unit.testIntro||'';$('#videoTitle').textContent=`Learn ${unit.label.split(' · ')[0]} from scratch.`;$('#videoIntro').textContent=unit.videoIntro||'';
-  $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent='AP Biology · '+unit.label;$('#unitDescription').textContent=unit.description||'';
+  $('#unitTitle').textContent=unit.title;$('#unitEyebrow').textContent=unit.eyebrow||('AP Biology · '+unit.label);document.querySelector('meta[name="theme-color"]').content=unit.themeColor||'#ffffff';$('#unitDescription').textContent=unit.description||'';
   document.title=unit.label+' | AP Biology Review';$('#unitSelect').value=unit.id;$('#unitToggleLabel').textContent=unit.label.split(' · ')[0];document.querySelectorAll('#unitMenu [data-unit]').forEach(b=>b.setAttribute('aria-selected',b.dataset.unit===unit.id));write('apbio:unit',unit.id);
   $('#unitSources').replaceChildren(...(unit.sourcesTemplate?[document.getElementById(unit.sourcesTemplate).content.cloneNode(true)]:[]));
   $('#guideContent').replaceChildren(document.getElementById(unit.guideTemplate).content.cloneNode(true));
@@ -44,7 +44,8 @@ function renderChips(){$('#chips').querySelectorAll('button').forEach(b=>b.setAt
 function setTopic(k){topic=k;ci=0;page=0;renderChips();rebuildPool();render();}
 const pill=$('.t-tabs-pill');
 function moveTo(tab,animate=true){if(!tab)return;const previous=pill.style.transition;if(!animate)pill.style.transition='none';pill.style.transform=`translateX(${tab.offsetLeft}px)`;pill.style.width=tab.offsetWidth+'px';if(!animate){void pill.offsetWidth;pill.style.transition=previous;}}
-function setView(next,scroll=true){view=next;document.querySelectorAll('.tab').forEach(t=>{const selected=t.dataset.view===view;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;});views.forEach(v=>$('#v-'+v).hidden=v!==view);$('#chips').hidden=view==='test'||view==='videos';try{localStorage.setItem(unit.viewKey||`apbio:${unit.id}:view`,view);}catch{}render();const active=$('.tab[aria-selected="true"]');moveTo(active);if(scroll){window.scrollTo({top:0,behavior:'instant'});active.scrollIntoView({block:'nearest',inline:'nearest'});}}
+function scrollToContent(){window.scrollTo({top:$('.hero-band').offsetHeight,behavior:'instant'});}
+function setView(next,scroll=true){view=next;document.body.dataset.view=view;document.querySelectorAll('.tab').forEach(t=>{const selected=t.dataset.view===view;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;});views.forEach(v=>$('#v-'+v).hidden=v!==view);$('#chips').hidden=view==='test'||view==='videos';try{localStorage.setItem(unit.viewKey||`apbio:${unit.id}:view`,view);}catch{}render();const active=$('.tab[aria-selected="true"]');moveTo(active);if(scroll)scrollToContent();}
 addEventListener('resize',()=>moveTo($('.tab[aria-selected="true"]'),false));
 document.querySelectorAll('.tab').forEach(t=>{t.setAttribute('aria-controls','v-'+t.dataset.view);t.onclick=()=>setView(t.dataset.view);t.onkeydown=e=>{const tabs=[...document.querySelectorAll('.tab')].filter(t=>!t.hidden);let index=tabs.indexOf(t);if(e.key==='ArrowRight')index=(index+1)%tabs.length;else if(e.key==='ArrowLeft')index=(index+tabs.length-1)%tabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=tabs.length-1;else return;e.preventDefault();tabs[index].focus();setView(tabs[index].dataset.view,false);};});
 views.forEach(v=>{$('#v-'+v).setAttribute('role','tabpanel');$('#v-'+v).setAttribute('aria-labelledby','t-'+v);});
@@ -87,13 +88,13 @@ function renderVideos(){const list=$('#videoList');list.replaceChildren();const 
   $('#videoProgress').textContent=`${done} of ${vids.length} videos done`;
   vids.forEach((v,i)=>{const url=`https://www.youtube.com/watch?v=${v.id}`;const d=document.createElement('article');d.className='video-step';d.dataset.t=v.topic;const watched=!!state['vid:'+v.id];
     d.innerHTML=`<div class="vs-head"><span class="vs-num" aria-hidden="true">${watched?'✓':i+1}</span><div><div class="meta">Step ${i+1} · Mr. Poser ${esc(v.poser)} · ${esc(v.classTopics)}</div><h3>${esc(v.title)}</h3></div></div>
-    <a class="vs-thumb" href="${url}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="vs-play">▶ Watch on YouTube · ${esc(v.length)}</span></a>
+    <div class="vs-body"><div class="vs-left"><a class="vs-thumb" href="${url}" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="vs-play">▶ Watch on YouTube · ${esc(v.length)}</span></a>
     <p class="vs-goal"><b>Goal:</b> ${esc(v.goal)}</p>
     <details class="vs-sec"><summary>Jump to a part (${v.chapters.length})</summary><ol class="vs-chapters">${v.chapters.map(([s,l])=>`<li><a href="${url}&t=${s}s" target="_blank" rel="noopener"><span>${fmt(s)}</span>${esc(l)}</a></li>`).join('')}</ol></details>
-    <details class="vs-sec" open><summary>Key points from the video</summary><ul class="vs-points">${v.points.map(p=>`<li>${p}</li>`).join('')}</ul>${v.note?`<div class="tip"><div class="eyebrow">Heads up</div>${v.note}</div>`:''}</details>
+    </div><div class="vs-right"><details class="vs-sec" open><summary>Key points from the video</summary><ul class="vs-points">${v.points.map(p=>`<li>${p}</li>`).join('')}</ul>${v.note?`<div class="tip"><div class="eyebrow">Heads up</div>${v.note}</div>`:''}</details>
     <details class="vs-sec"><summary>Words to know (${v.vocab.length})</summary><dl class="vs-vocab">${v.vocab.map(([t,x])=>`<div><dt>${esc(t)}</dt><dd>${esc(x)}</dd></div>`).join('')}</dl></details>
     <div class="vs-check"><div class="eyebrow">Quick check · answer out loud, then open</div>${v.check.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
-    <div class="vs-actions"><label class="vs-done"><input type="checkbox" id="vd-${v.id}" ${watched?'checked':''}> I watched this and did the check</label></div>`;
+    <div class="vs-actions"><label class="vs-done"><input type="checkbox" id="vd-${v.id}" ${watched?'checked':''}> I watched this and did the check</label></div></div></div>`;
     d.querySelector('input').onchange=e=>{if(e.target.checked)state['vid:'+v.id]=1;else delete state['vid:'+v.id];save();renderVideos();};
     list.append(d);});}
 function render(){({videos:renderVideos,guide:renderGuide,models:renderModels,quiz:renderQuiz,cards:renderCards,frq:renderFrq,test:renderTest})[view]();}

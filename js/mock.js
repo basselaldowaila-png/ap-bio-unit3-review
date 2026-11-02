@@ -28,7 +28,7 @@ function finishMock() {
   const score = mock.qs.filter(i => mock.ans[i] === unit.questions[i][3]).length;
   (state.mockHistory ??= []).push({score, total: mock.qs.length, date: new Date().toISOString().slice(0, 10)});
   state.mockHistory = state.mockHistory.slice(-10); save();
-  renderTest(); window.scrollTo({top: 0, behavior: 'instant'});
+  renderTest(); scrollToContent();
 }
 function mockQuestion(i, n, review) {
   const [t, stem, opts, c, why] = unit.questions[i], fig = unit.questions[i][7], picked = mock.ans[i];
@@ -57,7 +57,7 @@ function renderMock() {
     const card = document.createElement('article'); card.className = 'q mock-start'; card.dataset.t = '';
     card.innerHTML = `<div class="meta">Practice test</div><h3 class="stem">${T.count} questions · ${T.minutes} minutes</h3><ul class="mock-rules"><li>Questions come from every topic and change every attempt.</li><li>Answers stay hidden until you submit, like the real test.</li><li>The timer is AP pace: 1.5 minutes per question. It submits automatically at 0:00.</li></ul>${hist.length ? `<p class="mock-hist"><b>Your last scores:</b> ${hist.slice(-5).map(h => `${h.score}/${h.total}`).join(' · ')}</p>` : ''}<button class="btn" id="mockStart">Start practice test</button>`;
     l.append(card);
-    $('#mockStart').onclick = () => { mock = {unit: unit.id, qs: mockPick(), ans: {}, start: Date.now(), done: false}; startMockTimer(); renderTest(); window.scrollTo({top: 0, behavior: 'instant'}); };
+    $('#mockStart').onclick = () => { mock = {unit: unit.id, qs: mockPick(), ans: {}, start: Date.now(), done: false}; startMockTimer(); renderTest(); scrollToContent(); };
   } else if (!mock.done) {
     const bar = document.createElement('div'); bar.className = 'mock-bar';
     bar.innerHTML = `<span id="mockTimer" class="mock-timer" role="timer"></span><span id="mockCount" class="score"></span><button class="btn" id="mockSubmit">Submit test</button>`;
@@ -84,7 +84,7 @@ function renderMock() {
     const draw = () => { list.replaceChildren(); qs.forEach((i, k) => { if (!$('#mockMissed').checked || mock.ans[i] !== unit.questions[i][3]) list.append(mockQuestion(i, k + 1, true)); }); };
     $('#mockMissed').onchange = draw; draw();
     $('#mockNew').onclick = () => { mock = null; renderTest(); };
-    $('#mockRetake').onclick = () => { mock = {unit: unit.id, qs: shuffle([...qs]), ans: {}, start: Date.now(), done: false}; startMockTimer(); renderTest(); window.scrollTo({top: 0, behavior: 'instant'}); };
+    $('#mockRetake').onclick = () => { mock = {unit: unit.id, qs: shuffle([...qs]), ans: {}, start: Date.now(), done: false}; startMockTimer(); renderTest(); scrollToContent(); };
   }
   if (T.frq) renderMockFrq(l, T.frq);
 }
